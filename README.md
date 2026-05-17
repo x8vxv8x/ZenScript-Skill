@@ -1,4 +1,4 @@
-# CraftTweaker ZenScript Skill for Claude Code
+# CraftTweaker ZenScript Skill for AI Agent
 
 为 AI Agent 提供 CraftTweaker 1.12.2 ZenScript 的正确 API 参考，防止 AI agent 自造方法。
 
