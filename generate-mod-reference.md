@@ -88,6 +88,47 @@ import mods.<modid>.<ClassName>;
 10. **如果一个模组有多个 ZenScript 类（如不同机器的管理器），每个类单独一个章节。**
 11. **配方操作是最重要的部分，必须包含添加和移除的完整示例。**
 
+## 文件组织规则
+
+### 归类原则
+
+12. **按被扩展的模组归类**，而不是按提供 API 的模组归类。例如 zenutils 提供的 ContentTweaker 扩展（`mods.zenutils.cotx.*`）应放入 `references/mods/contenttweaker.md`，而不是留在 `zenutils.md` 中
+13. **扩展原版类型（IEntity、IPlayer、IWorld 等）的 API** → 移到 `references/vanilla/` 下对应的功能文件中
+14. **每个模组提供的方法集中在一起**，在该组方法前用一个统一的 import 块标注来源和导入语句
+
+### 标注格式
+
+一个文件中包含来自不同模组的 API 时，使用以下格式分组：
+
+```markdown
+---
+
+## [来源模组名] 扩展（需安装 [来源模组名]）
+
+> `import mods.source_modid.ClassName1;`
+> `import mods.source_modid.ClassName2;`
+
+### [API 类名]
+
+| 方法 | 参数 | 返回 | 说明 |
+|------|------|------|------|
+```
+
+归入 `references/vanilla/` 的扩展使用相同格式：
+
+```markdown
+---
+
+## [来源模组名] 扩展（需安装 [来源模组名]）
+
+> `import mods.source_modid.*;`
+
+### [扩展的原版类型名] 扩展
+
+| 属性/方法 | 返回 | 说明 |
+|-----------|------|------|
+```
+
 ## 开始
 
 请根据我提供的文档生成参考文件。

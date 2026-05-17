@@ -139,6 +139,16 @@ import crafttweaker.item.IItemStack;
 2. **找到** → 读取文件内容，使用其中记录的 API
 3. **未找到** → 告知用户该模组的 CraftTweaker API 参考尚未收录，可以参考项目中的 `generate-mod-reference.md` prompt 模板自行生成
 
+### 模糊需求查找策略
+
+当用户提出模糊目标（如"矿石翻倍"、"自定义机器配方"）而未指定模组时：
+
+1. 先列出 `references` 下所有 `.md` 文件
+2. 根据文件名判断哪些可能相关（如矿石处理 → mekanism、thermalfoundation、ic2 等）
+3. 读取相关文件，确认其 API 是否支持该操作
+4. 如果找到可用 API，向用户推荐并说明用法
+5. 如果没有相关模组文件，告知用户需要先确认整合包中安装了哪些模组，或提示用户在游戏中运行 `/ct hand` 查看物品归属模组
+
 ## 常见陷阱
 
 ```zenscript
