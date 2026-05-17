@@ -46,9 +46,8 @@
 ### 提交 PR
 
 1. Fork 本仓库
-2. 在 `references/mods/` 下创建 `<modid>.md` 文件
-3. 在 `SKILL.md` 的参考文件索引表中添加一行
-4. 提交 PR，标题格式：`[Mod] 添加 <模组名> API 参考`
+2. 在 `references/mods/` 下创建 `<modid>.md` 文件（只需新建这一个文件）
+3. 提交 PR，标题格式：`[Mod] 添加 <模组名> API 参考`
 
 ### 更新已有参考
 

@@ -11,21 +11,46 @@
 
 ## 安装
 
-将 `.claude/skills/crafttweaker-zenscript/` 目录复制到你的整合包项目的 `.claude/skills/` 下。
-其他Agent参照其官方安装skill的教程
+将 `skills/claude/crafttweaker-zenscript/`和 `references` 目录复制到你的整合包项目的 `.claude/skills/` 下。
 
 ```
 你的整合包/
-├── .claude/
-│   └── skills/
-│       └── crafttweaker-zenscript/
-│           ├── SKILL.md
-│           └── references/
-│               ├── vanilla/
-│               └── mods/
-├── scripts/
-│   └── *.zs
-└── ...
+└── .claude/
+    └── skills/
+        └── crafttweaker-zenscript/
+            ├── SKILL.md
+            └── references
+```
+
+## 其他 AI Agent 安装
+
+### 通用步骤
+
+1. 根据你的 agent，将 `skills/<agent>` 内的文件复制到对应位置
+2. 将`refereces` 复制到 `.md` 同级目录
+
+### GitHub Copilot
+
+```
+.github/instructions/
+├── crafttweaker-zenscript.instructions.md  
+└── references                              
+```
+
+### OpenAI Codex CLI
+
+```
+.agents/skills/crafttweaker-zenscript/
+├── SKILL.md         
+└── references      
+```
+
+### Trae
+
+```
+.trae/rules/
+├── crafttweaker-zenscript.md    
+└── references                 
 ```
 
 ## 使用

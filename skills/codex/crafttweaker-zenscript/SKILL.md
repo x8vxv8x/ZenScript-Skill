@@ -2,11 +2,7 @@
 name: crafttweaker-zenscript
 description: >
   CraftTweaker 1.12.2 ZenScript 编程辅助。当编写、编辑或调试 .zs 脚本文件时自动激活。
-  触发场景：用户提到 CraftTweaker/ZenScript/crt、修改配方/合成表/熔炉、操作矿物词典、
-  修改物品属性、编写整合包脚本、在 scripts/ 目录下工作。
   Provides correct API references for ZenScript to prevent hallucinated methods.
-allowed-tools: Read Glob Grep
-paths: "**/*.zs"
 ---
 
 # CraftTweaker 1.12.2 ZenScript 参考
@@ -125,19 +121,23 @@ import crafttweaker.item.IItemStack;
 
 ## 参考文件索引
 
-需要查阅完整 API 时，读取对应文件：
+### 原版参考（固定）
 
 | 场景 | 文件路径 |
 |------|---------|
-| IItemStack 完整方法/属性 | `${CLAUDE_SKILL_DIR}/references/vanilla/iitemstack-api.md` |
-| 配方系统完整参考 | `${CLAUDE_SKILL_DIR}/references/vanilla/recipe-system.md` |
-| 类型系统与 IData | `${CLAUDE_SKILL_DIR}/references/vanilla/type-system.md` |
-| 全局函数/Math/格式化 | `${CLAUDE_SKILL_DIR}/references/vanilla/global-api.md` |
-| 常见模式与错误排查 | `${CLAUDE_SKILL_DIR}/references/vanilla/common-patterns.md` |
-| Dropt 掉落系统 | `${CLAUDE_SKILL_DIR}/references/mods/dropt.md` |
-| LootTweaker 战利品表 | `${CLAUDE_SKILL_DIR}/references/mods/loottweaker.md` |
+| IItemStack 完整方法/属性 | `references/vanilla/iitemstack-api.md` |
+| 配方系统完整参考 | `references/vanilla/recipe-system.md` |
+| 类型系统与 IData | `references/vanilla/type-system.md` |
+| 全局函数/Math/格式化 | `references/vanilla/global-api.md` |
+| 常见模式与错误排查 | `references/vanilla/common-patterns.md` |
 
-**查找模组参考文件：** 用 Glob 工具搜索 `${CLAUDE_SKILL_DIR}/references/mods/<modid>.md`。如果文件不存在，告知用户该模组的 CraftTweaker API 参考尚未收录，可以参考项目根目录的 `prompts/generate-mod-reference.md` 中的 prompt 模板自行生成。
+### 模组参考（动态查找）
+
+模组参考文件存放在 `references/mods/` 目录下，按需查找：
+
+1. 用户提到某个模组时，查找 `references/mods/<modid>.md`
+2. **找到** → 读取文件内容，使用其中记录的 API
+3. **未找到** → 告知用户该模组的 CraftTweaker API 参考尚未收录，可以参考项目中的 `generate-mod-reference.md` prompt 模板自行生成
 
 ## 常见陷阱
 
