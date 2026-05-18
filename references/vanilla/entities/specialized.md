@@ -6,7 +6,7 @@
 
 箭矢。继承 IEntity 和 IProjectile。
 
-### ZenGetters/ZenSetters
+### ZenGetter/ZenSetter
 
 | 属性 | 可写 | 类型 | 说明 |
 |------|------|------|------|
@@ -40,6 +40,95 @@
 |------|------|------|------|
 | `.setPotionEffect(IItemStack)` | 药水物品 | void | 设置药水效果 |
 | `.addPotionEffect(IPotionEffect)` | 药水效果 | void | 添加药水效果 |
+
+---
+
+---
+
+## IEntityCreature
+
+> `import crafttweaker.entity.IEntityCreature;`
+
+生物（Creature）。继承 IEntityLiving。
+
+### ZenGetter/ZenSetter
+
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| `hasPath` | bool | 是否有寻路路径 |
+| `isWithinHomeDistance` | bool | 是否在家园范围内 |
+| `homePosition` | IBlockPos | 家园位置 |
+| `maximumHomeDistance` | float | 最大家园距离 |
+| `hasHome` | bool | 是否设置家园 |
+
+### ZenMethods
+
+| 方法 | 参数 | 返回 | 说明 |
+|------|------|------|------|
+| `.playLivingSound()` | 无 | void | 播放生物声音 |
+| `.setHomePositionAndDistance(IBlockPos, int)` | 位置, 距离 | void | 设置家园位置和距离 |
+| `.detachHome()` | 无 | void | 取消家园设置 |
+| `.isPositionWithinHomeDistance(IBlockPos)` | 位置 | boolean | 检查位置是否在家园范围内 |
+
+---
+
+## IEntityAgeable
+
+> `import crafttweaker.entity.IEntityAgeable;`
+
+可成长实体（如牛）。继承 IEntityCreature。
+
+### ZenGetter/ZenSetter
+
+| 属性 | 可写 | 类型 | 说明 |
+|------|------|------|------|
+| `growingAge` | 是 | int | 成长年龄 |
+| `scaleForAge` | 是 | bool | 是否按年龄缩放 |
+
+### ZenMethods
+
+| 方法 | 参数 | 返回 | 说明 |
+|------|------|------|------|
+| `.ageUp(int, @Optional boolean)` | 秒数, 强制 | void | 增加年龄 |
+| `.addGrowth(int)` | 秒数 | void | 增加成长值 |
+
+---
+
+## IEntityAnimal
+
+> `import crafttweaker.entity.IEntityAnimal;`
+
+动物。继承 IEntityAgeable。
+
+### ZenGetter/ZenSetter
+
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| `loveCause` | IPlayer | 导致繁殖的玩家（可能为 null） |
+| `isInLove` | bool | 是否处于繁殖状态 |
+
+### ZenMethods
+
+| 方法 | 参数 | 返回 | 说明 |
+|------|------|------|------|
+| `.isBreedingItem(IItemStack)` | 物品 | boolean | 检查物品是否可用于繁殖 |
+| `.setInLove(@Optional IPlayer)` | 玩家（可选） | void | 设置为繁殖状态 |
+| `.resetInLove()` | 无 | void | 重置繁殖状态 |
+| `.canMateWith(IEntityAnimal)` | 另一个动物 | boolean | 检查是否可与指定动物交配 |
+
+---
+
+## IEntityMob
+
+> `import crafttweaker.entity.IEntityMob;`
+
+敌对生物。继承 IEntityCreature。
+
+### ZenMethods
+
+| 方法 | 参数 | 返回 | 说明 |
+|------|------|------|------|
+| `.isPreventingPlayerRest(IPlayer)` | 玩家 | boolean | 检查此生物是否阻止玩家睡觉 |
 
 ---
 
@@ -87,7 +176,7 @@
 
 实体掉落物，引用实体定义中的掉落物。
 
-### ZenGetters
+### ZenGetter
 
 | 属性 | 类型 | 说明 |
 |------|------|------|
@@ -128,7 +217,7 @@
 
 装备槽位，如主手、副手或盔甲槽。
 
-### ZenGetters
+### ZenGetter
 
 | 属性 | 类型 | 说明 |
 |------|------|------|
@@ -157,14 +246,14 @@
 
 钓鱼钩。继承 IEntity。
 
-### ZenGetters
+### ZenGetter
 
 | 属性 | 类型 | 说明 |
 |------|------|------|
 | `caughtEntity` | IEntity | 被钓到的实体 |
 | `angler` | IPlayer | 钓鱼者 |
 
-### ZenSetters
+### ZenSetter
 
 | 属性 | 类型 | 说明 |
 |------|------|------|
@@ -179,7 +268,7 @@
 
 世界中的物品实体。继承 IEntity。
 
-### ZenGetters/ZenSetters
+### ZenGetter/ZenSetter
 
 | 属性 | 类型 | 说明 |
 |------|------|------|
@@ -193,7 +282,7 @@
 
 可投掷实体。继承 IEntity 和 IProjectile。
 
-### ZenGetters
+### ZenGetter
 
 | 属性 | 类型 | 说明 |
 |------|------|------|
@@ -208,171 +297,8 @@
 
 经验球。继承 IEntity。
 
-### ZenGetters
+### ZenGetter
 
 | 属性 | 类型 | 说明 |
 |------|------|------|
 | `xp` | float | 经验值 |
-
----
-
-## IEntityAttribute（属性）
-
-> `import crafttweaker.entity.Attribute;`
-
-### ZenGetters
-
-| 属性 | 类型 | 说明 |
-|------|------|------|
-| `name` | string | 属性名称 |
-| `defaultValue` | double | 默认值 |
-| `shouldWatch` | boolean | 是否监控 |
-| `parent` | IEntityAttribute | 父属性 |
-
-### ZenMethods
-
-| 方法 | 参数 | 返回 | 说明 |
-|------|------|------|------|
-| `.clampValue(double)` | 值 | double | 将值限制在属性允许范围内 |
-
----
-
-## IEntityAttributeInstance（属性实例）
-
-> `import crafttweaker.entity.AttributeInstance;`
-
-### ZenGetters
-
-| 属性 | 类型 | 说明 |
-|------|------|------|
-| `attribute` | IEntityAttribute | 属性定义 |
-| `baseValue` | double | 基础值 |
-| `modifiers` | List<IEntityAttributeModifier> | 修饰符列表 |
-| `attributeValue` | double | 最终属性值 |
-
-### ZenSetters
-
-| 属性 | 类型 | 说明 |
-|------|------|------|
-| `baseValue` | double | 设置基础值 |
-
-### 修饰符方法
-
-| 方法 | 参数 | 返回 | 说明 |
-|------|------|------|------|
-| `.getModifiersByOperation(int)` | 操作类型 | List<IEntityAttributeModifier> | 按操作类型获取修饰符 |
-| `.hasModifier(IEntityAttributeModifier)` | 修饰符 | boolean | 检查是否拥有指定修饰符 |
-| `.getModifier(String)` | UUID | IEntityAttributeModifier | 按 UUID 获取修饰符 |
-| `.applyModifier(IEntityAttributeModifier)` | 修饰符 | void | 应用修饰符 |
-| `.removeModifier(IEntityAttributeModifier)` | 修饰符 | void | 移除修饰符 |
-| `.removeModifier(String)` | UUID | void | 按 UUID 移除修饰符 |
-| `.removeAllModifiers()` | 无 | void | 移除所有修饰符 |
-
----
-
-## IEntityAttributeModifier（属性修饰符）
-
-> `import crafttweaker.entity.AttributeModifier;`
-
-### ZenGetters
-
-| 属性 | 类型 | 说明 |
-|------|------|------|
-| `uuid` | string | UUID |
-| `name` | string | 名称 |
-| `operation` | int | 操作类型（0=加法, 1=乘法基础, 2=乘法） |
-| `amount` | double | 数值 |
-| `saved` | boolean | 是否已保存 |
-
-### ZenSetters
-
-| 属性 | 类型 | 说明 |
-|------|------|------|
-| `saved` | boolean | 设置是否保存 |
-
-### 静态方法
-
-| 方法 | 参数 | 返回 | 说明 |
-|------|------|------|------|
-| `AttributeModifier.createModifier(String, double, int, @Optional String)` | 名称, 数值, 操作类型, UUID（可选） | IEntityAttributeModifier | 创建属性修饰符 |
-
-操作类型说明：
-- 0 = add：增加 X 由 Amount
-- 1 = multiply_base：增加 Y 由 X * Amount
-- 2 = multiply：Y = Y * (1 + Amount)
-
----
-
-## 生物掉落示例
-
-```zenscript
-val sheep = <entity:minecraft:sheep>;
-
-// 添加掉落：物品, 最小数量, 最大数量, 几率
-sheep.addDrop(<minecraft:apple>);
-sheep.addDrop(<minecraft:stone> % 20);  // 权重 20
-
-// 仅玩家击杀掉落
-sheep.addPlayerOnlyDrop(<minecraft:gold_ingot>, 10, 64);
-sheep.addPlayerOnlyDrop(<minecraft:iron_ingot> % 20, 1, 3);
-
-// 移除掉落
-sheep.removeDrop(<minecraft:wool>);
-
-// 清除所有掉落
-sheep.clearDrops();
-
-// 创建和生成实体
-val world = crafttweaker.world.IWorld.getFromString("overworld"); // 示例
-<entity:minecraft:sheep>.spawnEntity(world, blockPos);
-```
-
----
-
-## ZenUtils 扩展（需安装 ZenUtils）
-
-> `import mods.zenutils.*;`
-
-### IEntity 扩展
-
-对 `crafttweaker.entity.IEntity` 的扩展，所有实体对象自动可用。
-
-#### ZenGetters
-
-| 属性 | 返回 | 说明 |
-|------|------|------|
-| `nbt` | IData | 获取实体的完整 NBT 数据 |
-| `position` | IBlockPos | 获取实体位置（方块坐标） |
-| `world` | IWorld | 获取实体所在世界 |
-| `id` | int | 获取实体的实体 ID |
-| `uuid` | String | 获取实体 UUID 字符串 |
-| `name` | String | 获取实体名称 |
-| `eyeHeight` | float | 获取实体眼睛高度 |
-| `width` | float | 获取实体宽度 |
-| `height` | float | 获取实体高度 |
-| `isCreatureType(CreatureType, bool)` | bool | 检查实体是否属于指定生物类型 |
-
-#### ZenMethods
-
-| 方法 | 参数 | 返回 | 说明 |
-|------|------|------|------|
-| `setNBT(IData)` | IData | void | 设置实体 NBT 数据 |
-| `sendMessage(String)` | String | void | 向实体发送消息（仅玩家有效） |
-| `getRelatedEntities()` | 无 | IEntity[] | 获取相关实体列表 |
-| `getEntitiesNear(double)` | double（距离） | IEntity[] | 获取附近实体 |
-| `teleport(IWorld, double, double, double)` | IWorld, double, double, double | void | 传送实体到指定坐标 |
-
-### IEntityDefinition 扩展
-
-对 `crafttweaker.entity.IEntityDefinition` 的扩展。
-
-| 方法 | 参数 | 返回 | 说明 |
-|------|------|------|------|
-| `onTick(IEntityTick, @Optional int)` | IEntityTick, int（可选间隔） | void | 为特定实体类型添加周期性 tick 回调。仅服务端执行，无需检查 `world.remote` |
-
-```zenscript
-// 每 50 tick 对所有苦力怕执行一次
-<entity:minecraft:creeper>.onTick(function(entity) {
-    print("creeper? " ~ entity.world.time);
-}, 50);
-```
