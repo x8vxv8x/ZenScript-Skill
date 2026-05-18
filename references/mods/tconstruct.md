@@ -1,4 +1,4 @@
-# ContentTweaker 匠魂联动 CraftTweaker API 参考
+# 匠魂联动 CraftTweaker API 参考
 
 > Mod ID: `contenttweaker`
 > 前置条件: ContentTweaker + Tinkers' Construct
@@ -123,3 +123,79 @@ testMat.register();
 - 材料 ID 必须全小写，字母开头，可含数字和下划线
 - 注册后不可再修改属性
 - 材质文件需放在 resources/contenttweaker/textures/ 对应目录
+
+---
+
+## ZenTraits 扩展（需安装 ZenTraits）
+
+> `import zentraits.TraitManager;`
+
+ZenTraits 允许通过脚本动态附加/移除已有匠魂材料的特性。
+
+### TraitManager（特性管理器）
+
+#### 方法
+
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `TraitManager.attachTrait(string materialID, string traitID, @Optional string partType)` | 未说明 | 为材料附加特性。`partType` 可选，留空则作为默认特性。注意：为原本没有部件特性的材料添加部件特性会替换默认特性 |
+| `TraitManager.detachTrait(string materialID, string traitID, @Optional string partType)` | 未说明 | 从材料移除特性 |
+| `TraitManager.detachAllTraits(string materialID, @Optional string partType)` | 未说明 | 移除材料的所有特性 |
+
+### 命令
+
+| 命令 | 说明 |
+|------|------|
+| `/ct ztdumpmats` | 将材料信息输出到 CraftTweaker 日志 |
+| `/ct ztdumptraits` | 将特性信息输出到 CraftTweaker 日志 |
+
+### 默认部件类型
+
+**匠魂（TiC）**：`head`、`handle`、`extra`、`bow`、`bowstring`、`projectile`、`shaft`、`fletching`
+
+**匠魂护甲（Conarm）**：`core`、`trim`、`plate`
+
+### 默认特性 ID
+
+#### 通用特性
+
+| 特性 ID | 特性 ID | 特性 ID |
+|---------|---------|---------|
+| `alien` | `aquadynamic` | `aridiculous` |
+| `autosmelt` | `baconlicious` | `cheap` |
+| `cheapskate` | `coldblooded` | `crude` |
+| `crude2` | `crumbling` | `dense` |
+| `depthdigger` | `duritos` | `ecological` |
+| `enderference` | `established` | `flammable` |
+| `fractured` | `heavy` | `hellish` |
+| `holy` | `insatiable` | `jagged` |
+| `lightweight` | `magnetic` | `magnetic2` |
+| `momentum` | `petramor` | `poisonous` |
+| `prickly` | `sharp` | `shocking` |
+| `slimeyGreen` | `slimeyBlue` | `spiky` |
+| `splintering` | `splinters` | `squeaky` |
+| `superheat` | `stiff` | `stonebound` |
+| `tasty` | `unnatural` | `writable` |
+| `writable2` | | |
+
+#### 箭杆特性
+
+`breakable`、`endspeed`、`freezing`、`hovering`、`splitting`
+
+### 使用示例
+
+```zenscript
+import zentraits.TraitManager;
+
+// 为石头添加默认特性 "sharp"
+TraitManager.attachTrait("stone", "sharp");
+
+// 为铁的头部部件添加特性 "magnetic"
+TraitManager.attachTrait("iron", "magnetic", "head");
+
+// 从石头移除 "cheap" 默认特性
+TraitManager.detachTrait("stone", "cheap");
+
+// 移除木头的所有特性
+TraitManager.detachAllTraits("wood");
+```
