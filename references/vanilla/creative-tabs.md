@@ -57,3 +57,26 @@ val buildingBlocks = game.getCreativeTab("buildingBlocks");
 // 获取物品的创造模式标签页
 val tab = <minecraft:stone>.definition.creativeTab;
 ```
+
+---
+
+## ContentTweaker 扩展（需安装 ContentTweaker）
+
+> `import mods.contenttweaker.VanillaFactory;`
+> `import mods.contenttweaker.CreativeTab;`
+
+CoT 脚本第一行必须为 `#loader contenttweaker`。
+
+### VanillaFactory 创造标签方法
+
+| 方法 | 参数 | 返回 | 说明 |
+|------|------|------|------|
+| `.createCreativeTab(string id, IItemStack/Item/Block icon)` | 标签 ID, 图标 | CreativeTab | 创建自定义创造标签 |
+
+### CreativeTab（自定义创造标签）
+
+> `import mods.contenttweaker.CreativeTab;`
+
+| 方法 | 参数 | 返回 | 说明 |
+|------|------|------|------|
+| `.register()` | 无 | void | 注册创造标签 |

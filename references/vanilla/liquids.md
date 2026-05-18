@@ -165,3 +165,56 @@ recipes.addShaped("test2", <minecraft:stone>, [
 | `canDrain` | 无 | bool | 是否可以排出 |
 | `canFillFluidType(ILiquidStack)` | ILiquidStack | bool | 检查是否可以填充指定类型的流体（不考虑当前状态） |
 | `canDrainFluidType(ILiquidStack)` | ILiquidStack | bool | 检查是否可以排出指定类型的流体（不考虑当前状态） |
+
+---
+
+## ContentTweaker 扩展（需安装 ContentTweaker）
+
+> `import mods.contenttweaker.VanillaFactory;`
+> `import mods.contenttweaker.Fluid;`
+
+CoT 脚本第一行必须为 `#loader contenttweaker`。
+
+### VanillaFactory 流体方法
+
+| 方法 | 参数 | 返回 | 说明 |
+|------|------|------|------|
+| `.createFluid(string id, int color)` | 流体 ID, RGB 颜色 | Fluid | 创建自定义流体 |
+
+### Fluid（自定义流体）
+
+> `import mods.contenttweaker.Fluid;`
+
+| ZenProperty | 类型 | 默认值 | 说明 |
+|-------------|------|--------|------|
+| `density` | int | 1000 | 密度（水=1000，熔岩=3000） |
+| `viscosity` | int | 1000 | 黏度（水=1000，熔岩=3000） |
+| `temperature` | int | 300 | 温度（水=300，熔岩=1300） |
+| `luminosity` | int | 0 | 亮度 |
+| `vaporize` | bool | false | 在下界是否蒸发 |
+| `colorize` | bool | true | 材质是否受颜色参数影响 |
+| `stillLocation` | string | "contenttweaker:fluids/fluid" | 源头材质路径 |
+| `flowingLocation` | string | "contenttweaker:fluids/fluid_flow" | 流动材质路径 |
+| `material` | IMaterialDefinition | `<blockmaterial:water>` | 方块材质 |
+| `gaseous` | bool | false | 是否反重力流动 |
+
+| 方法 | 参数 | 返回 | 说明 |
+|------|------|------|------|
+| `.register()` | 无 | void | 注册流体进游戏 |
+
+### 示例
+
+```zenscript
+#loader contenttweaker
+import mods.contenttweaker.VanillaFactory;
+import mods.contenttweaker.Fluid;
+
+var zsFluid as Fluid = VanillaFactory.createFluid("zs_fluid", 0xFF69B4);
+zsFluid.temperature = 500;
+zsFluid.viscosity = 1500;
+zsFluid.density = 1500;
+zsFluid.luminosity = 4;
+zsFluid.stillLocation = "base:fluids/liquid";
+zsFluid.flowingLocation = "base:fluids/liquid_flow";
+zsFluid.register();
+```

@@ -22,3 +22,26 @@
 import crafttweaker.item.IItemStack;
 // ...
 ```
+
+---
+
+## ZenUtils 预处理器（需安装 ZenUtils）
+
+### #suppress
+
+> 版本要求: 1.5.0+
+
+| 指令 | 说明 |
+|------|------|
+| `#suppress warning` / `#suppress warnings` | 抑制当前脚本的警告 |
+| `#suppress error` / `#suppress errors` / `#suppress all` | 抑制当前脚本的警告和错误 |
+
+解析错误仍会显示，错误仍会记录到 `crafttweaker.log`。使用后 `#ikwid` 和 `#nowarn` 失效。
+
+### #hardfail
+
+> 版本要求: 1.6.6+
+
+| 指令 | 说明 |
+|------|------|
+| `#hardfail` | 脚本产生未被 `#suppress` 抑制的错误时使游戏崩溃 |

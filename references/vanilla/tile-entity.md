@@ -67,3 +67,46 @@ if (!isNull(data.custom)) {
 // 更新数据
 tileEntity.update({custom: 42});
 ```
+
+---
+
+## ZenUtils 扩展（需安装 ZenUtils + ContentTweaker）
+
+> `import mods.zenutils.cotx.*;`
+
+该部分是对 ContentTweaker 方块实体的扩展。
+
+### TileEntity（方块实体定义）
+
+> `import mods.zenutils.cotx.TileEntity;`
+
+用于定义自定义方块实体的行为。通过 `VanillaFactory.createActualTileEntity(int)` 创建。
+
+| 方法 | 参数 | 返回 | 说明 |
+|------|------|------|------|
+| `VanillaFactory.createActualTileEntity(int)` | id | TileEntity | 创建自定义方块实体 |
+
+### TileEntityInGame（方块实体实例）
+
+> `import mods.zenutils.cotx.TileEntityInGame;`
+
+表示游戏中的自定义方块实体实例。通过 `world.getCustomTileEntity(IBlockPos)` 获取。
+
+| 属性 | 类型 | 读/写 | 说明 |
+|------|------|------|------|
+| `id` | int | 读 | 方块实体 ID |
+| `data` | IData | 读/写 | 自定义数据 |
+
+| 方法 | 参数 | 返回 | 说明 |
+|------|------|------|------|
+| `updateCustomData(IData)` | IData | void | 更新自定义数据 |
+
+```zenscript
+// 获取自定义方块实体
+val teInGame = world.getCustomTileEntity(blockPos);
+print(teInGame.id);
+print(teInGame.data);
+
+// 更新数据
+teInGame.updateCustomData({key: "value"});
+```
