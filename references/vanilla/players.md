@@ -177,7 +177,7 @@ event.player.update({PlayerPersisted: {custom: 10}});
 
 对 `crafttweaker.player.IPlayer` 的扩展，所有玩家对象自动可用。
 
-#### ZenGetters
+#### ZenGetter
 
 | 属性 | 返回 | 说明 |
 |------|------|------|

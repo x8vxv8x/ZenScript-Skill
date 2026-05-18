@@ -14,7 +14,7 @@
 loadedMods["minecraft"].items               // 从 mod 获取所有物品
 ```
 
-### ZenGetter 属性（只读）
+### ZenGetter 属性
 
 | 属性 | 类型 | 说明 |
 |------|------|------|
@@ -220,7 +220,7 @@ IItemStack、IOreDictEntry、ILiquidStack 都实现了此接口。
 
 通过 `<minecraft:wool>.definition` 获取。
 
-### ZenGetter 属性（只读）
+### ZenGetter 属性
 
 | 属性 | 类型 | 说明 |
 |------|------|------|
