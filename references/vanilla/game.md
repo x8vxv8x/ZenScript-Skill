@@ -149,3 +149,21 @@ for mod in loadedMods {
     }
 }
 ```
+
+---
+
+## EventTweaker 扩展（需安装 EventTweaker）
+
+> `import mods.eventtweaker.Minecraft;`
+
+### Minecraft（客户端实例）
+
+提供对 Minecraft 客户端实例信息的访问。
+
+#### @ZenGetter
+
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| `getPlayer()` | `IPlayer` | 获取当前玩家 |
+| `getfps()` | `int` | 获取当前帧率 |
+| `isFullScreen()` | `bool` | 是否全屏模式 |

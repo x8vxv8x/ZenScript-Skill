@@ -377,12 +377,65 @@ events.onEntityItemDeath(function(event as EntityItemDeathEvent) {
 
 ### EntityItemFallEvent（物品实体掉落事件）
 
-当物品实体掉落时触发。具体属性参见 wiki。
+当物品实体掉落时触发。
 
 ### WorldEvents（世界事件）
 
-世界相关事件。具体事件列表参见 wiki。
+世界相关事件。
 
 ### GenericEventManager（通用事件管理器）
 
-通用事件管理器，支持注册自定义事件。具体用法参见 wiki。
+通用事件管理器，支持注册自定义事件。
+
+---
+
+## EventTweaker 扩展（需安装 EventTweaker）
+
+> `import mods.eventtweaker.event.*;`
+
+### ClientChatEvent（客户端聊天事件）
+
+> `import mods.eventtweaker.event.ClientChatEvent;`
+
+客户端收到聊天消息时触发。不可取消。
+
+#### 事件注册
+
+```zenscript
+events.onClientChat(function(event as ClientChatEvent) {
+    // 处理聊天消息
+});
+```
+
+#### @ZenGetter
+
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| `getMessage()` | `string` | 获取当前消息内容 |
+| `getOriginalMessage()` | `string` | 获取原始消息内容 |
+
+#### @ZenSetter
+
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| `setMessage(message)` | `string` | 设置消息内容 |
+
+### RenderGameOverlayEvent（渲染覆盖层事件）
+
+> `import mods.eventtweaker.event.RenderGameOverlayEvent;`
+
+渲染屏幕覆盖层时触发。不可取消。
+
+#### 事件注册
+
+```zenscript
+events.onRenderGameOverlay(function(event as RenderGameOverlayEvent) {
+    // 处理渲染覆盖层
+});
+```
+
+#### @ZenGetter
+
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| `getPartialTicks()` | `float` | 获取部分刻（插值值） |
