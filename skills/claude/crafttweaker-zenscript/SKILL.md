@@ -47,7 +47,7 @@ IIngredient（接口，配方输入槽接受的类型）
 <potion:minecraft:speed>    // 药水效果 IPotion
 ```
 
-## API / 方法类型
+## API/方法 类型
 
 - @ZenGetter：只读属性，使用 `.{属性名}` 访问
 - @ZenSetter：可写属性，使用 `.{属性名} = {值}`

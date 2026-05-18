@@ -61,19 +61,9 @@
 
 ## 包含的 API 参考
 
-### 原版（references/vanilla/）
-
-- `iitemstack-api.md` — IItemStack、IIngredient、IItemDefinition、IOreDictEntry 完整 API
-- `recipe-system.md` — 配方添加/移除、熔炉、矿物词典、物品条件/转换器
-- `type-system.md` — 类型系统、IData、变量、作用域
-- `global-api.md` — 全局函数、Math 包、格式化、运算符、控制流、预处理器
-- `common-patterns.md` — 常见模式、NBT、错误排查、CT 命令
-
-### 模组（references/mods/）
-
-- `dropt.md` — Dropt 掉落系统完整 API
-- `loottweaker.md` — LootTweaker 战利品表 API
-- `_template.md` — 模组 API 参考模板（用于扩展）
+- 原版（references/vanilla/）
+- 模组（references/mods/）
+- 工具（references/utils/）
 
 ## 贡献模组扩展
 
