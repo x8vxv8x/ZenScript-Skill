@@ -1,8 +1,18 @@
-# 其他事件
+# 其他事件 CraftTweaker API 参考
 
-## 箭矢事件
+> Mod ID: `minecraft`
+> 前置条件: 无
+> 导入: `import crafttweaker.event.*;`
 
-### ArrowLooseEvent
+其他事件，包括箭矢、附魔、命令、爆炸、Tick、物品、药水酿造、投射物、矿车、睡觉等。
+
+---
+
+## API 列表
+
+### 箭矢事件
+
+#### ArrowLooseEvent（射箭事件）
 
 > `import crafttweaker.event.ArrowLooseEvent;`
 
@@ -17,7 +27,7 @@
 | `world` | IWorld | 世界对象 |
 | `player` | IPlayer | 射箭的玩家 |
 
-### ArrowNockEvent
+#### ArrowNockEvent（搭箭事件）
 
 > `import crafttweaker.event.ArrowNockEvent;`
 
@@ -35,11 +45,9 @@
 方法：
 - `event.deny()` / `event.allow()` / `event.default()`
 
----
+### 附魔事件
 
-## 附魔事件
-
-### EnchantmentLevelSetEvent
+#### EnchantmentLevelSetEvent（附魔台等级生成事件）
 
 > `import crafttweaker.event.EnchantmentLevelSetEvent;`
 
@@ -58,11 +66,9 @@
 
 继承自 IEventPositionable 的 `position`、`x`、`y`、`z`。
 
----
+### 命令事件
 
-## 命令事件
-
-### CommandEvent
+#### CommandEvent（命令执行事件）
 
 > `import crafttweaker.event.CommandEvent;`
 
@@ -84,11 +90,9 @@ events.onCommand(function(event as CommandEvent) {
 });
 ```
 
----
+### 暴击事件
 
-## 暴击事件
-
-### CriticalHitEvent
+#### CriticalHitEvent（暴击判定事件）
 
 > `import crafttweaker.event.CriticalHitEvent;`
 
@@ -109,11 +113,9 @@ events.onCommand(function(event as CommandEvent) {
 - `event.allow()` 强制暴击
 - `event.default()` 使用原版行为
 
----
+### 爆炸事件
 
-## 爆炸事件
-
-### ExplosionStartEvent
+#### ExplosionStartEvent（爆炸开始事件）
 
 > `import crafttweaker.event.ExplosionStartEvent;`
 
@@ -123,7 +125,7 @@ events.onCommand(function(event as CommandEvent) {
 
 继承自 IExplosionEvent 的 `world`、`explosion`、`position`、`x`、`y`、`z`。
 
-### ExplosionDetonateEvent
+#### ExplosionDetonateEvent（爆炸引爆事件）
 
 > `import crafttweaker.event.ExplosionDetonateEvent;`
 
@@ -138,11 +140,9 @@ events.onCommand(function(event as CommandEvent) {
 
 继承自 IExplosionEvent 的 `world`、`explosion`、`position`、`x`、`y`、`z`。
 
----
+### Tick 事件
 
-## Tick 事件
-
-### WorldTickEvent
+#### WorldTickEvent（世界 Tick 事件）
 
 > `import crafttweaker.event.WorldTickEvent;`
 
@@ -156,7 +156,7 @@ events.onCommand(function(event as CommandEvent) {
 | `phase` | string | Tick 阶段，值为 `START` 或 `END` |
 | `side` | string | 执行端，值为 `CLIENT` 或 `SERVER` |
 
-### ClientTickEvent
+#### ClientTickEvent（客户端 Tick 事件）
 
 > `import crafttweaker.event.ClientTickEvent;`
 
@@ -169,7 +169,7 @@ events.onCommand(function(event as CommandEvent) {
 | `phase` | string | Tick 阶段，值为 `START` 或 `END` |
 | `side` | string | 执行端，值为 `CLIENT` 或 `SERVER` |
 
-### ServerTickEvent
+#### ServerTickEvent（服务端 Tick 事件）
 
 > `import crafttweaker.event.ServerTickEvent;`
 
@@ -177,7 +177,7 @@ events.onCommand(function(event as CommandEvent) {
 
 实现接口：ITickEvent
 
-### RenderTickEvent
+#### RenderTickEvent（渲染 Tick 事件）
 
 > `import crafttweaker.event.RenderTickEvent;`
 
@@ -185,11 +185,9 @@ events.onCommand(function(event as CommandEvent) {
 
 实现接口：ITickEvent
 
----
+### 物品事件
 
-## 物品事件
-
-### ItemExpireEvent
+#### ItemExpireEvent（物品过期事件）
 
 > `import crafttweaker.event.ItemExpireEvent;`
 
@@ -204,7 +202,7 @@ events.onCommand(function(event as CommandEvent) {
 
 继承自 IEntityEvent 的 `entity`。
 
-### ItemFishedEvent
+#### ItemFishedEvent（钓鱼事件）
 
 > `import crafttweaker.event.ItemFishedEvent;`
 
@@ -220,7 +218,7 @@ events.onCommand(function(event as CommandEvent) {
 | `fishHook` | IEntityFishHook | 鱼钩实体 |
 | `player` | IPlayer | 钓鱼的玩家 |
 
-### ItemTossEvent
+#### ItemTossEvent（丢弃物品事件）
 
 > `import crafttweaker.event.ItemTossEvent;`
 
@@ -235,11 +233,9 @@ events.onCommand(function(event as CommandEvent) {
 
 继承自 IEntityEvent 的 `entity`。
 
----
+### 使用物品事件
 
-## 使用物品事件
-
-### EntityLivingUseItemEvent（系列事件）
+#### EntityLivingUseItemEvent（实体使用物品事件系列）
 
 > `import crafttweaker.event.EntityLivingUseItemEvent.All;`
 > `import crafttweaker.event.EntityLivingUseItemEvent.Start;`
@@ -260,81 +256,71 @@ events.onCommand(function(event as CommandEvent) {
 
 继承自 ILivingEvent 的 `entityLivingBase`。
 
----
+### 药水酿造事件
 
-## 药水酿造事件
-
-### PotionBrewPreEvent
+#### PotionBrewPreEvent（药水酿造前事件）
 
 > `import crafttweaker.event.PotionBrewPreEvent;`
 
 药水酿造前触发。
 
-### PotionBrewPostEvent
+#### PotionBrewPostEvent（药水酿造后事件）
 
 > `import crafttweaker.event.PotionBrewPostEvent;`
 
 药水酿造后触发。
 
----
+### 投射物命中事件
 
-## 投射物命中事件
-
-### ProjectileImpactArrowEvent
+#### ProjectileImpactArrowEvent（箭矢命中事件）
 
 > `import crafttweaker.event.ProjectileImpactArrowEvent;`
 
 箭矢命中时触发。
 
-### ProjectileImpactFireballEvent
+#### ProjectileImpactFireballEvent（火球命中事件）
 
 > `import crafttweaker.event.ProjectileImpactFireballEvent;`
 
 火球命中时触发。
 
-### ProjectileImpactThrowableEvent
+#### ProjectileImpactThrowableEvent（投掷物命中事件）
 
 > `import crafttweaker.event.ProjectileImpactThrowableEvent;`
 
 投掷物（如雪球、末影珍珠）命中时触发。
 
----
+### 矿车事件
 
-## 矿车事件
-
-### MinecartCollisionEvent
+#### MinecartCollisionEvent（矿车碰撞事件）
 
 > `import crafttweaker.event.MinecartCollisionEvent;`
 
 矿车碰撞时触发。
 
-### MinecartInteractEvent
+#### MinecartInteractEvent（矿车交互事件）
 
 > `import crafttweaker.event.MinecartInteractEvent;`
 
 玩家与矿车交互时触发。
 
----
+### 睡觉事件
 
-## 睡觉事件
-
-### SleepingTimeCheckEvent
+#### SleepingTimeCheckEvent（睡觉时间检查事件）
 
 > `import crafttweaker.event.SleepingTimeCheckEvent;`
 
 睡觉时间检查时触发。
 
-### SleepingLocationCheckEvent
+#### SleepingLocationCheckEvent（睡觉位置检查事件）
 
 > `import crafttweaker.event.SleepingLocationCheckEvent;`
 
 睡觉位置检查时触发。
 
----
+### 其他事件
 
-## 其他事件
-
-### AnimalTameEvent
+#### AnimalTameEvent（动物驯服事件）
 
 > `import crafttweaker.event.AnimalTameEvent;`
 
@@ -347,13 +333,13 @@ events.onCommand(function(event as CommandEvent) {
 | `animal` | IEntityAnimal | 被驯服的动物 |
 | `player` | IPlayer | 驯服的玩家 |
 
-### MobGriefingEvent
+#### MobGriefingEvent（生物破坏事件）
 
 > `import crafttweaker.event.MobGriefingEvent;`
 
 生物破坏方块（如苦力怕爆炸、末影人搬方块等）时触发。
 
-### LootingLevelEvent
+#### LootingLevelEvent（抢夺等级事件）
 
 > `import crafttweaker.event.LootingLevelEvent;`
 
@@ -365,20 +351,20 @@ events.onCommand(function(event as CommandEvent) {
 
 > `import mods.zenutils.event.*;`
 
-### EntityRemoveEvent
+### EntityRemoveEvent（实体移除事件）
 
 > `import mods.zenutils.event.EntityRemoveEvent;`
 
 当实体从世界中移除时触发。
 
-### EntityItemDeathEvent
+### EntityItemDeathEvent（物品实体销毁事件）
 
 > `import mods.zenutils.event.EntityItemDeathEvent;`
 > 版本要求: 1.13.9+
 
 当物品实体被岩浆、火焰、虚空等销毁时触发（不包括漏斗等传输设备）。
 
-| 属性 | 返回 | 说明 |
+| 属性 | 类型 | 说明 |
 |------|------|------|
 | `item` | IEntityItem | 被销毁的物品实体 |
 | `damageSource` | IDamageSource | 销毁原因 |
@@ -389,14 +375,14 @@ events.onEntityItemDeath(function(event as EntityItemDeathEvent) {
 });
 ```
 
-### EntityItemFallEvent
+### EntityItemFallEvent（物品实体掉落事件）
 
 当物品实体掉落时触发。具体属性参见 wiki。
 
-### WorldEvents
+### WorldEvents（世界事件）
 
 世界相关事件。具体事件列表参见 wiki。
 
-### GenericEventManager
+### GenericEventManager（通用事件管理器）
 
 通用事件管理器，支持注册自定义事件。具体用法参见 wiki。

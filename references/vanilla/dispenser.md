@@ -1,10 +1,20 @@
-# Dispenser API
+# Dispenser CraftTweaker API 参考
 
-## IDispenser
+> Mod ID: `minecraft`
+> 前置条件: 无
+> 导入: `import crafttweaker.dispenser.IDispenser;`、`import crafttweaker.dispenser.IDispenserBehavior;`
+
+发射器行为 API，用于自定义发射器行为和配方。
+
+---
+
+## API 列表
+
+### IDispenser（发射器）
 
 > `import crafttweaker.dispenser.IDispenser;`
 
-### 属性
+#### @ZenGetter
 
 | 属性 | 类型 | 说明 |
 |------|------|------|
@@ -13,32 +23,32 @@
 | `world` | IWorld | 世界 |
 | `facing` | EnumFacing | 朝向 |
 
-### 方法
+#### 方法
 
-| 方法 | 参数 | 返回 | 说明 |
-|------|------|------|------|
-| `.dispense(IItemStack)` | IItemStack | bool | 发射物品 |
-| `.dispense(IItemStack, int)` | IItemStack, int | bool | 发射指定数量物品 |
-| `.getStackInSlot(int)` | int | IItemStack | 获取指定槽的物品 |
-| `.setStackInSlot(int, IItemStack)` | int, IItemStack | void | 设置指定槽的物品 |
-| `.isEmpty()` | 无 | bool | 是否为空 |
-| `.clear()` | 无 | void | 清空发射器 |
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.dispense(IItemStack)` | bool | 发射物品 |
+| `.dispense(IItemStack, int)` | bool | 发射指定数量物品 |
+| `.getStackInSlot(int)` | IItemStack | 获取指定槽的物品 |
+| `.setStackInSlot(int, IItemStack)` | void | 设置指定槽的物品 |
+| `.isEmpty()` | bool | 是否为空 |
+| `.clear()` | void | 清空发射器 |
 
----
-
-## IDispenserBehavior
+### IDispenserBehavior（发射器行为）
 
 > `import crafttweaker.dispenser.IDispenserBehavior;`
 
-### 方法
+#### 方法
 
-| 方法 | 参数 | 返回 | 说明 |
-|------|------|------|------|
-| `.dispense(IBlockSource, IItemStack)` | IBlockSource, IItemStack | IItemStack | 执行发射行为 |
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.dispense(IBlockSource, IItemStack)` | IItemStack | 执行发射行为 |
 
 ---
 
-## 注册发射器行为
+## 使用示例
+
+### 注册发射器行为
 
 ```zenscript
 // 为物品注册发射器行为
@@ -51,9 +61,7 @@ dispenser.addItemBehavior(<minecraft:arrow>, function(blockSource, itemStack) {
 dispenser.removeItemBehavior(<minecraft:arrow>);
 ```
 
----
-
-## 发射器配方
+### 发射器配方
 
 ```zenscript
 // 添加发射器配方

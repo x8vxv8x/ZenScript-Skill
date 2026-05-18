@@ -1,4 +1,12 @@
-# 全局函数与工具 API
+# 全局函数与工具 CraftTweaker API 参考
+
+> Mod ID: `minecraft`
+> 前置条件: 无
+> 导入: 无需导入
+
+全局函数和工具 API。
+
+---
 
 ## 全局函数
 
@@ -137,18 +145,18 @@ if (!isNull(offItem) && offItem.definition.id == "minecraft:sand") { ... }
 
 以下函数可直接在 ZenScript 中调用，也可通过 `mods.zenutils.ZenUtils.<方法>` 调用。
 
-| 函数 | 参数 | 返回 | 说明 |
-|------|------|------|------|
-| `typeof(Object)` | Object | String | 获取对象类型名。不能接收原始类型（int、double 等），需用 `mods.zenutils.ZenUtils.typeof` |
-| `toString(Object)` | Object | String | 返回对象的字符串表示 |
-| `addRegexLogFilter(String)` | String（正则） | void | 抑制所有匹配正则的日志消息，不会被记录也不会发送给玩家 |
-| `arrayOf(int, @Optional Object)` | int, Object（可选） | Object[] | 创建指定长度的对象数组，可选填充元素。结果需要 `as` 强转，如 `as IItemStack[]` |
-| `intArrayOf(int, @Optional int)` | int, int（可选） | int[] | 创建 int 数组 |
-| `byteArrayOf(int, @Optional byte)` | int, byte（可选） | byte[] | 创建 byte 数组 |
-| `shortArrayOf(int, @Optional short)` | int, short（可选） | short[] | 创建 short 数组 |
-| `longArrayOf(int, @Optional long)` | int, long（可选） | long[] | 创建 long 数组 |
-| `floatArrayOf(int, @Optional float)` | int, float（可选） | float[] | 创建 float 数组 |
-| `doubleArrayOf(int, @Optional double)` | int, double（可选） | double[] | 创建 double 数组 |
-| `boolArrayOf(int, @Optional bool)` | int, bool（可选） | bool[] | 创建 bool 数组 |
-| `scriptStatus()` | 无 | int | 返回当前游戏阶段：0=初始化中，1=重载脚本中，2=游戏已启动 |
-| `addReloadableLoader(String)` | String（loader名） | void | 将使用指定 loader 的脚本标记为可重载 |
+| 函数 | 返回 | 说明 |
+|------|------|------|
+| `typeof(Object)` | String | 获取对象类型名。不能接收原始类型（int、double 等），需用 `mods.zenutils.ZenUtils.typeof` |
+| `toString(Object)` | String | 返回对象的字符串表示 |
+| `addRegexLogFilter(String)` | void | 抑制所有匹配正则的日志消息，不会被记录也不会发送给玩家 |
+| `arrayOf(int, @Optional Object)` | Object[] | 创建指定长度的对象数组，可选填充元素。结果需要 `as` 强转，如 `as IItemStack[]` |
+| `intArrayOf(int, @Optional int)` | int[] | 创建 int 数组 |
+| `byteArrayOf(int, @Optional byte)` | byte[] | 创建 byte 数组 |
+| `shortArrayOf(int, @Optional short)` | short[] | 创建 short 数组 |
+| `longArrayOf(int, @Optional long)` | long[] | 创建 long 数组 |
+| `floatArrayOf(int, @Optional float)` | float[] | 创建 float 数组 |
+| `doubleArrayOf(int, @Optional double)` | double[] | 创建 double 数组 |
+| `boolArrayOf(int, @Optional bool)` | bool[] | 创建 bool 数组 |
+| `scriptStatus()` | int | 返回当前游戏阶段：0=初始化中，1=重载脚本中，2=游戏已启动 |
+| `addReloadableLoader(String)` | void | 将使用指定 loader 的脚本标记为可重载 |

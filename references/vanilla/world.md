@@ -1,10 +1,20 @@
-# World API
+# World CraftTweaker API 参考
 
-## IWorld
+> Mod ID: `minecraft`
+> 前置条件: 无
+> 导入: `import crafttweaker.world.IWorld;`、`import crafttweaker.world.IBlockPos;`、`import crafttweaker.world.IBiome;`、`import crafttweaker.world.IBlockAccess;`、`import crafttweaker.world.IExplosion;`、`import crafttweaker.world.IFacing;`、`import crafttweaker.world.IRayTraceResult;`、`import crafttweaker.world.IVector3d;`、`import crafttweaker.world.IWorldInfo;`、`import crafttweaker.world.IWorldProvider;`
+
+世界、位置、方向、爆炸等相关 API。
+
+---
+
+## API 列表
+
+### IWorld（世界）
 
 > `import crafttweaker.world.IWorld;`
 
-### 属性
+#### @ZenGetter
 
 | 属性 | 类型 | 说明 |
 |------|------|------|
@@ -32,74 +42,72 @@
 | `maxHeight` | int | 最大高度 |
 | `minHeight` | int | 最小高度 |
 
-### 方法
+#### 方法
 
-| 方法 | 参数 | 返回 | 说明 |
-|------|------|------|------|
-| `.getBlock(IBlockPos)` | IBlockPos | IBlock | 获取方块 |
-| `.getBlock(int, int, int)` | int, int, int | IBlock | 获取方块 |
-| `.setBlockState(IBlockState, IBlockPos)` | IBlockState, IBlockPos | bool | 设置方块状态 |
-| `.setBlockState(IBlockState, IData, IBlockPos)` | IBlockState, IData, IBlockPos | bool | 设置方块状态并指定 TileEntity NBT 数据 |
-| `.getBlockState(IBlockPos)` | IBlockPos | IBlockState | 获取方块状态 |
-| `.getBlockState(int, int, int)` | int, int, int | IBlockState | 获取方块状态 |
-| `.getTileEntity(IBlockPos)` | IBlockPos | ITileEntity | 获取 Tile Entity |
-| `.getLightFor(EnumSkyBlock, IBlockPos)` | EnumSkyBlock, IBlockPos | int | 获取光照 |
-| `.getLightValue(IBlockPos)` | IBlockPos | int | 获取光照值 |
-| `.getBrightness(int, int, int)` | int, int, int | int | 获取指定坐标的亮度 |
-| `.getBrightness(IBlockPos)` | IBlockPos | int | 获取指定位置的亮度 |
-| `.isAirBlock(IBlockPos)` | IBlockPos | bool | 是否空气方块 |
-| `.isBlockLoaded(IBlockPos)` | IBlockPos | bool | 方块是否已加载 |
-| `.isBlockModifiable(IPlayer, IBlockPos)` | IPlayer, IBlockPos | bool | 玩家是否可修改方块 |
-| `.canSeeSky(IBlockPos)` | IBlockPos | bool | 是否能看到天空 |
-| `.canBlockSeeSky(IBlockPos)` | IBlockPos | bool | 方块是否能看到天空 |
-| `.isBlockNormalCube(IBlockPos)` | IBlockPos | bool | 是否普通方块 |
-| `.isBlockFullCube(IBlockPos)` | IBlockPos | bool | 是否完整方块 |
-| `.isBlockFullBlock(IBlockPos)` | IBlockPos | bool | 是否完整方块 |
-| `.getStrongPower(IBlockPos, EnumFacing)` | IBlockPos, EnumFacing | int | 获取强红石信号 |
-| `.getRedstonePower(IBlockPos, EnumFacing)` | IBlockPos, EnumFacing | int | 获取红石信号 |
-| `.isBlockIndirectlyGettingPowered(IBlockPos)` | IBlockPos | bool | 是否间接被红石充能 |
-| `.createExplosion(IEntity, double, double, double, float, bool, bool)` | IEntity, double, double, double, float, bool, bool | IExplosion | 创建爆炸对象（不执行）。参数：放置者、坐标、大小、是否引火、是否破坏地形 |
-| `.performExplosion(IEntity, double, double, double, float, bool, bool)` | IEntity, double, double, double, float, bool, bool | IExplosion | 创建并执行爆炸。参数：放置者、坐标、大小、是否引火、是否破坏地形 |
-| `.performExplosion(IExplosion)` | IExplosion | IExplosion | 执行已有的爆炸对象 |
-| `.createLightningBolt(double, double, double, @Optional bool)` | double, double, double, bool（可选） | IEntity | 在指定坐标创建闪电 |
-| `.addWeatherEffect(IEntity)` | IEntity | bool | 添加天气效果 |
-| `.spawnEntity(IEntity)` | IEntity | bool | 生成实体 |
-| `.removeEntity(IEntity)` | IEntity | bool | 移除实体 |
-| `.removeEntity(int)` | int | void | 移除实体 |
-| `.getEntity(int)` | int | IEntity | 获取实体 |
-| `.getEntitiesWithinAABB(Class, IAxisAlignedBB)` | Class, IAxisAlignedBB | List | 获取 AABB 内实体 |
-| `.addBlockEvent(IBlockPos, Block, int, int)` | IBlockPos, Block, int, int | void | 添加方块事件 |
-| `.getBiome(IBlockPos)` | IBlockPos | IBiome | 获取生物群系 |
-| `.getBiome(IPosition3f)` | IPosition3f | IBiome | 获取生物群系 |
-| `.getTopSolidBlock(IBlockPos)` | IBlockPos | IBlockPos | 获取最高实心方块 |
-| `.getActualHeight()` | 无 | int | 获取实际高度 |
-| `.getChunks()` | 无 | List | 获取所有区块 |
-| `.getPlayers(Class, Predicate)` | Class, Predicate | List | 获取玩家列表 |
-| `.getGameRules()` | 无 | IGameRules | 获取游戏规则 |
-| `.setRainStrength(float)` | float | void | 设置雨强度 |
-| `.setThunderStrength(float)` | float | void | 设置雷强度 |
-| `.setTime(long)` | long | void | 设置时间 |
-| `.setTotalTime(long)` | long | void | 设置总时间 |
-| `.setSpawnPoint(IBlockPos)` | IBlockPos | void | 设置出生点 |
-| `.setBlock(int, int, int, Block)` | int, int, int, Block | void | 设置方块 |
-| `.setBlock(int, int, int, Block, int, int)` | int, int, int, Block, int, int | void | 设置方块 |
-| `.destroyBlock(IBlockPos, bool)` | IBlockPos, bool | bool | 破坏方块 |
-| `.destroyBlock(int, int, int, bool)` | int, int, int, bool | bool | 破坏方块 |
-| `.playSound(IPlayer, IBlockPos, string, string, float, float)` | IPlayer, IBlockPos, string, string, float, float | void | 播放声音 |
-| `.playSound(IPlayer, double, double, double, string, string, float, float)` | IPlayer, double, double, double, string, string, float, float | void | 播放声音 |
-| `.spawnParticle(string, double, double, double, double, double, double, int...)` | string, double, double, double, double, double, double, int... | void | 生成粒子 |
-| `.rayTraceBlocks(IVector3d, IVector3d, @Optional bool, @Optional bool, @Optional(true) bool)` | IVector3d, IVector3d, bool, bool, bool | IRayTraceResult | 射线检测。第一个向量为起点，第二个为方向和长度。最后三个参数：是否在液体处停止、是否忽略无碰撞箱方块、是否返回最后不可碰撞方块 |
-| `.getPickedBlock(IBlockPos, IRayTraceResult, IPlayer)` | IBlockPos, IRayTraceResult, IPlayer | IItemStack | 获取拾取的方块物品（可返回 null） |
-| `.isSpawnChunk(int, int)` | int, int | bool | 检查是否为出生区块 |
-| `.extinguishFire(IPlayer, IBlockPos, IFacing)` | IPlayer, IBlockPos, IFacing | bool | 扑灭火焰 |
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.getBlock(IBlockPos)` | IBlock | 获取方块 |
+| `.getBlock(int, int, int)` | IBlock | 获取方块 |
+| `.setBlockState(IBlockState, IBlockPos)` | bool | 设置方块状态 |
+| `.setBlockState(IBlockState, IData, IBlockPos)` | bool | 设置方块状态并指定 TileEntity NBT 数据 |
+| `.getBlockState(IBlockPos)` | IBlockState | 获取方块状态 |
+| `.getBlockState(int, int, int)` | IBlockState | 获取方块状态 |
+| `.getTileEntity(IBlockPos)` | ITileEntity | 获取 Tile Entity |
+| `.getLightFor(EnumSkyBlock, IBlockPos)` | int | 获取光照 |
+| `.getLightValue(IBlockPos)` | int | 获取光照值 |
+| `.getBrightness(int, int, int)` | int | 获取指定坐标的亮度 |
+| `.getBrightness(IBlockPos)` | int | 获取指定位置的亮度 |
+| `.isAirBlock(IBlockPos)` | bool | 是否空气方块 |
+| `.isBlockLoaded(IBlockPos)` | bool | 方块是否已加载 |
+| `.isBlockModifiable(IPlayer, IBlockPos)` | bool | 玩家是否可修改方块 |
+| `.canSeeSky(IBlockPos)` | bool | 是否能看到天空 |
+| `.canBlockSeeSky(IBlockPos)` | bool | 方块是否能看到天空 |
+| `.isBlockNormalCube(IBlockPos)` | bool | 是否普通方块 |
+| `.isBlockFullCube(IBlockPos)` | bool | 是否完整方块 |
+| `.isBlockFullBlock(IBlockPos)` | bool | 是否完整方块 |
+| `.getStrongPower(IBlockPos, EnumFacing)` | int | 获取强红石信号 |
+| `.getRedstonePower(IBlockPos, EnumFacing)` | int | 获取红石信号 |
+| `.isBlockIndirectlyGettingPowered(IBlockPos)` | bool | 是否间接被红石充能 |
+| `.createExplosion(IEntity, double, double, double, float, bool, bool)` | IExplosion | 创建爆炸对象（不执行）。参数：放置者、坐标、大小、是否引火、是否破坏地形 |
+| `.performExplosion(IEntity, double, double, double, float, bool, bool)` | IExplosion | 创建并执行爆炸。参数：放置者、坐标、大小、是否引火、是否破坏地形 |
+| `.performExplosion(IExplosion)` | IExplosion | 执行已有的爆炸对象 |
+| `.createLightningBolt(double, double, double, @Optional bool)` | IEntity | 在指定坐标创建闪电 |
+| `.addWeatherEffect(IEntity)` | bool | 添加天气效果 |
+| `.spawnEntity(IEntity)` | bool | 生成实体 |
+| `.removeEntity(IEntity)` | bool | 移除实体 |
+| `.removeEntity(int)` | void | 移除实体 |
+| `.getEntity(int)` | IEntity | 获取实体 |
+| `.getEntitiesWithinAABB(Class, IAxisAlignedBB)` | List | 获取 AABB 内实体 |
+| `.addBlockEvent(IBlockPos, Block, int, int)` | void | 添加方块事件 |
+| `.getBiome(IBlockPos)` | IBiome | 获取生物群系 |
+| `.getBiome(IPosition3f)` | IBiome | 获取生物群系 |
+| `.getTopSolidBlock(IBlockPos)` | IBlockPos | 获取最高实心方块 |
+| `.getActualHeight()` | int | 获取实际高度 |
+| `.getChunks()` | List | 获取所有区块 |
+| `.getPlayers(Class, Predicate)` | List | 获取玩家列表 |
+| `.getGameRules()` | IGameRules | 获取游戏规则 |
+| `.setRainStrength(float)` | void | 设置雨强度 |
+| `.setThunderStrength(float)` | void | 设置雷强度 |
+| `.setTime(long)` | void | 设置时间 |
+| `.setTotalTime(long)` | void | 设置总时间 |
+| `.setSpawnPoint(IBlockPos)` | void | 设置出生点 |
+| `.setBlock(int, int, int, Block)` | void | 设置方块 |
+| `.setBlock(int, int, int, Block, int, int)` | void | 设置方块 |
+| `.destroyBlock(IBlockPos, bool)` | bool | 破坏方块 |
+| `.destroyBlock(int, int, int, bool)` | bool | 破坏方块 |
+| `.playSound(IPlayer, IBlockPos, string, string, float, float)` | void | 播放声音 |
+| `.playSound(IPlayer, double, double, double, string, string, float, float)` | void | 播放声音 |
+| `.spawnParticle(string, double, double, double, double, double, double, int...)` | void | 生成粒子 |
+| `.rayTraceBlocks(IVector3d, IVector3d, @Optional bool, @Optional bool, @Optional(true) bool)` | IRayTraceResult | 射线检测。第一个向量为起点，第二个为方向和长度。最后三个参数：是否在液体处停止、是否忽略无碰撞箱方块、是否返回最后不可碰撞方块 |
+| `.getPickedBlock(IBlockPos, IRayTraceResult, IPlayer)` | IItemStack | 获取拾取的方块物品（可返回 null） |
+| `.isSpawnChunk(int, int)` | bool | 检查是否为出生区块 |
+| `.extinguishFire(IPlayer, IBlockPos, IFacing)` | bool | 扑灭火焰 |
 
----
-
-## IBlockPos
+### IBlockPos（方块位置）
 
 > `import crafttweaker.world.IBlockPos;`
 
-### 属性
+#### @ZenGetter
 
 | 属性 | 类型 | 说明 |
 |------|------|------|
@@ -107,40 +115,38 @@
 | `y` | int | Y 坐标 |
 | `z` | int | Z 坐标 |
 
-### 方法
+#### 方法
 
-| 方法 | 参数 | 返回 | 说明 |
-|------|------|------|------|
-| `.add(int, int, int)` | int, int, int | IBlockPos | 坐标加法 |
-| `.add(IBlockPos)` | IBlockPos | IBlockPos | 坐标加法 |
-| `.subtract(IBlockPos)` | IBlockPos | IBlockPos | 坐标减法 |
-| `.north()` | 无 | IBlockPos | 北方坐标 |
-| `.south()` | 无 | IBlockPos | 南方坐标 |
-| `.east()` | 无 | IBlockPos | 东方坐标 |
-| `.west()` | 无 | IBlockPos | 西方坐标 |
-| `.up()` | 无 | IBlockPos | 上方坐标 |
-| `.down()` | 无 | IBlockPos | 下方坐标 |
-| `.offset(EnumFacing)` | EnumFacing | IBlockPos | 指定方向坐标 |
-| `.offset(EnumFacing, int)` | EnumFacing, int | IBlockPos | 指定方向指定距离坐标 |
-| `.distanceSq(IBlockPos)` | IBlockPos | double | 距离平方 |
-| `.distanceSq(double, double, double)` | double, double, double | double | 距离平方 |
-| `.distanceSqToCenter(double, double, double)` | double, double, double | double | 到中心点距离平方 |
-| `.withinDistance(IBlockPos, double)` | IBlockPos, double | bool | 是否在指定距离内 |
-| `.getX()` | 无 | int | 获取 X |
-| `.getY()` | 无 | int | 获取 Y |
-| `.getZ()` | 无 | int | 获取 Z |
-| `.toLong()` | 无 | long | 转为 long |
-| `.fromLong(long)` | long | IBlockPos | 从 long 转换 |
-| `.asPosition3f` | 无 | IPosition3f | 转为 Position3f 对象 |
-| `.getOffset(IFacing, int)` | IFacing, int | IBlockPos | 获取指定方向偏移指定距离后的新位置 |
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.add(int, int, int)` | IBlockPos | 坐标加法 |
+| `.add(IBlockPos)` | IBlockPos | 坐标加法 |
+| `.subtract(IBlockPos)` | IBlockPos | 坐标减法 |
+| `.north()` | IBlockPos | 北方坐标 |
+| `.south()` | IBlockPos | 南方坐标 |
+| `.east()` | IBlockPos | 东方坐标 |
+| `.west()` | IBlockPos | 西方坐标 |
+| `.up()` | IBlockPos | 上方坐标 |
+| `.down()` | IBlockPos | 下方坐标 |
+| `.offset(EnumFacing)` | IBlockPos | 指定方向坐标 |
+| `.offset(EnumFacing, int)` | IBlockPos | 指定方向指定距离坐标 |
+| `.distanceSq(IBlockPos)` | double | 距离平方 |
+| `.distanceSq(double, double, double)` | double | 距离平方 |
+| `.distanceSqToCenter(double, double, double)` | double | 到中心点距离平方 |
+| `.withinDistance(IBlockPos, double)` | bool | 是否在指定距离内 |
+| `.getX()` | int | 获取 X |
+| `.getY()` | int | 获取 Y |
+| `.getZ()` | int | 获取 Z |
+| `.toLong()` | long | 转为 long |
+| `.fromLong(long)` | IBlockPos | 从 long 转换 |
+| `.asPosition3f` | IPosition3f | 转为 Position3f 对象 |
+| `.getOffset(IFacing, int)` | IBlockPos | 获取指定方向偏移指定距离后的新位置 |
 
----
-
-## IBiome
+### IBiome（生物群系）
 
 > `import crafttweaker.world.IBiome;`
 
-### 属性
+#### @ZenGetter
 
 | 属性 | 类型 | 说明 |
 |------|------|------|
@@ -160,47 +166,43 @@
 | `enableRain` | bool | 是否启用雨 |
 | `enableSnow` | bool | 是否启用雪 |
 
-### 方法
+#### 方法
 
-| 方法 | 参数 | 返回 | 说明 |
-|------|------|------|------|
-| `.canRain()` | 无 | bool | 是否可以下雨 |
-| `.isSnowyBiome()` | 无 | bool | 是否雪地 |
-| `.setTemperature(float)` | float | void | 设置温度 |
-| `.setRainfall(float)` | float | void | 设置降雨量 |
-| `.setWaterColorMultiplier(int)` | int | void | 设置水颜色倍增器 |
-| `.setEnableRain(bool)` | bool | void | 设置是否启用雨 |
-| `.setEnableSnow(bool)` | bool | void | 设置是否启用雪 |
-| `.setMinHeight(float)` | float | void | 设置最小高度 |
-| `.setMaxHeight(float)` | float | void | 设置最大高度 |
-| `.setBaseHeight(float)` | float | void | 设置基础高度 |
-| `.setHeightVariation(float)` | float | void | 设置高度变化 |
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.canRain()` | bool | 是否可以下雨 |
+| `.isSnowyBiome()` | bool | 是否雪地 |
+| `.setTemperature(float)` | void | 设置温度 |
+| `.setRainfall(float)` | void | 设置降雨量 |
+| `.setWaterColorMultiplier(int)` | void | 设置水颜色倍增器 |
+| `.setEnableRain(bool)` | void | 设置是否启用雨 |
+| `.setEnableSnow(bool)` | void | 设置是否启用雪 |
+| `.setMinHeight(float)` | void | 设置最小高度 |
+| `.setMaxHeight(float)` | void | 设置最大高度 |
+| `.setBaseHeight(float)` | void | 设置基础高度 |
+| `.setHeightVariation(float)` | void | 设置高度变化 |
 
----
-
-## IBlockAccess
+### IBlockAccess（方块访问接口）
 
 > `import crafttweaker.world.IBlockAccess;`
 
 IBlockAccess 是 IWorld 的父接口，所有 IWorld 对象都可以使用 IBlockAccess 的方法。
 
-### 方法
+#### 方法
 
-| 方法 | 参数 | 返回 | 说明 |
-|------|------|------|------|
-| `.getBlockState(IBlockPos)` | IBlockPos | IBlockState | 获取指定位置的方块状态 |
-| `.isAirBlock(IBlockPos)` | IBlockPos | bool | 检查指定位置是否为空气方块 |
-| `.getStrongPower(IBlockPos, IFacing)` | IBlockPos, IFacing | int | 获取指定方块面的强红石信号 |
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.getBlockState(IBlockPos)` | IBlockState | 获取指定位置的方块状态 |
+| `.isAirBlock(IBlockPos)` | bool | 检查指定位置是否为空气方块 |
+| `.getStrongPower(IBlockPos, IFacing)` | int | 获取指定方块面的强红石信号 |
 
----
-
-## IExplosion
+### IExplosion（爆炸）
 
 > `import crafttweaker.world.IExplosion;`
 
 IExplosion 代表一个爆炸对象，可以通过 IWorld 的 `createExplosion` 或 `performExplosion` 获取。
 
-### 属性
+#### @ZenGetter
 
 | 属性 | 类型 | 说明 |
 |------|------|------|
@@ -210,37 +212,35 @@ IExplosion 代表一个爆炸对象，可以通过 IWorld 的 `createExplosion` 
 | `affectedBlockPositions` | IBlockPos[] | 爆炸影响的方块位置列表（`doExplosionA()` 调用前可能为空） |
 | `playerKnockbackMap` | Map\<IPlayer, IVector3d\> | 爆炸区域内玩家的击退映射 |
 
-### 方法
+#### 方法
 
-| 方法 | 参数 | 返回 | 说明 |
-|------|------|------|------|
-| `.clearAffectedBlockPositions()` | 无 | void | 清除受影响方块位置列表 |
-| `.onExplosionStart(IWorld)` | IWorld | bool | 触发 ExplosionStart 事件，可用于在手动引爆前取消爆炸 |
-| `.doExplosionA()` | 无 | void | 执行爆炸第一部分：实体伤害、击退、赋值 affectedBlockPositions |
-| `.doExplosionB(bool)` | bool | void | 执行爆炸第二部分：声音、粒子、方块破坏/掉落、火焰生成 |
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.clearAffectedBlockPositions()` | void | 清除受影响方块位置列表 |
+| `.onExplosionStart(IWorld)` | bool | 触发 ExplosionStart 事件，可用于在手动引爆前取消爆炸 |
+| `.doExplosionA()` | void | 执行爆炸第一部分：实体伤害、击退、赋值 affectedBlockPositions |
+| `.doExplosionB(bool)` | void | 执行爆炸第二部分：声音、粒子、方块破坏/掉落、火焰生成 |
 
----
-
-## IFacing
+### IFacing（方向）
 
 > `import crafttweaker.world.IFacing;`
 
 IFacing 代表一个方向（北、南、东、西、上、下）。
 
-### 静态方法
+#### 静态方法
 
-| 方法 | 参数 | 返回 | 说明 |
-|------|------|------|------|
-| `IFacing.north()` | 无 | IFacing | 获取北方向 |
-| `IFacing.east()` | 无 | IFacing | 获取东方向 |
-| `IFacing.south()` | 无 | IFacing | 获取南方向 |
-| `IFacing.west()` | 无 | IFacing | 获取西方向 |
-| `IFacing.down()` | 无 | IFacing | 获取下方向 |
-| `IFacing.up()` | 无 | IFacing | 获取上方向 |
-| `IFacing.fromString(string)` | string | IFacing | 从字符串获取方向（如 "NORTH"） |
-| `IFacing.getDirectionFromEntityLiving(IBlockPos, IEntityLivingBase)` | IBlockPos, IEntityLivingBase | IFacing | 根据实体位置获取方向（常用于确定方块放置朝向，可返回 UP/DOWN） |
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `IFacing.north()` | IFacing | 获取北方向 |
+| `IFacing.east()` | IFacing | 获取东方向 |
+| `IFacing.south()` | IFacing | 获取南方向 |
+| `IFacing.west()` | IFacing | 获取西方向 |
+| `IFacing.down()` | IFacing | 获取下方向 |
+| `IFacing.up()` | IFacing | 获取上方向 |
+| `IFacing.fromString(string)` | IFacing | 从字符串获取方向（如 "NORTH"） |
+| `IFacing.getDirectionFromEntityLiving(IBlockPos, IEntityLivingBase)` | IFacing | 根据实体位置获取方向（常用于确定方块放置朝向，可返回 UP/DOWN） |
 
-### 属性
+#### @ZenGetter
 
 | 属性 | 类型 | 说明 |
 |------|------|------|
@@ -248,21 +248,19 @@ IFacing 代表一个方向（北、南、东、西、上、下）。
 | `rotateY` | IFacing | 绕 Y 轴旋转后的方向 |
 | `opposite` | IFacing | 反方向 |
 
-### 方法
+#### 方法
 
-| 方法 | 参数 | 返回 | 说明 |
-|------|------|------|------|
-| `.compare(IFacing)` | IFacing | int | 比较两个方向，相等返回 0 |
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.compare(IFacing)` | int | 比较两个方向，相等返回 0 |
 
----
-
-## IRayTraceResult
+### IRayTraceResult（射线检测结果）
 
 > `import crafttweaker.world.IRayTraceResult;`
 
 IRayTraceResult 代表玩家视线或点击的射线检测结果。
 
-### 属性
+#### @ZenGetter
 
 | 属性 | 类型 | 说明 |
 |------|------|------|
@@ -271,21 +269,19 @@ IRayTraceResult 代表玩家视线或点击的射线检测结果。
 | `blockPos` | IBlockPos | 命中的方块位置（非 bool 返回值可为 null） |
 | `sideHit` | IFacing | 命中的方块面（非 bool 返回值可为 null） |
 
----
-
-## IVector3d
+### IVector3d（三维向量）
 
 > `import crafttweaker.world.IVector3d;`
 
 IVector3d 是一个使用三个 double 表示方向的向量对象。
 
-### 静态方法
+#### 静态方法
 
-| 方法 | 参数 | 返回 | 说明 |
-|------|------|------|------|
-| `IVector3d.create(double, double, double)` | double, double, double | IVector3d | 创建新的 IVector3d 对象 |
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `IVector3d.create(double, double, double)` | IVector3d | 创建新的 IVector3d 对象 |
 
-### 属性
+#### @ZenGetter
 
 | 属性 | 类型 | 说明 |
 |------|------|------|
@@ -294,27 +290,25 @@ IVector3d 是一个使用三个 double 表示方向的向量对象。
 | `z` | double | Z 分量 |
 | `normalized` | IVector3d | 归一化后的向量 |
 
-### 方法
+#### 方法
 
-| 方法 | 参数 | 返回 | 说明 |
-|------|------|------|------|
-| `.dotProduct(IVector3d)` | IVector3d | double | 点积 |
-| `.crossProduct(IVector3d)` | IVector3d | IVector3d | 叉积 |
-| `.subtract(IVector3d)` | IVector3d | IVector3d | 向量减法 |
-| `.subtractReverse(IVector3d)` | IVector3d | IVector3d | 反向减法（other - this） |
-| `.add(IVector3d)` | IVector3d | IVector3d | 向量加法 |
-| `.distanceTo(IVector3d)` | IVector3d | double | 到另一个向量的距离 |
-| `.scale(double)` | double | IVector3d | 缩放向量 |
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.dotProduct(IVector3d)` | double | 点积 |
+| `.crossProduct(IVector3d)` | IVector3d | 叉积 |
+| `.subtract(IVector3d)` | IVector3d | 向量减法 |
+| `.subtractReverse(IVector3d)` | IVector3d | 反向减法（other - this） |
+| `.add(IVector3d)` | IVector3d | 向量加法 |
+| `.distanceTo(IVector3d)` | double | 到另一个向量的距离 |
+| `.scale(double)` | IVector3d | 缩放向量 |
 
----
-
-## IWorldInfo
+### IWorldInfo（世界信息）
 
 > `import crafttweaker.world.IWorldInfo;`
 
 IWorldInfo 用于获取 IWorld 的更多详细信息，通过 `world.worldInfo` 获取。
 
-### 属性
+#### @ZenGetter
 
 | 属性 | 类型 | 说明 |
 |------|------|------|
@@ -350,21 +344,19 @@ IWorldInfo 用于获取 IWorld 的更多详细信息，通过 `world.worldInfo` 
 | `thundering` | bool | 是否雷暴 |
 | `versionSnapshot` | bool | 是否为快照版本 |
 
----
-
-## IWorldProvider
+### IWorldProvider（世界维度提供者）
 
 > `import crafttweaker.world.IWorldProvider;`
 
 IWorldProvider 用于获取 IWorld 的更多维度信息，通过 `world.provider` 获取。
 
-### 静态方法
+#### 静态方法
 
-| 方法 | 参数 | 返回 | 说明 |
-|------|------|------|------|
-| `IWorldProvider.getFromID(int)` | int | IWorldProvider | 通过维度 ID 获取 WorldProvider（需在游戏运行时调用） |
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `IWorldProvider.getFromID(int)` | IWorldProvider | 通过维度 ID 获取 WorldProvider（需在游戏运行时调用） |
 
-### 属性
+#### @ZenGetter
 
 | 属性 | 类型 | 说明 |
 |------|------|------|
@@ -392,21 +384,23 @@ IWorldProvider 用于获取 IWorld 的更多维度信息，通过 `world.provide
 | `skyColored` | bool | 天空是否有颜色 |
 | `surfaceWorld` | bool | 是否为地表世界 |
 
-### 方法
+#### 方法
 
-| 方法 | 参数 | 返回 | 说明 |
-|------|------|------|------|
-| `.getBiome(IBlockPos)` | IBlockPos | IBiome | 获取指定位置的生物群系 |
-| `.getMoonPhase(long)` | long | int | 获取指定时间的月相 |
-| `.getRespawnDimension(IPlayer)` | IPlayer | IWorldProvider | 获取玩家的重生维度 |
-| `.getStarBrightness(float)` | float | float | 获取星星亮度 |
-| `.getSunBrightness(float)` | float | float | 获取太阳亮度 |
-| `.getSunBrightnessFactor(float)` | float | float | 获取太阳亮度因子 |
-| `.isBlockHighHumidity(IBlockPos)` | IBlockPos | bool | 检查方块是否处于高湿度环境 |
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.getBiome(IBlockPos)` | IBiome | 获取指定位置的生物群系 |
+| `.getMoonPhase(long)` | int | 获取指定时间的月相 |
+| `.getRespawnDimension(IPlayer)` | IWorldProvider | 获取玩家的重生维度 |
+| `.getStarBrightness(float)` | float | 获取星星亮度 |
+| `.getSunBrightness(float)` | float | 获取太阳亮度 |
+| `.getSunBrightnessFactor(float)` | float | 获取太阳亮度因子 |
+| `.isBlockHighHumidity(IBlockPos)` | bool | 检查方块是否处于高湿度环境 |
 
 ---
 
-## 草丛掉落
+## 使用示例
+
+### 草丛掉落
 
 ```zenscript
 // 添加打草掉落（百分比权重）
@@ -426,12 +420,12 @@ vanilla.seeds.removeSeed(<minecraft:wheat_seeds>);
 
 对 `crafttweaker.world.IWorld` 的扩展，所有世界对象自动可用。
 
-| 方法 | 参数 | 返回 | 说明 |
-|------|------|------|------|
-| `getCustomTileEntity(IBlockPos)` | IBlockPos | TileEntityInGame | 获取指定位置的 ZenUtils 自定义方块实体，不存在则返回 null |
-| `getLiquidHandler(IBlockPos, @Optional IFacing)` | IBlockPos, IFacing（可选） | LiquidHandler | 获取方块实体的流体处理器 |
-| `gameRuleHelper` | 无 | GameRuleHelper | 获取游戏规则管理器 |
-| `getGameRuleHelper()` | 无 | GameRuleHelper | 获取游戏规则管理器（方法形式） |
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `getCustomTileEntity(IBlockPos)` | TileEntityInGame | 获取指定位置的 ZenUtils 自定义方块实体，不存在则返回 null |
+| `getLiquidHandler(IBlockPos, @Optional IFacing)` | LiquidHandler | 获取方块实体的流体处理器 |
+| `gameRuleHelper` | GameRuleHelper | 获取游戏规则管理器 |
+| `getGameRuleHelper()` | GameRuleHelper | 获取游戏规则管理器（方法形式） |
 
 ### GameRuleHelper（游戏规则）
 
@@ -439,11 +433,11 @@ vanilla.seeds.removeSeed(<minecraft:wheat_seeds>);
 
 通过 `world.gameRuleHelper` 或 `world.getGameRuleHelper()` 获取。
 
-| 方法 | 参数 | 返回 | 说明 |
-|------|------|------|------|
-| `addGameRule(String, String, String)` | key, value, type | void | 添加自定义游戏规则。type 必须为 `"Any"`、`"Numeric"` 或 `"Boolean"` |
-| `hasRule(String)` | String | bool | 检查规则是否存在 |
-| `getRules()` | 无 | String[] | 获取所有规则名 |
-| `getBoolean(String)` | String | bool | 获取布尔值规则 |
-| `getInt(String)` | String | int | 获取整数规则 |
-| `getString(String)` | String | String | 获取字符串规则 |
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `addGameRule(String, String, String)` | void | 添加自定义游戏规则。type 必须为 `"Any"`、`"Numeric"` 或 `"Boolean"` |
+| `hasRule(String)` | bool | 检查规则是否存在 |
+| `getRules()` | String[] | 获取所有规则名 |
+| `getBoolean(String)` | bool | 获取布尔值规则 |
+| `getInt(String)` | int | 获取整数规则 |
+| `getString(String)` | String | 获取字符串规则 |

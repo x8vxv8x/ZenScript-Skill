@@ -1,10 +1,20 @@
-# Text API
+# Text CraftTweaker API 参考
 
-## Format 格式化
+> Mod ID: `minecraft`
+> 前置条件: 无
+> 导入: 无需导入，`format` 为全局字段
+
+文本格式化 API，支持 `§` 颜色代码。
+
+---
+
+## API 列表
+
+### Format（格式化）
 
 `format` 全局字段提供文本格式化方法，支持 `§` 颜色代码。
 
-### 颜色
+#### 颜色
 
 | 方法 | 颜色 |
 |------|------|
@@ -25,7 +35,7 @@
 | `format.yellow()` | 黄色 |
 | `format.white()` | 白色 |
 
-### 样式
+#### 样式
 
 | 方法 | 效果 |
 |------|------|
@@ -34,6 +44,10 @@
 | `format.strikethrough()` | 删除线 |
 | `format.underline()` | 下划线 |
 | `format.italic()` | 斜体 |
+
+---
+
+## 使用示例
 
 ```zenscript
 <minecraft:stick>.addTooltip(format.green("这不是绳子"));

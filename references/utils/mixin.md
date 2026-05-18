@@ -1,13 +1,16 @@
-# Mixin 支持
+# Mixin 支持 CraftTweaker API 参考
 
-> 需安装 ZenUtils
+> Mod ID: 无
+> 前置条件: ZenUtils
 > 导入: `import mixin.*;`
 
 ZenUtils 支持通过 ZenScript 编写 Mixin，实现 Java 字节码级别的类修改。
 
 ---
 
-## 可用类型
+## API 列表
+
+### 可用类型
 
 | 类型 | 说明 |
 |------|------|
@@ -15,13 +18,13 @@ ZenUtils 支持通过 ZenScript 编写 Mixin，实现 Java 字节码级别的类
 | `CallbackInfoReturnable` | 带返回值的回调信息。`getReturnValue()` 返回 `java.lang.Object`，需要强转 |
 | `Operation` | 用于 WrapOperation 钩子。`call` 方法接受 `Object...` 并返回 `Object` |
 
-## 内置变量
+### 内置变量
 
 | 变量 | 说明 |
 |------|------|
 | `this0` | 目标类实例的引用（当只有一个目标类时）。可访问私有和受保护成员，不处理静态成员 |
 
-## 预处理器指令
+### 预处理器指令
 
 | 指令 | 说明 |
 |------|------|

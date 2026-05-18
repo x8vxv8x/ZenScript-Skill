@@ -1,65 +1,74 @@
-# Dropt 掉落系统 API
+# Dropt CraftTweaker API 参考
 
-> `import mods.dropt.Dropt;`
+> Mod ID: `dropt`
+> 前置条件: 无
+> 导入: `import mods.dropt.Dropt;`
+> 提供嵌套链式的 builder 方法，请一定参考下方使用示例
 
 Dropt 是一个灵活的方块掉落替换系统，支持多条件匹配、加权掉落、时运修正等。
 
-## 类一览
+---
 
-| 类 | 导入 | 说明 |
-|----|------|------|
-| Dropt | `mods.dropt.Dropt` | 工厂类，创建其他对象 |
-| RuleList | `mods.dropt.RuleList` | 规则列表 |
-| Rule | `mods.dropt.Rule` | 单条规则 |
-| Harvester | `mods.dropt.Harvester` | 采集者匹配 |
-| Drop | `mods.dropt.Drop` | 掉落物定义 |
-| Range | `mods.dropt.Range` | 数量范围 |
-| Weight | `mods.dropt.Weight` | 权重 |
+## API 列表
 
-## Dropt 工厂方法
+### Dropt（工厂类）
 
-```zenscript
-Dropt.list("name")           // 创建/获取 RuleList
-Dropt.rule()                 // 创建 Rule
-Dropt.harvester()            // 创建 Harvester
-Dropt.drop()                 // 创建 Drop
-Dropt.range(int fixed)       // 固定数量
-Dropt.range(int min, int max)// 范围数量
-Dropt.weight(int weight)     // 权重
-Dropt.weight(int weight, int fortuneMod)  // 带时运修正的权重
-```
+> `import mods.dropt.Dropt;`
 
-## RuleList
+工厂类，用于创建其他对象。
 
-```zenscript
-list.priority(int)   // 优先级（越大越先匹配，默认 0）
-list.add(Rule)       // 添加规则
-```
+#### 工厂方法
 
-## Rule
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.list(string name)` | 未说明 | 创建/获取规则列表 |
+| `.rule()` | 未说明 | 创建规则 |
+| `.harvester()` | 未说明 | 创建采集者匹配 |
+| `.drop()` | 未说明 | 创建掉落物定义 |
+| `.range(int fixed)` | 未说明 | 固定数量范围 |
+| `.range(int min, int max)` | 未说明 | 区间数量范围 |
+| `.weight(int weight)` | 未说明 | 权重 |
+| `.weight(int weight, int fortuneMod)` | 未说明 | 带时运修正的权重 |
 
-```zenscript
-rule.debug()                            // 启用调试日志
-rule.matchBlocks(string[])              // 匹配方块（白名单）
-rule.matchBlocks(string type, string[]) // type: "WHITELIST"/"BLACKLIST"
-rule.matchDrops(IIngredient[])          // 匹配掉落物
-rule.matchDrops(string type, IIngredient[])
-rule.matchHarvester(Harvester)          // 匹配采集者
-rule.matchBiomes(string[])              // 匹配生物群系
-rule.matchBiomes(string type, string[])
-rule.matchDimensions(int[])             // 匹配维度 ID
-rule.matchDimensions(string type, int[])
-rule.matchVerticalRange(int min, int max)   // 匹配高度范围
-rule.matchSpawnDistance(int min, int max)   // 匹配出生点距离
-rule.matchSpawnDistance(string type, int min, int max)
-rule.replaceStrategy(string)            // 替换策略
-rule.dropStrategy(string)               // 掉落策略
-rule.dropCount(Range)                   // 选择器执行次数
-rule.addDrop(Drop)                      // 添加掉落
-rule.fallthrough(bool)                  // 继续匹配后续规则
-```
+### RuleList（规则列表）
 
-### 替换策略
+> `import mods.dropt.RuleList;`
+
+#### 方法
+
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.priority(int priority)` | 未说明 | 设置优先级（越大越先匹配，默认 0） |
+| `.add(Rule rule)` | 未说明 | 添加规则 |
+
+### Rule（规则）
+
+> `import mods.dropt.Rule;`
+
+#### 方法
+
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.debug()` | 未说明 | 启用调试日志 |
+| `.matchBlocks(string[] blocks)` | 未说明 | 匹配方块（白名单） |
+| `.matchBlocks(string type, string[] blocks)` | 未说明 | 匹配方块，type: "WHITELIST"/"BLACKLIST" |
+| `.matchDrops(IIngredient[] drops)` | 未说明 | 匹配掉落物（白名单） |
+| `.matchDrops(string type, IIngredient[] drops)` | 未说明 | 匹配掉落物，type: "WHITELIST"/"BLACKLIST" |
+| `.matchHarvester(Harvester harvester)` | 未说明 | 匹配采集者 |
+| `.matchBiomes(string[] biomes)` | 未说明 | 匹配生物群系（白名单） |
+| `.matchBiomes(string type, string[] biomes)` | 未说明 | 匹配生物群系，type: "WHITELIST"/"BLACKLIST" |
+| `.matchDimensions(int[] dimensions)` | 未说明 | 匹配维度 ID（白名单） |
+| `.matchDimensions(string type, int[] dimensions)` | 未说明 | 匹配维度，type: "WHITELIST"/"BLACKLIST" |
+| `.matchVerticalRange(int min, int max)` | 未说明 | 匹配高度范围 |
+| `.matchSpawnDistance(int min, int max)` | 未说明 | 匹配出生点距离（白名单） |
+| `.matchSpawnDistance(string type, int min, int max)` | 未说明 | 匹配出生点距离，type: "WHITELIST"/"BLACKLIST" |
+| `.replaceStrategy(string strategy)` | 未说明 | 设置替换策略 |
+| `.dropStrategy(string strategy)` | 未说明 | 设置掉落策略 |
+| `.dropCount(Range count)` | 未说明 | 设置选择器执行次数 |
+| `.addDrop(Drop drop)` | 未说明 | 添加掉落 |
+| `.fallthrough(bool value)` | 未说明 | 是否继续匹配后续规则 |
+
+#### 替换策略
 
 | 策略 | 说明 |
 |------|------|
@@ -69,54 +78,116 @@ rule.fallthrough(bool)                  // 继续匹配后续规则
 | `REPLACE_ITEMS_IF_SELECTED` | 选中时替换匹配的 |
 | `ADD` | 追加到现有掉落 |
 
-### 掉落策略
+#### 掉落策略
 
 | 策略 | 说明 |
 |------|------|
 | `REPEAT` | 同一掉落可被选中多次（默认） |
 | `UNIQUE` | 每个掉落只能选中一次 |
 
-## Harvester
+### Harvester（采集者匹配）
 
-```zenscript
-h.type(string)               // PLAYER / NON_PLAYER / ANY / EXPLOSION / REAL_PLAYER / FAKE_PLAYER
-h.mainHand(string harvestLevel)  // 主手工具等级匹配
-h.mainHand(IItemStack[])         // 主手物品匹配（白名单）
-h.mainHand(string type, IItemStack[])
-h.mainHand(string type, IItemStack[], string harvestLevel)
-h.offHand(...)                   // 副手（同 mainHand 参数）
-h.gameStages(string[])           // 游戏阶段匹配
-h.gameStages(string require, string[])     // require: "ANY"/"ALL"
-h.gameStages(string type, string require, string[])
-h.playerName(string[])           // 玩家名匹配
-h.playerName(string type, string[])
-```
+> `import mods.dropt.Harvester;`
 
-## Drop
+#### 方法
 
-```zenscript
-drop.force()                                         // 强制掉落
-drop.selector(Weight)                                // 选择器
-drop.selector(Weight, string silkTouch)              // REQUIRED/EXCLUDED/ANY
-drop.selector(Weight, string silkTouch, int fortune) // 带时运需求
-drop.items(IItemStack[])                             // 掉落物品
-drop.items(string drop, IItemStack[])                // drop: "ONE"/"ALL"
-drop.items(IItemStack[], Range)                      // 带数量范围
-drop.items(string drop, IItemStack[], Range)
-drop.matchQuantity(IItemStack[])                     // 等数替换
-drop.xp(string replace, Range amount)               // 经验掉落 replace: "ADD"/"REPLACE"
-drop.replaceBlock(string block)                      // 替换方块状态
-drop.replaceBlock(string block, Map properties)
-```
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.type(string type)` | 未说明 | 设置类型：PLAYER / NON_PLAYER / ANY / EXPLOSION / REAL_PLAYER / FAKE_PLAYER |
+| `.mainHand(string harvestLevel)` | 未说明 | 主手工具等级匹配 |
+| `.mainHand(IItemStack[] items)` | 未说明 | 主手物品匹配（白名单） |
+| `.mainHand(string type, IItemStack[] items)` | 未说明 | 主手物品匹配，type: "WHITELIST"/"BLACKLIST" |
+| `.mainHand(string type, IItemStack[] items, string harvestLevel)` | 未说明 | 主手物品+等级匹配 |
+| `.offHand(...)` | 未说明 | 副手（参数同 mainHand） |
+| `.gameStages(string[] stages)` | 未说明 | 游戏阶段匹配（ANY） |
+| `.gameStages(string require, string[] stages)` | 未说明 | 游戏阶段匹配，require: "ANY"/"ALL" |
+| `.gameStages(string type, string require, string[] stages)` | 未说明 | 游戏阶段匹配，含类型过滤 |
+| `.playerName(string[] names)` | 未说明 | 玩家名匹配（白名单） |
+| `.playerName(string type, string[] names)` | 未说明 | 玩家名匹配，type: "WHITELIST"/"BLACKLIST" |
+
+### Drop（掉落物定义）
+
+> `import mods.dropt.Drop;`
+
+#### 方法
+
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.force()` | 未说明 | 强制掉落 |
+| `.selector(Weight weight)` | 未说明 | 设置选择器权重 |
+| `.selector(Weight weight, string silkTouch)` | 未说明 | 带精准采集，silkTouch: "REQUIRED"/"EXCLUDED"/"ANY" |
+| `.selector(Weight weight, string silkTouch, int fortune)` | 未说明 | 带精准采集和时运需求 |
+| `.items(IItemStack[] items)` | 未说明 | 设置掉落物品 |
+| `.items(string drop, IItemStack[] items)` | 未说明 | 设置掉落物品，drop: "ONE"/"ALL" |
+| `.items(IItemStack[] items, Range range)` | 未说明 | 带数量范围的掉落物品 |
+| `.items(string drop, IItemStack[] items, Range range)` | 未说明 | 带数量范围的掉落物品，drop: "ONE"/"ALL" |
+| `.matchQuantity(IItemStack[] items)` | 未说明 | 等数替换 |
+| `.xp(string replace, Range amount)` | 未说明 | 经验掉落，replace: "ADD"/"REPLACE" |
+| `.replaceBlock(string block)` | 未说明 | 替换方块状态 |
+| `.replaceBlock(string block, Map properties)` | 未说明 | 替换方块状态（含属性） |
+
+### Range（数量范围）
+
+> `import mods.dropt.Range;`
+
+由 `Dropt.range()` 工厂方法创建。
+
+### Weight（权重）
+
+> `import mods.dropt.Weight;`
+
+由 `Dropt.weight()` 工厂方法创建。
 
 ---
 
 ## 使用示例
 
+### 基本使用方法 (嵌套链式的 builder 方法)
+
+``` zenscript
+import mods.dropt.Dropt;
+
+Dropt.list("test_list")
+
+    // Set the list priority
+    .priority(0)
+
+    // When stone is broken, should replace with string with custom name.
+    .add(Dropt.rule()
+        .matchBlocks(["minecraft:stone"])
+        .addDrop(Dropt.drop()
+            .items([<minecraft:string>.withTag({display: {Name: "Theory"}})])
+        )
+    )
+
+    // When cobblestone or <ore:sand> is dropped, should replace with leather.
+    .add(Dropt.rule()
+        .matchDrops([<minecraft:cobblestone>.or(<ore:sand>)])
+        .addDrop(Dropt.drop()
+            .items([<minecraft:leather>])
+        )
+    )
+
+    // When dirt is dropped, should replace with leather 25% of the time and
+    // string 75% of the time.
+    .add(Dropt.rule()
+        .matchDrops([<minecraft:dirt>])
+        .addDrop(Dropt.drop()
+            .selector(Dropt.weight(25))
+            .items([<minecraft:leather>])
+        )
+        .addDrop(Dropt.drop()
+            .selector(Dropt.weight(75))
+            .items([<minecraft:string>])
+        )
+    );
+```
+
 ### 基础替换
 
 ```zenscript
 import mods.dropt.Dropt;
+
 Dropt.list("basic")
   .add(
       Dropt.rule()

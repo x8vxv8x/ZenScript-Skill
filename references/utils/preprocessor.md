@@ -1,6 +1,16 @@
-# 预处理器
+# 预处理器 CraftTweaker API 参考
 
-必须放在脚本最顶部（import 之前）。
+> Mod ID: `minecraft`
+> 前置条件: 无
+> 导入: 无需导入
+
+预处理器指令，必须放在脚本最顶部（import 之前）。
+
+---
+
+## 预处理器列表
+
+### CraftTweaker 预处理器
 
 | 预处理器 | 说明 |
 |---------|------|
@@ -23,11 +33,9 @@ import crafttweaker.item.IItemStack;
 // ...
 ```
 
----
+### ZenUtils 预处理器（需安装 ZenUtils）
 
-## ZenUtils 预处理器（需安装 ZenUtils）
-
-### #suppress
+#### #suppress
 
 > 版本要求: 1.5.0+
 
@@ -38,7 +46,7 @@ import crafttweaker.item.IItemStack;
 
 解析错误仍会显示，错误仍会记录到 `crafttweaker.log`。使用后 `#ikwid` 和 `#nowarn` 失效。
 
-### #hardfail
+#### #hardfail
 
 > 版本要求: 1.6.6+
 

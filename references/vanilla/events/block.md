@@ -1,6 +1,16 @@
-# 方块事件
+# 方块事件 CraftTweaker API 参考
 
-## BlockBreakEvent
+> Mod ID: `minecraft`
+> 前置条件: 无
+> 导入: `import crafttweaker.event.*;`
+
+方块相关事件，用于监听方块破坏、放置、生长等行为。
+
+---
+
+## API 列表
+
+### BlockBreakEvent（方块破坏事件）
 
 > `import crafttweaker.event.BlockBreakEvent;`
 
@@ -22,9 +32,7 @@
 - `event.allow()` 设置结果为 `allow`
 - `event.default()` 设置结果为 `default`
 
----
-
-## BlockHarvestDropsEvent
+### BlockHarvestDropsEvent（方块掉落事件）
 
 > `import crafttweaker.event.BlockHarvestDropsEvent;`
 
@@ -53,9 +61,7 @@ events.onBlockHarvestDrops(function(event as BlockHarvestDropsEvent) {
 });
 ```
 
----
-
-## BlockNeighborNotifyEvent
+### BlockNeighborNotifyEvent（方块邻居通知事件）
 
 > `import crafttweaker.event.BlockNeighborNotifyEvent;`
 
@@ -70,9 +76,7 @@ events.onBlockHarvestDrops(function(event as BlockHarvestDropsEvent) {
 
 继承自 IBlockEvent 的 `world`、`blockState`、`block`、`position`、`x`、`y`、`z`。
 
----
-
-## BlockPlaceEvent
+### BlockPlaceEvent（方块放置事件）
 
 > `import crafttweaker.event.BlockPlaceEvent;`
 
@@ -89,9 +93,7 @@ events.onBlockHarvestDrops(function(event as BlockHarvestDropsEvent) {
 
 继承自 IBlockEvent 的 `world`、`blockState`、`block`、`position`、`x`、`y`、`z`。
 
----
-
-## FarmlandTrampleEvent
+### FarmlandTrampleEvent（农田踩踏事件）
 
 > `import crafttweaker.event.FarmlandTrampleEvent;`
 
@@ -106,9 +108,7 @@ events.onBlockHarvestDrops(function(event as BlockHarvestDropsEvent) {
 
 继承自 IBlockEvent 的 `world`、`blockState`、`block`、`position`、`x`、`y`、`z`。
 
----
-
-## CropGrowPostEvent
+### CropGrowPostEvent（作物生长后事件）
 
 > `import crafttweaker.event.CropGrowPostEvent;`
 
@@ -123,9 +123,7 @@ events.onBlockHarvestDrops(function(event as BlockHarvestDropsEvent) {
 
 继承自 IBlockEvent 的 `world`、`blockState`、`block`、`position`、`x`、`y`、`z`。
 
----
-
-## CropGrowPreEvent
+### CropGrowPreEvent（作物生长前事件）
 
 > `import crafttweaker.event.CropGrowPreEvent;`
 
@@ -146,9 +144,7 @@ events.onBlockHarvestDrops(function(event as BlockHarvestDropsEvent) {
 - `event.allow()` 强制生长
 - `event.default()` 使用原版行为
 
----
-
-## LivingDestroyBlockEvent
+### LivingDestroyBlockEvent（生物破坏方块事件）
 
 > `import crafttweaker.event.LivingDestroyBlockEvent;`
 
@@ -162,9 +158,7 @@ events.onBlockHarvestDrops(function(event as BlockHarvestDropsEvent) {
 
 继承自 ILivingEvent 的 `entityLivingBase`；继承自 IEventPositionable 的 `position`、`x`、`y`、`z`。
 
----
-
-## PortalSpawnEvent
+### PortalSpawnEvent（传送门生成事件）
 
 > `import crafttweaker.event.PortalSpawnEvent;`
 

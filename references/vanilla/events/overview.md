@@ -1,16 +1,20 @@
-# Events API
+# Events CraftTweaker API 参考
 
-## 概述
+> Mod ID: `minecraft`
+> 前置条件: 无
+> 导入: `import crafttweaker.events.IEventManager;`
 
 事件系统允许在游戏特定时间点执行自定义行为。通过全局 `events` 字段访问事件管理器。
+
+---
+
+## 概述
 
 ```zenscript
 events.onPlayerCrafted(function(event as crafttweaker.event.PlayerCraftedEvent){
     // 玩家合成时执行
 });
 ```
-
-**导入事件管理器**：`import crafttweaker.events.IEventManager;`
 
 **清除所有事件处理器**：`events.clear();`
 
@@ -56,7 +60,7 @@ events.onPlayerCrafted(function(event as PlayerCraftedEvent) {
 
 > `import crafttweaker.event.IBlockEvent;`
 
-继承自 [IEventPositionable](#ieventpositionable)。
+继承自 IEventPositionable。
 
 | 属性 | 类型 | 说明 |
 |------|------|------|

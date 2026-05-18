@@ -1,91 +1,117 @@
-# LootTweaker 战利品表 API
+# LootTweaker CraftTweaker API 参考
 
-需要安装 LootTweaker 和 LootTableTweaker 附加模组。
+> Mod ID: `loottweaker`
+> 前置条件: LootTableTweaker（移除功能需要）
+> 导入: `import loottweaker.LootTweaker;`、`import mods.ltt.LootTable;`
 
-## LootTableTweaker（只能移除）
+用于修改战利品表的 API，支持添加和移除物品。
+
+---
+
+## API 列表
+
+### LootTableTweaker（仅移除）
 
 > `import mods.ltt.LootTable;`
 
-```zenscript
-LootTable.removeTable("table");           // 移除整个表
-LootTable.removePool("table", "pool");    // 移除池
-LootTable.removeEntry("table", "pool", "entry");  // 移除条目
-LootTable.removeItem("table", "pool", "itemid");  // 移除物品
-LootTable.removeModEntry("modid");        // 移除某 mod 所有条目
-LootTable.removeModItem("modid");         // 移除某 mod 所有物品
-LootTable.removeModTable("modtable");     // 移除某 mod 所有表
-LootTable.removeGlobalItem("itemid");     // 全局移除某物品
-```
+只能移除，不能添加。
 
-## LootTweaker（可添加和移除）
+#### 方法
+
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.removeTable(string table)` | 未说明 | 移除整个表 |
+| `.removePool(string table, string pool)` | 未说明 | 移除池 |
+| `.removeEntry(string table, string pool, string entry)` | 未说明 | 移除条目 |
+| `.removeItem(string table, string pool, string itemid)` | 未说明 | 移除物品 |
+| `.removeModEntry(string modid)` | 未说明 | 移除某 mod 所有条目 |
+| `.removeModItem(string modid)` | 未说明 | 移除某 mod 所有物品 |
+| `.removeModTable(string modtable)` | 未说明 | 移除某 mod 所有表 |
+| `.removeGlobalItem(string itemid)` | 未说明 | 全局移除某物品 |
+
+### LootTweaker（可添加和移除）
 
 > `import loottweaker.LootTweaker;`
 
-### 获取/创建表
+#### 获取/创建表
 
-```zenscript
-val table = LootTweaker.getTable("minecraft:entities/pig");
-val newTable = LootTweaker.newTable("mypack:custom_table");
-```
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.getTable(string name)` | 未说明 | 获取已存在的战利品表 |
+| `.newTable(string name)` | 未说明 | 创建新的战利品表 |
 
-### LootTable 方法
+### LootTable（战利品表）
 
-| 方法 | 说明 |
-|------|------|
-| `.clear()` | 清空所有物品 |
-| `.addPool(name, minRolls, maxRolls, minBonus, maxBonus)` | 创建池 |
-| `.removePool(name)` | 移除池 |
-| `.getPool(name)` | 获取池 |
+> 由 `LootTweaker.getTable()` 或 `LootTweaker.newTable()` 获取。
 
-### LootPool 方法
+#### 方法
 
-| 方法 | 说明 |
-|------|------|
-| `.removeEntry(name)` | 移除条目 |
-| `.addItemEntry(IItemStack, weight)` | 添加物品条目 |
-| `.addItemEntry(IItemStack, weight, name)` | 带自定义名 |
-| `.addItemEntry(IItemStack, weight, quality, name)` | 带质量 |
-| `.addItemEntry(IItemStack, weight, quality, funcs, conditions, name)` | 完整形式 |
-| `.addLootTableEntry(tableName, weight)` | 嵌套表 |
-| `.addEmptyEntry(weight)` | 空条目 |
-| `.setRolls(min, max)` | 设置抽取次数 |
-| `.setBonusRolls(min, max)` | 设置奖励次数 |
-| `.clearConditions()` | 清空条件 |
-| `.clearEntries()` | 清空条目 |
-| `.addConditions(conditions)` | 添加条件 |
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.clear()` | 未说明 | 清空所有物品 |
+| `.addPool(string name, int minRolls, int maxRolls, int minBonus, int maxBonus)` | 未说明 | 创建池 |
+| `.removePool(string name)` | 未说明 | 移除池 |
+| `.getPool(string name)` | 未说明 | 获取池 |
+
+### LootPool（战利品池）
+
+> 由 `LootTable.addPool()` 或 `LootTable.getPool()` 获取。
+
+#### 方法
+
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.removeEntry(string name)` | 未说明 | 移除条目 |
+| `.addItemEntry(IItemStack item, int weight)` | 未说明 | 添加物品条目 |
+| `.addItemEntry(IItemStack item, int weight, string name)` | 未说明 | 带自定义名的物品条目 |
+| `.addItemEntry(IItemStack item, int weight, int quality, string name)` | 未说明 | 带质量的物品条目 |
+| `.addItemEntry(IItemStack item, int weight, int quality, funcs, conditions, string name)` | 未说明 | 完整形式的物品条目 |
+| `.addLootTableEntry(string tableName, int weight)` | 未说明 | 嵌套表条目 |
+| `.addEmptyEntry(int weight)` | 未说明 | 空条目 |
+| `.setRolls(int min, int max)` | 未说明 | 设置抽取次数 |
+| `.setBonusRolls(int min, int max)` | 未说明 | 设置奖励次数 |
+| `.clearConditions()` | 未说明 | 清空条件 |
+| `.clearEntries()` | 未说明 | 清空条目 |
+| `.addConditions(conditions)` | 未说明 | 添加条件 |
 
 ### Conditions（条件）
 
 > `import loottweaker.vanilla.loot.Conditions;`
 
-| 方法 | 说明 |
-|------|------|
-| `Conditions.randomChance(float)` | 随机几率 |
-| `Conditions.randomChanceWithLooting(float, float)` | 带抢夺的随机几率 |
-| `Conditions.killedByPlayer()` | 被玩家击杀 |
-| `Conditions.killedByNonPlayer()` | 非玩家击杀 |
-| `Conditions.parse(DataMap)` | 从 JSON 解析 |
-| `Conditions.zenscript(function)` | 自定义条件函数 |
+#### 方法
+
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.randomChance(float chance)` | 未说明 | 随机几率 |
+| `.randomChanceWithLooting(float chance, float multiplier)` | 未说明 | 带抢夺的随机几率 |
+| `.killedByPlayer()` | 未说明 | 被玩家击杀 |
+| `.killedByNonPlayer()` | 未说明 | 非玩家击杀 |
+| `.parse(DataMap data)` | 未说明 | 从 JSON 解析条件 |
+| `.zenscript(function)` | 未说明 | 自定义条件函数 |
 
 ### Functions（函数）
 
 > `import loottweaker.vanilla.loot.Functions;`
 
-| 方法 | 说明 |
-|------|------|
-| `Functions.setCount(min, max)` | 设置数量 |
-| `Functions.setDamage(min, max)` | 设置耐久（max ≤ 1.0） |
-| `Functions.setMetadata(min, max)` | 设置 Meta |
-| `Functions.setNBT(DataMap)` | 设置 NBT |
-| `Functions.enchantRandomly(String[])` | 随机附魔 |
-| `Functions.enchantWithLevels(min, max, treasure)` | 等级附魔 |
-| `Functions.lootingEnchantBonus(min, max, limit)` | 抢夺加成 |
-| `Functions.smelt()` | 熔炼 |
-| `Functions.parse(DataMap)` | 从 JSON 解析 |
+#### 方法
+
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.setCount(int min, int max)` | 未说明 | 设置数量 |
+| `.setDamage(float min, float max)` | 未说明 | 设置耐久（max ≤ 1.0） |
+| `.setMetadata(int min, int max)` | 未说明 | 设置 Meta |
+| `.setNBT(DataMap data)` | 未说明 | 设置 NBT |
+| `.enchantRandomly(String[] enchants)` | 未说明 | 随机附魔 |
+| `.enchantWithLevels(int min, int max, bool treasure)` | 未说明 | 等级附魔 |
+| `.lootingEnchantBonus(int min, int max, int limit)` | 未说明 | 抢夺加成 |
+| `.smelt()` | 未说明 | 熔炼 |
+| `.parse(DataMap data)` | 未说明 | 从 JSON 解析函数 |
 
 ### LootContext（上下文）
 
 > `import loottweaker.LootContext;`
+
+#### @ZenGetter
 
 | 属性 | 类型 | 说明 |
 |------|------|------|

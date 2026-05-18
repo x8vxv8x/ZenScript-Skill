@@ -1,10 +1,20 @@
-# Items API
+# Items CraftTweaker API 参考
 
-## IItemStack
+> Mod ID: `minecraft`
+> 前置条件: 无
+> 导入: `import crafttweaker.item.IItemStack;`、`import crafttweaker.item.IIngredient;`、`import crafttweaker.item.IMutableItemStack;`、`import crafttweaker.item.IItemDefinition;`、`import crafttweaker.item.IWeightedIngredient;`、`import crafttweaker.item.WeightedItemStack;`
+
+物品系统 API，用于操作物品堆叠、配方原料和物品定义。
+
+---
+
+## API 列表
+
+### IItemStack（物品堆叠）
 
 > `import crafttweaker.item.IItemStack;`
 
-### 获取 IItemStack
+#### 获取 IItemStack
 
 ```zenscript
 <minecraft:apple>                           // 尖括号（最常用）
@@ -14,7 +24,7 @@
 loadedMods["minecraft"].items               // 从 mod 获取所有物品
 ```
 
-### ZenGetter 属性
+#### @ZenGetter
 
 | 属性 | 类型 | 说明 |
 |------|------|------|
@@ -53,7 +63,7 @@ loadedMods["minecraft"].items               // 从 mod 获取所有物品
 | `maxItemUseDuration` | int | 最大使用时长 |
 | `capNBT` | IData | 能力 NBT |
 
-### ZenSetter 属性（可读写）
+#### @ZenSetter
 
 | 属性 | 类型 | 说明 |
 |------|------|------|
@@ -63,7 +73,7 @@ loadedMods["minecraft"].items               // 从 mod 获取所有物品
 | `maxDamage` | int | 修改最大耐久 |
 | `repairCost` | int | 修改修复花费 |
 
-### 数量方法
+#### 数量方法
 
 | 方法 | 返回 | 说明 |
 |------|------|------|
@@ -73,7 +83,7 @@ loadedMods["minecraft"].items               // 从 mod 获取所有物品
 | `stack * n` | IItemStack | 设置数量 |
 | `.splitStack(int)` | IItemStack | 分割堆叠（原堆叠减少） |
 
-### 耐久方法
+#### 耐久方法
 
 | 方法 | 返回 | 说明 |
 |------|------|------|
@@ -81,7 +91,7 @@ loadedMods["minecraft"].items               // 从 mod 获取所有物品
 | `.withDamage(int)` | IItemStack | 设置耐久值 |
 | `.damageItem(int, IEntity)` | void | 消耗耐久 |
 
-### NBT 方法
+#### NBT 方法
 
 | 方法 | 返回 | 说明 |
 |------|------|------|
@@ -92,7 +102,7 @@ loadedMods["minecraft"].items               // 从 mod 获取所有物品
 | `.updateTag(IData)` | IItemStack | 合并 NBT（不覆盖已有键） |
 | `.updateTag(IData, bool)` | IItemStack | 同上，bool 控制行为 |
 
-### 显示方法
+#### 显示方法
 
 | 方法 | 返回 | 说明 |
 |------|------|------|
@@ -109,14 +119,14 @@ loadedMods["minecraft"].items               // 从 mod 获取所有物品
 | `.removeTooltip(String regex)` | void | 移除匹配正则表达式的提示 |
 | `.removeTooltipLine(int line)` | void | 移除指定行的提示 |
 
-### 附魔方法
+#### 附魔方法
 
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.canApplyAtCraftingTable(IEnchantmentDefinition)` | bool | 是否可在工作台附魔 |
 | `.addEnchantment(IEnchantment)` | void | 添加附魔 |
 
-### 方块方法
+#### 方块方法
 
 | 方法 | 返回 | 说明 |
 |------|------|------|
@@ -127,7 +137,7 @@ loadedMods["minecraft"].items               // 从 mod 获取所有物品
 | `.canHarvestBlock(IBlockState)` | bool | 是否可挖掘 |
 | `.getStrengthAgainstBlock(IBlockState)` | float | 对方块的破坏速度 |
 
-### 权重方法
+#### 权重方法
 
 | 方法 | 返回 | 说明 |
 |------|------|------|
@@ -135,14 +145,14 @@ loadedMods["minecraft"].items               // 从 mod 获取所有物品
 | `.weight(float)` | WeightedItemStack | 权重（1 = 100%） |
 | `stack % 50` | WeightedItemStack | 50% 权重 |
 
-### 实体方法
+#### 实体方法
 
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.createEntityItem(IWorld, float, float, float)` | IEntityItem | 创建掉落物实体 |
 | `.createEntityItem(IWorld, IBlockPos)` | IEntityItem | 创建掉落物实体 |
 
-### 其他
+#### 其他方法
 
 | 方法 | 返回 | 说明 |
 |------|------|------|
@@ -154,15 +164,13 @@ loadedMods["minecraft"].items               // 从 mod 获取所有物品
 | `.healAmount` | int | 恢复饥饿值 |
 | `.saturation` | float | 饱和度 |
 
----
-
-## IIngredient 接口
+### IIngredient（配方原料接口）
 
 > `import crafttweaker.item.IIngredient;`
 
 IItemStack、IOreDictEntry、ILiquidStack 都实现了此接口。
 
-### 方法
+#### 方法
 
 | 方法 | 返回 | 说明 |
 |------|------|------|
@@ -183,9 +191,7 @@ IItemStack、IOreDictEntry、ILiquidStack 都实现了此接口。
 | `ingredient | other` | IIngredient | 或运算 |
 | `.or(IIngredient)` | IIngredient | 或运算 |
 
----
-
-## IMutableItemStack
+### IMutableItemStack（可变物品堆叠）
 
 > `import crafttweaker.item.IMutableItemStack;`
 
@@ -193,34 +199,32 @@ IItemStack、IOreDictEntry、ILiquidStack 都实现了此接口。
 
 通过 `IItemStack.mutable()` 获取，继承 IItemStack 的所有方法。
 
-### 数量方法
+#### 数量方法
 
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.grow(int count)` | IMutableItemStack | 增加指定数量 |
 | `.shrink(int count)` | IMutableItemStack | 减少指定数量 |
 
-### 耐久方法
+#### 耐久方法
 
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.attemptDamageItem(int amount, @Optional IPlayer player)` | bool | 尝试损耗耐久，返回是否成功 |
 
-### 其他方法
+#### 其他方法
 
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.copy()` | IItemStack | 复制为新的不可变堆叠（避免意外修改时使用） |
 
----
-
-## IItemDefinition
+### IItemDefinition（物品定义）
 
 > `import crafttweaker.item.IItemDefinition;`
 
 通过 `<minecraft:wool>.definition` 获取。
 
-### ZenGetter 属性
+#### @ZenGetter
 
 | 属性 | 类型 | 说明 |
 |------|------|------|
@@ -238,13 +242,13 @@ IItemStack、IOreDictEntry、ILiquidStack 都实现了此接口。
 | `itemEnchantability` | int | 附魔能力 |
 | `subItems` | List\<IItemStack\> | 所有子物品列表（服务端 mod 不保证正确） |
 
-### ZenSetter 属性（可读写）
+#### @ZenSetter
 
 | 属性 | 类型 | 说明 |
 |------|------|------|
 | `creativeTab` | ICreativeTab | 设置创造模式标签页 |
 
-### 方法
+#### 方法
 
 | 方法 | 返回 | 说明 |
 |------|------|------|
@@ -255,9 +259,7 @@ IItemStack、IOreDictEntry、ILiquidStack 都实现了此接口。
 | `.getSubItems(ICreativeTab creativeTab)` | List\<IItemStack\> | 获取指定创造标签页下的子物品（服务端 mod 不保证正确） |
 | `.getItemBurntime(IItemStack item)` | int | 获取燃烧时间：-1 为默认逻辑，0 为不可燃烧，其他为实际燃烧时间 |
 
----
-
-## IWeightedIngredient / WeightedItemStack
+### IWeightedIngredient / WeightedItemStack（带权重的物品）
 
 > `import crafttweaker.item.IWeightedIngredient;`
 > `import crafttweaker.item.WeightedItemStack;`
@@ -271,7 +273,7 @@ val wItem = <minecraft:diamond> % 20;      // 20% 概率
 val wItem2 = <minecraft:diamond>.weight(0.2); // 同上（0.2 = 20%）
 ```
 
-### ZenGetter 属性
+#### @ZenGetter
 
 | 属性 | 类型 | 说明 |
 |------|------|------|
@@ -364,10 +366,10 @@ CoT 脚本第一行必须为 `#loader contenttweaker`。
 
 ### VanillaFactory 物品方法
 
-| 方法 | 参数 | 返回 | 说明 |
-|------|------|------|------|
-| `.createItem(string id)` | 物品 ID（全小写，字母开头） | Item | 创建自定义物品 |
-| `.createItemFood(string id, int healAmount)` | 食物 ID, 恢复饥饿值 | ItemFood | 创建自定义食物 |
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.createItem(string id)` | Item | 创建自定义物品（ID 全小写，字母开头） |
+| `.createItemFood(string id, int healAmount)` | ItemFood | 创建自定义食物 |
 
 ### Item（自定义物品）
 
@@ -384,9 +386,9 @@ CoT 脚本第一行必须为 `#loader contenttweaker`。
 | `toolClass` | string | null | 工具类型（"pickaxe"/"axe" 等） |
 | `toolLevel` | int | -1 | 工具挖掘等级 |
 
-| 方法 | 参数 | 返回 | 说明 |
-|------|------|------|------|
-| `.register()` | 无 | void | 注册物品进游戏（注册后不可修改） |
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.register()` | void | 注册物品进游戏（注册后不可修改） |
 
 ### ItemFood（自定义食物）
 
@@ -402,7 +404,7 @@ CoT 脚本第一行必须为 `#loader contenttweaker`。
 | `wolfFood` | bool | false | 是否可喂给狼 |
 | `onItemFoodEaten` | function | null | 吃下后执行的函数 |
 
-### 示例
+### ContentTweaker 物品示例
 
 ```zenscript
 #loader contenttweaker
@@ -444,10 +446,10 @@ soup.register();
 
 ### VanillaFactory 物品扩展方法
 
-| 方法 | 参数 | 返回 | 说明 |
-|------|------|------|------|
-| `VanillaFactory.createEnergyItem(String, int, int, int)` | unlocalizedName, capacity, maxReceive, maxExtract | EnergyItem | 创建能量物品 |
-| `VanillaFactory.createExpandItem(String)` | unlocalizedName | ExpandItem | 创建扩展物品 |
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `VanillaFactory.createEnergyItem(String, int, int, int)` | EnergyItem | 创建能量物品 |
+| `VanillaFactory.createExpandItem(String)` | ExpandItem | 创建扩展物品 |
 
 ### ExpandItem（扩展物品）
 

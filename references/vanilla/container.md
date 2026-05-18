@@ -1,10 +1,20 @@
-# Container API
+# Container CraftTweaker API 参考
 
-## IContainer
+> Mod ID: `minecraft`
+> 前置条件: 无
+> 导入: `import crafttweaker.container.IContainer;`、`import crafttweaker.container.IInventorySlot;`
+
+容器和物品栏 API，用于操作物品容器。
+
+---
+
+## API 列表
+
+### IContainer（容器）
 
 > `import crafttweaker.container.IContainer;`
 
-### 属性
+#### @ZenGetter
 
 | 属性 | 类型 | 说明 |
 |------|------|------|
@@ -16,26 +26,24 @@
 | `maxStackSize` | int | 最大堆叠数 |
 | `isEmpty` | bool | 是否为空 |
 
-### 方法
+#### 方法
 
-| 方法 | 参数 | 返回 | 说明 |
-|------|------|------|------|
-| `.getStackInSlot(int)` | int | IItemStack | 获取指定槽的物品 |
-| `.setStackInSlot(int, IItemStack)` | int, IItemStack | void | 设置指定槽的物品 |
-| `.insertItem(int, IItemStack, bool)` | int, IItemStack, bool | IItemStack | 插入物品 |
-| `.extractItem(int, int, bool)` | int, int, bool | IItemStack | 提取物品 |
-| `.getSlotLimit(int)` | int | int | 获取槽容量限制 |
-| `.isItemValid(int, IItemStack)` | int, IItemStack | bool | 物品是否可放入槽 |
-| `.clear()` | 无 | void | 清空容器 |
-| `.markDirty()` | 无 | void | 标记为已修改 |
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.getStackInSlot(int)` | IItemStack | 获取指定槽的物品 |
+| `.setStackInSlot(int, IItemStack)` | void | 设置指定槽的物品 |
+| `.insertItem(int, IItemStack, bool)` | IItemStack | 插入物品 |
+| `.extractItem(int, int, bool)` | IItemStack | 提取物品 |
+| `.getSlotLimit(int)` | int | 获取槽容量限制 |
+| `.isItemValid(int, IItemStack)` | bool | 物品是否可放入槽 |
+| `.clear()` | void | 清空容器 |
+| `.markDirty()` | void | 标记为已修改 |
 
----
-
-## IInventorySlot
+### IInventorySlot（物品槽）
 
 > `import crafttweaker.container.IInventorySlot;`
 
-### 属性
+#### @ZenGetter
 
 | 属性 | 类型 | 说明 |
 |------|------|------|
@@ -44,19 +52,21 @@
 | `isEmpty` | bool | 是否为空 |
 | `maxStackSize` | int | 最大堆叠数 |
 
-### 方法
+#### 方法
 
-| 方法 | 参数 | 返回 | 说明 |
-|------|------|------|------|
-| `.putStack(IItemStack)` | IItemStack | void | 放入物品 |
-| `.getStack()` | 无 | IItemStack | 获取物品 |
-| `.decrStackSize(int)` | int | IItemStack | 减少物品数量 |
-| `.isItemValid(IItemStack)` | IItemStack | bool | 物品是否可放入 |
-| `.clear()` | 无 | void | 清空槽 |
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.putStack(IItemStack)` | void | 放入物品 |
+| `.getStack()` | IItemStack | 获取物品 |
+| `.decrStackSize(int)` | IItemStack | 减少物品数量 |
+| `.isItemValid(IItemStack)` | bool | 物品是否可放入 |
+| `.clear()` | void | 清空槽 |
 
 ---
 
-## 玩家物品栏
+## 使用示例
+
+### 玩家物品栏
 
 ```zenscript
 // 获取玩家物品栏
@@ -87,12 +97,12 @@ if (player.inventory.hasItem(<minecraft:diamond>)) {
 
 通过 `world.getItemHandler(IBlockPos)` 获取方块实体的物品容器。
 
-| 方法 | 参数 | 返回 | 说明 |
-|------|------|------|------|
-| `world.getItemHandler(IBlockPos, @Optional IFacing)` | IBlockPos, IFacing（可选） | ItemHandler | 获取方块实体的物品容器 |
-| `sizeSlots` | 无 | int | 获取槽位数量 |
-| `getStackInSlot(int)` | int | IItemStack | 获取指定槽位的物品 |
-| `insertItem(int, IItemStack, bool)` | int, IItemStack, bool | IItemStack | 向指定槽位插入物品。第三个参数为 false 时仅模拟 |
-| `extractItem(int, int, bool)` | int, int, bool | IItemStack | 从指定槽位提取物品。第三个参数为 false 时仅模拟 |
-| `setStackInSlot(int, IItemStack)` | int, IItemStack | void | 直接设置指定槽位的物品 |
-| `getSlotLimit(int)` | int | int | 获取指定槽位的最大堆叠数 |
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `world.getItemHandler(IBlockPos, @Optional IFacing)` | ItemHandler | 获取方块实体的物品容器 |
+| `sizeSlots` | int | 获取槽位数量 |
+| `getStackInSlot(int)` | IItemStack | 获取指定槽位的物品 |
+| `insertItem(int, IItemStack, bool)` | IItemStack | 向指定槽位插入物品。第三个参数为 false 时仅模拟 |
+| `extractItem(int, int, bool)` | IItemStack | 从指定槽位提取物品。第三个参数为 false 时仅模拟 |
+| `setStackInSlot(int, IItemStack)` | void | 直接设置指定槽位的物品 |
+| `getSlotLimit(int)` | int | 获取指定槽位的最大堆叠数 |

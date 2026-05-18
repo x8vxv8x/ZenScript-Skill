@@ -1,4 +1,12 @@
-# 语言基础
+# 语言基础 CraftTweaker API 参考
+
+> Mod ID: `minecraft`
+> 前置条件: 无
+> 导入: 无需导入
+
+ZenScript 语言基础语法。
+
+---
 
 ## 尖括号语法
 

@@ -22,36 +22,59 @@ ContentTweaker (CoT) 允许用 ZenScript 为游戏添加自定义物品、方块
 
 ---
 
-## 材料系统
+## API 列表
+
+### MaterialSystem（材料系统）
 
 > `import mods.contenttweaker.MaterialSystem;`
 
 允许批量添加金属的不同部件（齿轮、板、锭等）。
 
+#### 方法
+
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.getMaterialBuilder()` | MaterialBuilder | 获取材料构建器 |
+| `.getPartBuilder()` | PartBuilder | 获取部件构建器 |
+| `.getPartType(string name)` | PartType | 获取部件类型 |
+
 ### MaterialBuilder（材料构建器）
 
 > `import mods.contenttweaker.MaterialBuilder;`
 
-| 方法 | 参数 | 说明 |
+#### 方法
+
+| 方法 | 返回 | 说明 |
 |------|------|------|
-| `MaterialSystem.getMaterialBuilder()` | 无 | 获取构建器 |
-| `.setName(string)` | 材料 ID | 设置名称 |
-| `.setColor(int)` | RGB 颜色 | 设置颜色 |
-| `.setHasEffect(bool)` | 是否有附魔光芒 | 设置效果 |
-| `.build()` | 无 | 构建 Material 对象 |
+| `.setName(string name)` | MaterialBuilder | 设置材料 ID |
+| `.setColor(int color)` | MaterialBuilder | 设置 RGB 颜色 |
+| `.setHasEffect(bool hasEffect)` | MaterialBuilder | 设置是否有附魔光芒 |
+| `.build()` | Material | 构建 Material 对象 |
+
+### Material（材料）
+
+> 由 `MaterialBuilder.build()` 获取。
+
+#### 方法
+
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.registerParts(string[] parts)` | void | 注册多个部件 |
+| `.registerPart(string part)` | void | 注册单个部件 |
 
 ### PartBuilder（部件构建器）
 
 > `import mods.contenttweaker.PartBuilder;`
 
-| 方法 | 参数 | 说明 |
+#### 方法
+
+| 方法 | 返回 | 说明 |
 |------|------|------|
-| `MaterialSystem.getPartBuilder()` | 无 | 获取构建器 |
-| `.setName(string)` | 部件 ID | 设置名称 |
-| `.setPartType(PartType)` | 部件类型 | 设置类型 |
-| `.setOreDictName(string)` | 矿辞前缀 | 设置矿辞名 |
-| `.setHasOverlay(bool)` | 是否有 overlay | 设置覆盖层 |
-| `.build()` | 无 | 构建 Part 对象 |
+| `.setName(string name)` | PartBuilder | 设置部件 ID |
+| `.setPartType(PartType type)` | PartBuilder | 设置部件类型 |
+| `.setOreDictName(string name)` | PartBuilder | 设置矿辞前缀 |
+| `.setHasOverlay(bool hasOverlay)` | PartBuilder | 设置是否有覆盖层 |
+| `.build()` | Part | 构建 Part 对象 |
 
 ### 预设部件类型
 
@@ -65,21 +88,16 @@ ContentTweaker (CoT) 允许用 ZenScript 为游戏添加自定义物品、方块
 
 **护甲**: armor (head, chest, legs, feet)
 
-### Material 方法
-
-| 方法 | 说明 |
-|------|------|
-| `.registerParts(string[])` | 注册多个部件 |
-| `.registerPart(string)` | 注册单个部件 |
-
 ### MaterialPartData（材料部件数据）
 
 > `import mods.contenttweaker.MaterialPartData;`
 
-| 方法 | 说明 |
-|------|------|
-| `.getData()` | 获取数据对象 |
-| `.addDataValue(string name, string value)` | 添加数据字段 |
+#### 方法
+
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.getData()` | 未说明 | 获取数据对象 |
+| `.addDataValue(string name, string value)` | void | 添加数据字段 |
 
 **物品字段**: burn (燃烧时间)
 
@@ -121,6 +139,8 @@ copper.registerPart(denseIngotPart); // 注册致密铜锭
 | 物品/方块不显示 | 缺少材质文件 | 在 resources/contenttweaker/textures/ 下添加对应 png |
 | 本地化名称不显示 | 缺少语言文件 | 添加 lang 文件或使用 displayName 赋值 |
 | 材料部件不出现 | 未调用 addHeadMaterialStats 等方法 | 确保调用了对应的 add 方法 |
+
+---
 
 ## 注意事项
 

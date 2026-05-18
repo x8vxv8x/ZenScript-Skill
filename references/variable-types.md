@@ -1,4 +1,12 @@
-# Variable Types API
+# Variable Types CraftTweaker API 参考
+
+> Mod ID: `minecraft`
+> 前置条件: 无
+> 导入: 无需导入（基本类型），对象类型需要对应 import
+
+ZenScript 变量类型系统。
+
+---
 
 ## 基本类型（无需 import）
 

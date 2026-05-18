@@ -1,16 +1,23 @@
-# StaticString（静态字符串）
+# StaticString（静态字符串）CraftTweaker API 参考
 
-> 需安装 ZenUtils
+> Mod ID: 无
+> 前置条件: ZenUtils
 > 导入: `import mods.zenutils.StaticString;`
 
 暴露 Java 的静态字符串方法和 Apache Commons StringUtils 方法。
 
 ---
 
-## 方法
+## API 列表
 
-| 方法 | 说明 |
-|------|------|
-| `StaticString.valueOf(Object)` | Java `String.valueOf` |
-| `StaticString.format(String, Object...)` | Java `String.format` |
-| 其他方法 | Apache Commons StringUtils 的大部分方法，详见 [Javadoc](https://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html) |
+### StaticString（静态字符串）
+
+> `import mods.zenutils.StaticString;`
+
+#### 方法
+
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `StaticString.valueOf(Object)` | String | Java `String.valueOf` |
+| `StaticString.format(String, Object...)` | String | Java `String.format` |
+| 其他方法 | - | Apache Commons StringUtils 的大部分方法，详见 [Javadoc](https://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html) |

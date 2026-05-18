@@ -1,6 +1,16 @@
-# Data API
+# Data CraftTweaker API 参考
 
-## IData 类型
+> Mod ID: `minecraft`
+> 前置条件: 无
+> 导入: `import crafttweaker.data.IData;`
+
+IData 通用数据接口，用于操作 NBT 等数据。
+
+---
+
+## API 列表
+
+### IData（通用数据接口）
 
 > `import crafttweaker.data.IData;`
 
@@ -8,7 +18,7 @@ IData 是通用数据接口，用于操作 NBT 等数据。所有基本类型（
 
 注意：IData 及其子类与原始类型**不是同一类型**，它们被称为数据类型（如 DataBool、DataInt 等）。
 
-### 基本类型转 IData
+#### 基本类型转 IData
 
 ```zenscript
 val data = "hello" as IData;
@@ -16,7 +26,7 @@ val num = 42 as IData;
 val list = [1, 2, 3] as IData;
 ```
 
-### 类型转换
+#### 类型转换
 
 ```zenscript
 data.asInt();
@@ -31,7 +41,7 @@ data.asMap();
 
 也可通过 IData 转换类型：`("1" as IData).asInt()`
 
-### 二元运算符支持
+#### 二元运算符支持
 
 | 子类 | `+` | `-` | `*` | `/` | `%` | `&` | `\|` | `^` | `in` | `==` | `<, >, <=, >=` |
 |------|-----|-----|-----|-----|-----|-----|------|------|------|------|----------------|
@@ -46,7 +56,7 @@ data.asMap();
 | DataMap | Y | Y | - | - | - | - | - | - | Y | Y | - |
 | DataList | Y | - | - | - | - | - | - | - | Y | Y | - |
 
-### 索引和成员访问
+#### 索引和成员访问
 
 | 子类 | `[i]` | `.member` | `.length` | `.immutable` | `.update(v)` |
 |------|-------|-----------|-----------|--------------|--------------|
@@ -56,7 +66,7 @@ data.asMap();
 | DataList | Y | - | Y | Y | Y |
 | DataMap | - | Y | Y | Y | Y |
 
-### 一元运算符
+#### 一元运算符
 
 | 子类 | `-`（取反） | `!`（非） |
 |------|------------|----------|
@@ -64,15 +74,13 @@ data.asMap();
 | DataInt/Long/Short/Byte | Y | Y |
 | DataFloat/Double | Y | - |
 
----
-
-## DataMap
+### DataMap（关联数组）
 
 > `import crafttweaker.data.IData;`
 
 DataMap 是一种关联数组（Map），扩展了 IData。键为 String，值为 IData。
 
-### 创建
+#### 创建
 
 ```zenscript
 val myMap = {key1: "value1", key2: "value2", key3: 3} as IData;
@@ -81,14 +89,14 @@ val myMap = {key1: "value1", key2: "value2", key3: 3} as IData;
 val nestedMap = {key1: {key1: "hello"}} as IData;
 ```
 
-### 访问成员
+#### 访问成员
 
 ```zenscript
 var k1 = myMap.key1 as IData;              // 点号访问
 var k2 = myMap.memberGet("key2") as IData;  // 方法访问
 ```
 
-### 修改
+#### 修改
 
 创建的 Map 是不可变的，但可以通过加减运算创建新 Map：
 

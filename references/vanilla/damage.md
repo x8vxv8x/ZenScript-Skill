@@ -1,10 +1,20 @@
-# Damage API
+# Damage CraftTweaker API 参考
 
-## IDamageSource
+> Mod ID: `minecraft`
+> 前置条件: 无
+> 导入: `import crafttweaker.damage.IDamageSource;`
+
+伤害来源 API，用于创建和操作伤害来源。
+
+---
+
+## API 列表
+
+### IDamageSource（伤害来源）
 
 > `import crafttweaker.damage.IDamageSource;`
 
-### 属性
+#### @ZenGetter
 
 | 属性 | 类型 | 说明 |
 |------|------|------|
@@ -26,23 +36,21 @@
 | `trueSource` | IEntity | 真正来源实体 |
 | `damageEntity` | IEntity | 造成伤害的实体 |
 
-### 方法
+#### 方法
 
-| 方法 | 参数 | 返回 | 说明 |
-|------|------|------|------|
-| `.setDamageBypassesArmor()` | 无 | IDamageSource | 设置伤害无视护甲 |
-| `.setDamageIsAbsolute()` | 无 | IDamageSource | 设置绝对伤害 |
-| `.setDamageAllowedInCreativeMode()` | 无 | IDamageSource | 设置允许在创造模式造成伤害 |
-| `.setDifficultyScaled()` | 无 | IDamageSource | 设置随难度缩放 |
-| `.setExplosion()` | 无 | IDamageSource | 设置为爆炸伤害 |
-| `.setFireDamage()` | 无 | IDamageSource | 设置为火焰伤害 |
-| `.setMagicDamage()` | 无 | IDamageSource | 设置为魔法伤害 |
-| `.setProjectile()` | 无 | IDamageSource | 设置为弹射物伤害 |
-| `.setFallDamage()` | 无 | IDamageSource | 设置为摔落伤害 |
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.setDamageBypassesArmor()` | IDamageSource | 设置伤害无视护甲 |
+| `.setDamageIsAbsolute()` | IDamageSource | 设置绝对伤害 |
+| `.setDamageAllowedInCreativeMode()` | IDamageSource | 设置允许在创造模式造成伤害 |
+| `.setDifficultyScaled()` | IDamageSource | 设置随难度缩放 |
+| `.setExplosion()` | IDamageSource | 设置为爆炸伤害 |
+| `.setFireDamage()` | IDamageSource | 设置为火焰伤害 |
+| `.setMagicDamage()` | IDamageSource | 设置为魔法伤害 |
+| `.setProjectile()` | IDamageSource | 设置为弹射物伤害 |
+| `.setFallDamage()` | IDamageSource | 设置为摔落伤害 |
 
----
-
-## 预定义伤害来源
+### 预定义伤害来源
 
 ```zenscript
 <damageSource:MAGIC>                 // 魔法伤害
@@ -60,7 +68,9 @@
 
 ---
 
-## 造成伤害
+## 使用示例
+
+### 造成伤害
 
 ```zenscript
 // 对实体造成伤害

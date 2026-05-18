@@ -1,4 +1,14 @@
-# 数组
+# 数组 CraftTweaker API 参考
+
+> Mod ID: `minecraft`
+> 前置条件: 无
+> 导入: 无需导入
+
+数组基础语法。
+
+---
+
+## 数组操作
 
 ```zenscript
 var arr as int[] = [10, 20, 30];

@@ -1,4 +1,88 @@
-# 合成配方
+# 合成配方 CraftTweaker API 参考
+
+> Mod ID: `minecraft`
+> 前置条件: 无
+> 导入: `import crafttweaker.recipes.ICraftingRecipe;`、`import crafttweaker.recipes.ICraftingInventory;`、`import crafttweaker.recipes.ICraftingInfo;`
+
+工作台合成配方操作。
+
+---
+
+## API 列表
+
+### ICraftingRecipe（工作台配方）
+
+> `import crafttweaker.recipes.ICraftingRecipe;`
+
+工作台配方在 ZenScript 中的表示对象。
+
+#### @ZenGetter
+
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| `output` | IItemStack | 配方输出（可能为 null） |
+| `ingredients1D` | IIngredient[] | 一维材料列表 |
+| `ingredients2D` | IIngredient[][] | 二维材料列表 |
+| `shaped` | boolean | 是否为有序配方 |
+| `hidden` | boolean | 是否隐藏 |
+| `hasTransformers` | boolean | 是否含有转换器 |
+| `hasRecipeFunction` | boolean | 是否含有配方函数 |
+| `hasRecipeAction` | boolean | 是否含有配方事件 |
+| `resourceDomain` | string | 添加该配方的 mod 的 modid |
+| `fullResourceDomain` | string | 完整的 resourceDomain |
+| `name` | string | 配方名称 |
+| `commandString` | string | 配方的命令字符串表示 |
+
+### ICraftingInventory（合成容器）
+
+> `import crafttweaker.recipes.ICraftingInventory;`
+
+合成过程中工作台容器的信息对象。
+
+#### @ZenGetter
+
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| `player` | IPlayer | 拥有该容器的玩家 |
+| `size` | int | 容器大小 |
+| `width` | int | 容器宽度 |
+| `height` | int | 容器高度 |
+| `stackCount` | int | 实际填充的物品槽位数量 |
+| `items` | IItemStack[][] | 工作台中的物品（二维） |
+| `itemArray` | IItemStack[] | 工作台中的物品（一维） |
+
+#### 方法
+
+```zenscript
+// 按索引获取物品（返回 IItemStack 或 null）
+inventory.getStack(index);       // index: int
+
+// 按索引设置物品（传 null 清空槽位）
+inventory.setStack(index, item); // index: int, item: IItemStack
+
+// 按行列获取物品（左上角为 0,0）
+inventory.getStack(row, column); // row: int, column: int
+
+// 按行列设置物品（传 null 清空槽位）
+inventory.setStack(row, column, item); // row: int, column: int, item: IItemStack
+```
+
+### ICraftingInfo（合成信息）
+
+> `import crafttweaker.recipes.ICraftingInfo;`
+
+合成过程本身的信息对象。
+
+#### @ZenGetter
+
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| `inventory` | ICraftingInventory | 合成所在的容器 |
+| `player` | IPlayer | 执行合成的玩家 |
+| `dimensionID` | int | 合成所在维度的 ID |
+| `world` | IWorld | 合成所在的世界 |
+
+---
 
 ## 添加有序合成
 
@@ -254,81 +338,3 @@ function(out, ins, info) {
 },
 null);
 ```
-
----
-
-## ICraftingRecipe
-
-工作台配方在 ZenScript 中的表示对象。
-
-导入：`import crafttweaker.recipes.ICraftingRecipe`
-
-### 属性
-
-| 属性 | 类型 | 说明 |
-|------|------|------|
-| `output` | IItemStack | 配方输出（可能为 null） |
-| `ingredients1D` | IIngredient[] | 一维材料列表 |
-| `ingredients2D` | IIngredient[][] | 二维材料列表 |
-| `shaped` | boolean | 是否为有序配方 |
-| `hidden` | boolean | 是否隐藏 |
-| `hasTransformers` | boolean | 是否含有转换器 |
-| `hasRecipeFunction` | boolean | 是否含有配方函数 |
-| `hasRecipeAction` | boolean | 是否含有配方事件 |
-| `resourceDomain` | string | 添加该配方的 mod 的 modid |
-| `fullResourceDomain` | string | 完整的 resourceDomain |
-| `name` | string | 配方名称 |
-| `commandString` | string | 配方的命令字符串表示 |
-
----
-
-## ICraftingInventory
-
-合成过程中工作台容器的信息对象。
-
-导入：`import crafttweaker.recipes.ICraftingInventory`
-
-### 属性
-
-| 属性 | 类型 | 说明 |
-|------|------|------|
-| `player` | IPlayer | 拥有该容器的玩家 |
-| `size` | int | 容器大小 |
-| `width` | int | 容器宽度 |
-| `height` | int | 容器高度 |
-| `stackCount` | int | 实际填充的物品槽位数量 |
-| `items` | IItemStack[][] | 工作台中的物品（二维） |
-| `itemArray` | IItemStack[] | 工作台中的物品（一维） |
-
-### 方法
-
-```zenscript
-// 按索引获取物品（返回 IItemStack 或 null）
-inventory.getStack(index);       // index: int
-
-// 按索引设置物品（传 null 清空槽位）
-inventory.setStack(index, item); // index: int, item: IItemStack
-
-// 按行列获取物品（左上角为 0,0）
-inventory.getStack(row, column); // row: int, column: int
-
-// 按行列设置物品（传 null 清空槽位）
-inventory.setStack(row, column, item); // row: int, column: int, item: IItemStack
-```
-
----
-
-## ICraftingInfo
-
-合成过程本身的信息对象。
-
-导入：`import crafttweaker.recipes.ICraftingInfo`
-
-### 属性
-
-| 属性 | 类型 | 说明 |
-|------|------|------|
-| `inventory` | ICraftingInventory | 合成所在的容器 |
-| `player` | IPlayer | 执行合成的玩家 |
-| `dimensionID` | int | 合成所在维度的 ID |
-| `world` | IWorld | 合成所在的世界 |

@@ -1,4 +1,14 @@
-# 映射（关联数组）
+# 映射（关联数组）CraftTweaker API 参考
+
+> Mod ID: `minecraft`
+> 前置条件: 无
+> 导入: 无需导入
+
+映射（关联数组）基础语法。
+
+---
+
+## 映射操作
 
 ```zenscript
 var map as string[int] = {1: "一", 2: "二", 3: "三"};

@@ -1,4 +1,31 @@
-# 熔炉、酿造与其他配方
+# 熔炉、酿造与其他配方 CraftTweaker API 参考
+
+> Mod ID: `minecraft`
+> 前置条件: 无
+> 导入: `import crafttweaker.recipes.IFurnaceRecipe;`
+
+熔炉配方、酿造台配方和其他配方操作。
+
+---
+
+## API 列表
+
+### IFurnaceRecipe（熔炉配方）
+
+> `import crafttweaker.recipes.IFurnaceRecipe;`
+
+熔炉配方在 ZenScript 中的表示对象。
+
+#### @ZenGetter
+
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| `input` | IIngredient | 输入物品 |
+| `output` | IItemStack | 输出物品 |
+| `xp` | float | 烧炼经验值 |
+| `commandString` | string | 配方的命令字符串表示 |
+
+---
 
 ## 熔炉配方
 
@@ -53,23 +80,6 @@ var allFurnaceRecipes = furnace.all;  // 返回 List<IFurnaceRecipe>
 // 获取物品的熔炉烧炼结果
 var result = furnace.getSmeltingResult(<minecraft:iron_ore>);  // 返回 IItemStack
 ```
-
----
-
-## IFurnaceRecipe
-
-熔炉配方在 ZenScript 中的表示对象。
-
-导入：`import crafttweaker.recipes.IFurnaceRecipe`
-
-### 属性
-
-| 属性 | 类型 | 说明 |
-|------|------|------|
-| `input` | IIngredient | 输入物品 |
-| `output` | IItemStack | 输出物品 |
-| `xp` | float | 烧炼经验值 |
-| `commandString` | string | 配方的命令字符串表示 |
 
 ---
 

@@ -1,6 +1,16 @@
-# 实体事件
+# 实体事件 CraftTweaker API 参考
 
-## EntityJoinWorldEvent
+> Mod ID: `minecraft`
+> 前置条件: 无
+> 导入: `import crafttweaker.event.*;`
+
+实体相关事件，用于监听实体生成、受伤、死亡等行为。
+
+---
+
+## API 列表
+
+### EntityJoinWorldEvent（实体加入世界事件）
 
 > `import crafttweaker.event.EntityJoinWorldEvent;`
 
@@ -22,9 +32,7 @@ events.onEntityJoinWorld(function(event as EntityJoinWorldEvent) {
 });
 ```
 
----
-
-## EntityLivingSpawnEvent / EntityLivingExtendedSpawnEvent
+### EntityLivingSpawnEvent / EntityLivingExtendedSpawnEvent（实体生成事件）
 
 > `import crafttweaker.event.EntityLivingSpawnEvent;`
 > `import crafttweaker.event.EntityLivingExtendedSpawnEvent;`
@@ -48,9 +56,7 @@ events.onEntityJoinWorld(function(event as EntityJoinWorldEvent) {
 
 继承自 ILivingEvent 的 `entityLivingBase`。
 
----
-
-## EntityLivingAttackedEvent
+### EntityLivingAttackedEvent（实体被攻击事件）
 
 > `import crafttweaker.event.EntityLivingAttackedEvent;`
 
@@ -65,9 +71,7 @@ events.onEntityJoinWorld(function(event as EntityJoinWorldEvent) {
 
 继承自 ILivingEvent 的 `entityLivingBase`。
 
----
-
-## EntityLivingDamageEvent
+### EntityLivingDamageEvent（实体受伤事件）
 
 > `import crafttweaker.event.EntityLivingDamageEvent;`
 
@@ -82,9 +86,7 @@ events.onEntityJoinWorld(function(event as EntityJoinWorldEvent) {
 
 继承自 ILivingEvent 的 `entityLivingBase`。
 
----
-
-## EntityLivingDeathEvent
+### EntityLivingDeathEvent（实体死亡事件）
 
 > `import crafttweaker.event.EntityLivingDeathEvent;`
 
@@ -98,9 +100,7 @@ events.onEntityJoinWorld(function(event as EntityJoinWorldEvent) {
 
 继承自 ILivingEvent 的 `entityLivingBase`。
 
----
-
-## EntityLivingDeathDropsEvent
+### EntityLivingDeathDropsEvent（实体死亡掉落事件）
 
 > `import crafttweaker.event.EntityLivingDeathDropsEvent;`
 
@@ -126,9 +126,7 @@ event.drops = []; // 清空掉落
 event.addItem(<minecraft:iron_ingot>); // 添加物品
 ```
 
----
-
-## EntityLivingEquipmentChangeEvent
+### EntityLivingEquipmentChangeEvent（实体装备变化事件）
 
 > `import crafttweaker.event.EntityLivingEquipmentChangeEvent;`
 
@@ -144,9 +142,7 @@ event.addItem(<minecraft:iron_ingot>); // 添加物品
 
 继承自 ILivingEvent 的 `entityLivingBase`。
 
----
-
-## EntityLivingFallEvent
+### EntityLivingFallEvent（实体摔落事件）
 
 > `import crafttweaker.event.EntityLivingFallEvent;`
 
@@ -161,9 +157,7 @@ event.addItem(<minecraft:iron_ingot>); // 添加物品
 
 继承自 ILivingEvent 的 `entityLivingBase`。
 
----
-
-## EntityLivingHealEvent
+### EntityLivingHealEvent（实体回血事件）
 
 > `import crafttweaker.event.EntityLivingHealEvent;`
 
@@ -177,9 +171,7 @@ event.addItem(<minecraft:iron_ingot>); // 添加物品
 
 继承自 ILivingEvent 的 `entityLivingBase`。
 
----
-
-## EntityLivingHurtEvent
+### EntityLivingHurtEvent（实体受伤事件）
 
 > `import crafttweaker.event.EntityLivingHurtEvent;`
 
@@ -193,9 +185,7 @@ event.addItem(<minecraft:iron_ingot>); // 添加物品
 
 继承自 ILivingEvent 的 `entityLivingBase`。
 
----
-
-## EntityLivingJumpEvent
+### EntityLivingJumpEvent（实体跳跃事件）
 
 > `import crafttweaker.event.EntityLivingJumpEvent;`
 
@@ -205,9 +195,7 @@ event.addItem(<minecraft:iron_ingot>); // 添加物品
 
 继承自 ILivingEvent 的 `entityLivingBase`。
 
----
-
-## EntityLivingUpdateEvent
+### EntityLivingUpdateEvent（实体更新事件）
 
 > `import crafttweaker.event.EntityLivingUpdateEvent;`
 
@@ -217,9 +205,7 @@ event.addItem(<minecraft:iron_ingot>); // 添加物品
 
 继承自 ILivingEvent 的 `entityLivingBase`。
 
----
-
-## EntityMountEvent
+### EntityMountEvent（实体骑乘事件）
 
 > `import crafttweaker.event.EntityMountEvent;`
 
@@ -237,9 +223,7 @@ event.addItem(<minecraft:iron_ingot>); // 添加物品
 
 继承自 ILivingEvent 的 `entityLivingBase`。
 
----
-
-## EntityStruckByLightningEvent
+### EntityStruckByLightningEvent（实体被雷击事件）
 
 > `import crafttweaker.event.EntityStruckByLightningEvent;`
 
@@ -253,9 +237,7 @@ event.addItem(<minecraft:iron_ingot>); // 添加物品
 
 继承自 IEntityEvent 的 `entity`。
 
----
-
-## EntityTravelToDimensionEvent
+### EntityTravelToDimensionEvent（实体跨维度传送事件）
 
 > `import crafttweaker.event.EntityTravelToDimensionEvent;`
 
@@ -271,9 +253,7 @@ event.addItem(<minecraft:iron_ingot>); // 添加物品
 
 注：`event.entity.dimension` 可获取传送前的维度。
 
----
-
-## EnderTeleportEvent
+### EnderTeleportEvent（末影人传送事件）
 
 > `import crafttweaker.event.EnderTeleportEvent;`
 
@@ -290,9 +270,7 @@ event.addItem(<minecraft:iron_ingot>); // 添加物品
 
 继承自 ILivingEvent 的 `entityLivingBase`。
 
----
-
-## LivingExperienceDropEvent
+### LivingExperienceDropEvent（生物死亡掉落经验事件）
 
 > `import crafttweaker.event.LivingExperienceDropEvent;`
 
@@ -308,9 +286,7 @@ event.addItem(<minecraft:iron_ingot>); // 添加物品
 
 继承自 ILivingEvent 的 `entityLivingBase`。
 
----
-
-## LivingKnockBackEvent
+### LivingKnockBackEvent（生物被击退事件）
 
 > `import crafttweaker.event.LivingKnockBackEvent;`
 
