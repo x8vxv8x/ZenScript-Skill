@@ -1,0 +1,106 @@
+# Ore Dictionary API
+
+## IOreDict
+
+> `import crafttweaker.oredict.IOreDict;`
+
+通过 `oreDict` 全局关键字访问。
+
+### 获取 IOreDictEntry
+
+```zenscript
+oreDict.ingotIron;         // 点号语法
+oreDict.get("ingotIron");  // 方法调用
+oreDict["ingotIron"];      // 索引语法
+// 如果不存在则自动创建
+```
+
+### 检查矿辞是否存在
+
+```zenscript
+if (oreDict in "ingotIron") { ... }
+if (oreDict has "ingotIron") { ... }
+if (oreDict.contains("ingotIron")) { ... }
+```
+
+### 遍历所有矿辞
+
+```zenscript
+for entry in oreDict.entries { print(entry.name); }
+// 或直接遍历
+for entry in oreDict { print(entry.name); }
+```
+
+---
+
+## IOreDictEntry
+
+> `import crafttweaker.oredict.IOreDictEntry;`
+
+通过 `<ore:ingotIron>` 获取。IOreDictEntry 实现了 IIngredient 接口。
+
+### 属性
+
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| `name` | string | 矿辞名称 |
+| `items` | List\<IItemStack\> | 包含的物品列表 |
+| `itemArray` | IItemStack[] | 包含的物品数组 |
+| `firstItem` | IItemStack | 第一个物品 |
+| `empty` | bool | 是否为空 |
+
+### 方法
+
+| 方法 | 参数 | 返回 | 说明 |
+|------|------|------|------|
+| `.add(IItemStack...)` | IItemStack... | void | 添加一个或多个物品到矿辞 |
+| `.addItems(IItemStack[])` | IItemStack[] | void | 添加物品数组到矿辞 |
+| `.remove(IItemStack...)` | IItemStack... | void | 从矿辞移除一个或多个物品 |
+| `.removeItems(IItemStack[])` | IItemStack[] | void | 从矿辞移除物品数组 |
+| `.addAll(IOreDictEntry)` | IOreDictEntry | void | 将另一个矿辞的所有物品加入 |
+| `.mirror(IOreDictEntry)` | IOreDictEntry | void | 映射（当前矿辞的物品替换目标矿辞的所有物品） |
+| `.matches(IItemStack)` | IItemStack | bool | 是否匹配 |
+| `.has(IItemStack)` | IItemStack | bool | 是否包含 |
+
+---
+
+## WeightedOreDictEntry
+
+> `import crafttweaker.oredict.WeightedOreDictEntry;`
+
+WeightedOreDictEntry 是带有百分比权重的 IOreDictEntry，用于基于概率的操作（如掉落）。
+
+### 创建
+
+```zenscript
+val oreDictEntry = <ore:ingotGold>;
+// 使用 % 运算符或 .weight() 方法
+val weighted = oreDictEntry % 20;        // 20% 概率
+val weighted2 = oreDictEntry.weight(0.2); // 0.2 = 20%
+```
+
+### 属性
+
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| `entry` | IOreDictEntry | 关联的矿辞条目 |
+| `chance` | float | 概率（小数形式，如 0.2） |
+| `percent` | float | 概率（百分比形式，如 20.0） |
+
+---
+
+## 矿物词典操作
+
+```zenscript
+// 添加物品到矿辞（不存在则创建）
+<ore:ingotCopper>.add(<thermalfoundation:material:128>);
+
+// 从矿辞移除
+<ore:sand>.remove(<minecraft:sand>);
+
+// 将一个矿辞的所有物品加入另一个
+<ore:ingotMyMetal>.addAll(<ore:ingotIron>);
+
+// 映射：A 的物品全部替换 B 的物品
+<ore:ingotA>.mirror(<ore:ingotB>);
+```

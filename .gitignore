@@ -3,3 +3,5 @@
 .github
 .agents
 .trae
+docs
+scrape_docs.py

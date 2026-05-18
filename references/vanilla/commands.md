@@ -1,0 +1,239 @@
+# Commands API
+
+## CT 命令速查
+
+命令前缀：`/crafttweaker` 或 `/ct`（别名 `/minetweaker` `/mt`）
+
+| 命令 | 用途 |
+|------|------|
+| `/ct help` | 查看指令帮助 |
+| `/ct hand` | 打印手中物品 ID 和矿辞，复制到剪贴板 |
+| `/ct syntax` | 检查脚本语法错误（不会应用更改，需重启） |
+| `/ct conflict` | 打印冲突配方到日志（需客户端安装 JEI） |
+| `/ct inventory` | 打印物品栏所有物品 ID 到日志 |
+| `/ct liquids` | 打印所有流体信息到日志 |
+| `/ct seeds` | 打印打草掉落物及权重到日志 |
+| `/ct docs` / `/ct wiki` | 打开 CrT wiki |
+| `/ct biomes` | 列出所有生物群系 |
+| `/ct biomeTypes` | 列出所有生物群系类型 |
+| `/ct blockinfo` | 激活/停用方块读取器（右键方块显示名称、Meta、TileEntity 数据） |
+| `/ct blocks` | 输出所有方块到日志 |
+| `/ct bugs` | 打开 GitHub 问题追踪器 |
+| `/ct discord` | 打开 Discord 服务器链接 |
+| `/ct dumpzs` | 输出 ZenScript dump 到 minecraft 目录（支持 log/html/json） |
+| `/ct entities` | 输出所有实体到日志 |
+| `/ct give <item>` | 给予物品（支持 CrT 括号语法和 `.withTag()`） |
+| `/ct json` / `/ct json escaped` | 打印手中物品 NBT 为 JSON（可点击复制） |
+| `/ct log` | 发送可点击链接打开 crafttweaker.log |
+| `/ct mods` | 输出所有 mod 及版本到日志和聊天 |
+| `/ct names [category]` | 输出所有物品到日志（可选 category：burntime/creativetabs/damageable/display/enchantability/foodvalue/maxdamage/maxstack/maxuse/modid/rarity/repairable/repaircost/saturationvalue/unloc） |
+| `/ct nbt` | 输出所看方块或手持物品的 NBT 到日志 |
+| `/ct oredict [name]` | 输出所有矿辞条目到日志（指定名称则输出该矿辞的物品） |
+| `/ct potions` | 输出所有药水到日志 |
+| `/ct recipeNames [modid]` | 输出所有配方名到日志（可选 modid 过滤） |
+| `/ct recipes` | 输出所有工作台配方到日志 |
+| `/ct recipes hand` | 输出手中物品的所有配方到日志 |
+| `/ct recipes furnace` | 输出所有熔炉配方到日志 |
+| `/ct scripts` | 发送可点击链接打开脚本目录 |
+| `/ct zslint` | 启动 zslint socket |
+
+---
+
+## ICommandSender
+
+> `import crafttweaker.command.ICommandSender;`
+
+ICommandSender 是所有实体和玩家的基接口。IEntity 和 IPlayer 都实现了此接口。
+
+### 属性
+
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| `displayName` | string | 显示名称 |
+| `position` | IBlockPos | 位置 |
+| `world` | IWorld | 所在世界 |
+| `server` | IServer | 服务器 |
+
+### 方法
+
+| 方法 | 参数 | 返回 | 说明 |
+|------|------|------|------|
+| `.sendMessage(string)` | string | void | 发送消息 |
+| `.sendRichTextMessage(ITextComponent)` | ITextComponent | void | 发送富文本消息 |
+
+---
+
+## ICommand
+
+> `import crafttweaker.command.ICommand;`
+
+ICommand 代表一个游戏内的命令。
+
+### 属性
+
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| `name` | string | 命令名 |
+| `aliases` | List\<String\> | 命令别名列表 |
+
+### 方法
+
+| 方法 | 参数 | 返回 | 说明 |
+|------|------|------|------|
+| `.getUsage(ICommandSender)` | ICommandSender | string | 获取用法说明 |
+| `.execute(IServer, ICommandSender, String[])` | IServer, ICommandSender, String[] | void | 执行命令 |
+| `.checkPermission(IServer, ICommandSender)` | IServer, ICommandSender | bool | 检查权限 |
+| `.getTabCompletions(IServer, ICommandSender, String[], @Optional IBlockPos)` | IServer, ICommandSender, String[], IBlockPos（可选） | List | 获取 Tab 补全 |
+| `.isUsernameIndex(String[], int)` | String[], int | bool | 检查参数索引是否为用户名 |
+
+---
+
+## ICommandManager
+
+> `import crafttweaker.command.ICommandManager;`
+
+ICommandManager 用于管理命令，通过 `server.commandManager` 获取。
+
+### 属性
+
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| `commands` | Map\<String, ICommand\> | 所有注册的命令 |
+
+### 方法
+
+| 方法 | 参数 | 返回 | 说明 |
+|------|------|------|------|
+| `.executeCommand(ICommandSender, string)` | ICommandSender, string | int | 执行命令 |
+| `.getTabCompletions(ICommandSender, string, @Optional IBlockPos)` | ICommandSender, string, IBlockPos（可选） | List\<String\> | 获取 Tab 补全 |
+| `.getPossibleCommands(ICommandSender)` | ICommandSender | List\<ICommand\> | 获取可用命令列表 |
+
+---
+
+## ZenUtils 扩展（需安装 ZenUtils）
+
+> 版本要求: 1.10.0+
+
+### ICommandManager 扩展
+
+对 `crafttweaker.command.ICommandManager` 的扩展。
+
+| 方法 | 参数 | 返回 | 说明 |
+|------|------|------|------|
+| `executeCommandSilent(ICommandSender, String)` | ICommandSender, String | int | 静默执行命令，不发送反馈消息 |
+
+### 自定义命令系统
+
+#### ZenCommand
+
+> `import mods.zenutils.command.ZenCommand;`
+
+| 方法/属性 | 参数 | 返回 | 说明 |
+|------|------|------|------|
+| `ZenCommand.create(String)` | String（命令名） | ZenCommand | 创建命令实例 |
+| `register()` | 无 | void | 注册命令到游戏（必须调用，否则命令不生效） |
+| `name` | 无 | String | 获取命令名 |
+| `getCommandUsage` | IGetCommandUsage | - | 设置用法说明（返回未本地化键名） |
+| `execute` | ICommandExecute | - | 设置执行逻辑 |
+| `requiredPermissionLevel` | int | - | 设置权限等级（默认 4） |
+| `tabCompletionGetters` | IGetTabCompletion[] | - | 设置 Tab 补全 |
+
+```zenscript
+import mods.zenutils.command.ZenCommand;
+import mods.zenutils.command.CommandUtils;
+
+var cmd = ZenCommand.create("hello");
+cmd.execute = function(command, server, sender, args) {
+    CommandUtils.getCommandSenderAsPlayer(sender).sendMessage("Hello!");
+};
+cmd.register();
+```
+
+#### ZenCommandTree
+
+> `import mods.zenutils.command.ZenCommandTree;`
+
+用于创建带子命令的命令树。具体用法参见 wiki。
+
+#### IGetCommandUsage（函数式接口）
+
+> `import mods.zenutils.command.IGetCommandUsage;`
+
+接收 `ZenUtilsCommandSender`，返回 `string`（未本地化的用法键名）。可通过语言文件或 `game.setLocalization` 本地化。
+
+#### ICommandExecute（函数式接口）
+
+> `import mods.zenutils.command.ICommandExecute;`
+
+| 参数 | 类型 | 说明 |
+|------|------|------|
+| command | ZenCommand | 正在执行的命令 |
+| server | IServer | 执行命令的服务器 |
+| sender | ZenUtilsCommandSender | 执行命令的发送者 |
+| args | String[] | 命令参数 |
+
+#### IGetTabCompletion（函数式接口）
+
+> `import mods.zenutils.command.IGetTabCompletion;`
+
+| 参数 | 类型 | 说明 |
+|------|------|------|
+| server | IServer | 服务器 |
+| sender | ZenUtilsCommandSender | 命令发送者 |
+| pos | IBlockPos | @Nullable 目标位置 |
+
+返回 `StringList`。
+
+| 预置方法 | 返回 | 说明 |
+|------|------|------|
+| `IGetTabCompletion.empty()` | StringList | 空列表 |
+| `IGetTabCompletion.item()` | StringList | 所有物品 |
+| `IGetTabCompletion.block()` | StringList | 所有方块 |
+| `IGetTabCompletion.player()` | StringList | 所有在线玩家 |
+| `IGetTabCompletion.potion()` | StringList | 所有药水 |
+| `IGetTabCompletion.x()` | StringList | 目标位置 X 坐标 |
+| `IGetTabCompletion.y()` | StringList | 目标位置 Y 坐标 |
+| `IGetTabCompletion.z()` | StringList | 目标位置 Z 坐标 |
+
+#### CommandUtils（命令工具）
+
+> `import mods.zenutils.command.CommandUtils;`
+
+| 方法 | 参数 | 返回 | 说明 |
+|------|------|------|------|
+| `getCommandSenderAsPlayer(ZenUtilsCommandSender)` | ZenUtilsCommandSender | IPlayer | 将命令发送者转为玩家 |
+| `getPlayer(IServer, ZenUtilsCommandSender, String)` | IServer, ZenUtilsCommandSender, String | IPlayer | 通过目标选择器获取单个玩家 |
+| `getPlayers(IServer, ZenUtilsCommandSender, String)` | 同上 | List\<IPlayer\> | 获取多个玩家 |
+| `getEntity(IServer, ZenUtilsCommandSender, String)` | 同上 | IEntity | 获取单个实体 |
+| `getEntityList(IServer, ZenUtilsCommandSender, String)` | 同上 | List\<IEntity\> | 获取多个实体 |
+| `getItemByText(ZenUtilsCommandSender, String)` | ZenUtilsCommandSender, String | IItemDefinition | 通过文本 ID 查找物品定义 |
+| `getBlockByText(ZenUtilsCommandSender, String)` | ZenUtilsCommandSender, String | IBlockDefinition | 通过文本 ID 查找方块定义 |
+| `notifyWrongUsage(String)` | String | void | 抛出用法错误（停止命令执行） |
+| `notifyWrongUsage(String, String...)` | String, String... | void | 抛出带替换值的用法错误 |
+| `notifyWrongUsage(ZenCommand, ZenUtilsCommandSender)` | ZenCommand, ZenUtilsCommandSender | void | 使用命令定义的用法信息抛出错误 |
+
+#### ZenUtilsCommandSender
+
+> `import mods.zenutils.command.ZenUtilsCommandSender;`
+
+继承 `ICommandSender`，所有 `ICommandSender` 方法可用。**禁止 instanceof 或强转为 ICommandSender 子类**，始终返回 false 或抛出 ClassCastException。使用 `CommandUtils.getCommandSenderAsPlayer` 获取玩家。
+
+#### 使用示例
+
+```zenscript
+import mods.zenutils.command.ZenCommand;
+import mods.zenutils.command.CommandUtils;
+import mods.zenutils.command.IGetTabCompletion;
+
+var cmd = ZenCommand.create("greet");
+cmd.requiredPermissionLevel = 0; // 无需权限
+cmd.getCommandUsage = function(sender) {
+    return "/greet <player>";
+};
+cmd.execute = function(command, server, sender, args) {
+    var player = CommandUtils.getPlayer(server, sender, args[0]);
+    player.sendMessage("你好, " ~ player.name ~ "!");
+};
+cmd.tabCompletionGetters = [IGetTabCompletion.player()];
+cmd.register();
+```

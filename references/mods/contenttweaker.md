@@ -400,6 +400,151 @@ testTrait.register();
 
 ---
 
+## ZenUtils 扩展（需安装 ZenUtils）
+
+> `import mods.zenutils.cotx.*;`
+
+### ExpandVanillaFactory（工厂方法扩展）
+
+对 `VanillaFactory` 的扩展。
+
+| 方法 | 参数 | 返回 | 说明 |
+|------|------|------|------|
+| `VanillaFactory.createEnergyItem(String, int, int, int)` | unlocalizedName, capacity, maxReceive, maxExtract | EnergyItem | 创建能量物品 |
+| `VanillaFactory.createExpandBlock(String, IBlockMaterialDefinition)` | unlocalizedName, blockMaterial | ExpandBlock | 创建扩展方块 |
+| `VanillaFactory.createExpandItem(String)` | unlocalizedName | ExpandItem | 创建扩展物品 |
+| `VanillaFactory.createActualTileEntity(int)` | id | TileEntity | 创建自定义方块实体 |
+
+### ExpandItem（扩展物品）
+
+> `import mods.zenutils.cotx.Item;`
+
+继承 ContentTweaker 的 `ItemRepresentation`。
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `onEntityItemUpdate` | IEntityItemUpdate | null | 物品实体更新回调。返回 true 跳过后续更新 |
+| `noRepair` | bool | false | 是否不可修复 |
+| `getEntityLifeSpan` | IGetEntityLifeSpan | null | 掉落物存活时间回调。返回 tick 数（默认 6000） |
+
+#### IEntityItemUpdate（函数式接口）
+
+> `import mods.zenutils.cotx.IEntityItemUpdate;`
+
+参数：`IEntityItem`。返回 `bool`（true=跳过后续更新）。
+
+#### IGetEntityLifeSpan（函数式接口）
+
+> `import mods.zenutils.cotx.IGetEntityLifeSpan;`
+
+参数：`IItemStack`, `IWorld`。返回 `int`（tick 数，默认 6000）。
+
+### ExpandBlock（扩展方块）
+
+> `import mods.zenutils.cotx.Block;`
+
+继承 ContentTweaker 的 `BlockRepresentation`。
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `onBlockActivated` | IBlockActivated | null | 方块右键交互回调 |
+| `onEntityWalk` | IEntityWalk | null | 实体踩踏回调 |
+| `onEntityCollidedWithBlock` | IEntityCollided | null | 实体碰撞回调 |
+| `tileEntity` | TileEntity | null | 关联的方块实体 |
+
+#### IBlockActivated（函数式接口）
+
+> `import mods.zenutils.cotx.IBlockActivated;`
+
+| 参数 | 类型 |
+|------|------|
+| world | IWorld |
+| pos | IBlockPos |
+| state | ICTBlockState |
+| player | ICTPlayer |
+| hand | Hand |
+| facing | Facing |
+| blockHit | Position3f |
+
+返回 `bool`。
+
+#### IEntityWalk（函数式接口）
+
+> `import mods.zenutils.cotx.IEntityWalk;`
+
+参数：`IWorld`, `IBlockPos`, `IEntity`。返回 void。
+
+#### IEntityCollided（函数式接口）
+
+> `import mods.zenutils.cotx.IEntityCollided;`
+
+参数：`IWorld`, `IBlockPos`, `ICTBlockState`, `IEntity`。返回 void。
+
+### EnergyItem（能量物品）
+
+> `import mods.zenutils.cotx.EnergyItem;`
+
+继承 `ExpandItem`，无额外 ZenProperties。通过 `VanillaFactory.createEnergyItem` 创建。
+
+### TileEntity（方块实体定义）
+
+> `import mods.zenutils.cotx.TileEntity;`
+
+用于定义自定义方块实体的行为。通过 `VanillaFactory.createActualTileEntity` 创建。
+
+### TileEntityInGame（方块实体实例）
+
+> `import mods.zenutils.cotx.TileEntityInGame;`
+> 版本要求: 1.4.0+
+
+表示游戏中的自定义方块实体实例。通过 `world.getCustomTileEntity(IBlockPos)` 获取。
+
+| 属性 | 类型 | 读/写 | 说明 |
+|------|------|------|------|
+| `id` | int | 读 | 方块实体 ID |
+| `data` | IData | 读/写 | 自定义数据 |
+
+| 方法 | 参数 | 返回 | 说明 |
+|------|------|------|------|
+| `updateCustomData(IData)` | IData | void | 更新自定义数据 |
+
+### LateSetCoTFunction（延迟设置函数）
+
+> 版本要求: 1.8.0+
+
+允许在 CraftTweaker 脚本中设置 ContentTweaker 物品/方块的函数（支持脚本重载）。
+
+#### Bracket Handlers
+
+| Bracket | 返回 | 说明 |
+|------|------|------|
+| `<cotItem:name>` | IItemRepresentation | 获取 ContentTweaker 物品 |
+| `<cotBlock:name>` | IBlockRepresentation | 获取 ContentTweaker 方块 |
+
+#### 可设置属性
+
+| 属性 | 回调签名 | 说明 |
+|------|------|------|
+| `IItemRepresentation.onItemUse` | (player, world, pos, hand, facing, blockHit) → ActionResult | 物品使用回调 |
+
+#### 静态方法
+
+| 方法 | 参数 | 返回 | 说明 |
+|------|------|------|------|
+| `VanillaFactory.putTileEntityTickFunction(int, ITileEntityTick)` | id, tickFunction | void | 注册方块实体 tick 函数（可重载） |
+
+```zenscript
+#loader crafttweaker reloadable
+import mods.zenutils.cotx.LateSetCoTFunction;
+
+<cotItem:test_item>.onItemUse = function(player, world, pos, hand, facing, blockHit) {
+    // 自定义物品使用逻辑
+    return ActionResult.success();
+};
+```
+
+---
+
 ## 常见错误
 
 | 错误 | 原因 | 修复 |

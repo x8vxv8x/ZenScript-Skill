@@ -1,0 +1,167 @@
+# Liquids API
+
+## ILiquidStack
+
+> `import crafttweaker.liquid.ILiquidStack;`
+
+ILiquidStack 由流体定义和可选的 tag/数量组成。ILiquidStack 实现了 IIngredient 接口。
+
+### 获取 ILiquidStack
+
+```zenscript
+<liquid:water>                    // 尖括号
+<liquid:lava> * 1000              // 带数量（mB）
+<liquid:lava>.withTag(DATA)       // 带 NBT 数据
+<minecraft:water_bucket>.liquid   // 从桶获取
+```
+
+### 属性
+
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| `name` | string | 流体名称（未本地化） |
+| `displayName` | string | 显示名称（已本地化） |
+| `amount` | int | 数量（mB） |
+| `luminosity` | int | 亮度 |
+| `density` | int | 密度 |
+| `temperature` | int | 温度 |
+| `viscosity` | int | 粘度 |
+| `gaseous` | bool | 是否气体 |
+| `tag` | IData | NBT 数据 |
+| `definition` | ILiquidDefinition | 流体定义 |
+
+### 方法
+
+| 方法 | 参数 | 返回 | 说明 |
+|------|------|------|------|
+| `.amount(int)` | int | ILiquidStack | 设置数量 |
+| `.withAmount(int)` | int | ILiquidStack | 设置数量（同上） |
+| `stack * n` | int | ILiquidStack | 设置数量 |
+| `.matches(ILiquidStack)` | ILiquidStack | bool | 是否匹配 |
+| `.contains(ILiquidStack)` | ILiquidStack | bool | 是否包含 |
+
+### IIngredient 限制
+
+- ILiquidStack 实现了 IIngredient，但有以下限制：
+- 不能标记（.marked 无效）
+- .items 返回空列表
+- .itemArray 返回空数组
+- .liquids 返回自身
+- 不能有 Transformer
+- 不能有条件（.only 无效）
+- 与物品匹配始终返回 false
+
+---
+
+## ILiquidDefinition
+
+> `import crafttweaker.liquid.ILiquidDefinition;`
+
+ILiquidDefinition 定义流体本身，与 ILiquidStack 不同，它允许修改流体属性。通过 `liquid.definition` 获取。
+
+### 创建 ILiquidStack
+
+```zenscript
+val def = <liquid:lava>.definition;
+val bucketOfLava = def * 1000;  // 等同于 <liquid:lava> * 1000
+```
+
+### 属性（可读写）
+
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| `name` | string | 流体名称（未本地化，只读） |
+| `displayName` | string | 显示名称（已本地化，只读） |
+| `luminosity` | int | 亮度（可读写） |
+| `density` | int | 密度（可读写） |
+| `temperature` | int | 温度（可读写） |
+| `viscosity` | int | 粘度（可读写） |
+| `gaseous` | bool | 是否气体（可读写） |
+
+注意：ZenSetter 只修改流体注册表，不影响世界中的流体。
+
+---
+
+## WeightedLiquidStack
+
+> `import crafttweaker.item.WeightedLiquidStack;`
+
+WeightedLiquidStack 是带有百分比权重的 ILiquidStack，用于基于概率的操作。
+
+### 创建
+
+```zenscript
+val liquidStack = <liquid:lava>;
+val weighted = liquidStack % 20;        // 20% 概率
+val weighted2 = liquidStack.weight(0.2); // 0.2 = 20%
+```
+
+### 属性
+
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| `stack` | ILiquidStack | 关联的流体堆叠 |
+| `chance` | float | 概率（小数形式，如 0.2） |
+| `percent` | float | 概率（百分比形式，如 20.0） |
+
+---
+
+## 流体转换
+
+```zenscript
+// 桶物品转流体
+<liquid:water> * 1000  // 1000mB 水
+<minecraft:water_bucket>.liquid  // 从桶获取
+```
+
+---
+
+## 配方中使用流体
+
+```zenscript
+// 流体可作为 IIngredient 使用
+recipes.addShaped("test", <minecraft:stone>, [
+    [<liquid:water>, null, null],
+    [null, null, null],
+    [null, null, null]
+]);
+
+// 或使用桶
+recipes.addShaped("test2", <minecraft:stone>, [
+    [<minecraft:water_bucket>, null, null],
+    [null, null, null],
+    [null, null, null]
+]);
+```
+
+---
+
+## ZenUtils 扩展（需安装 ZenUtils）
+
+> `import mods.zenutils.LiquidHandler;`
+> 版本要求: 1.9.8+
+
+### CrTLiquidHandler（流体处理器）
+
+通过 `world.getLiquidHandler(IBlockPos)` 获取方块实体的流体容器。
+
+| 方法 | 参数 | 返回 | 说明 |
+|------|------|------|------|
+| `world.getLiquidHandler(IBlockPos, @Optional IFacing)` | IBlockPos, IFacing（可选） | LiquidHandler | 获取方块实体的流体容器 |
+| `tankProperties` | 无 | List\<ILiquidTankProperties\> | 获取流体槽信息（只读） |
+| `drain(int, bool)` | int（最大量）, bool（是否执行） | ILiquidStack | 排出流体。false 时仅模拟 |
+| `drain(ILiquidStack, bool)` | ILiquidStack, bool | ILiquidStack | 排出指定类型流体。false 时仅模拟 |
+| `fill(ILiquidStack, bool)` | ILiquidStack, bool | int | 填充流体。返回实际填充量。false 时仅模拟 |
+
+### ILiquidTankProperties（流体槽信息）
+
+> `import mods.zenutils.ILiquidTankProperties;`
+
+| 属性/方法 | 参数 | 返回 | 说明 |
+|------|------|------|------|
+| `contents` | 无 | ILiquidStack | 流体槽内容的副本，可能为 null |
+| `capacity` | 无 | int | 流体槽最大容量（mB） |
+| `canFill` | 无 | bool | 是否可以填充 |
+| `canDrain` | 无 | bool | 是否可以排出 |
+| `canFillFluidType(ILiquidStack)` | ILiquidStack | bool | 检查是否可以填充指定类型的流体（不考虑当前状态） |
+| `canDrainFluidType(ILiquidStack)` | ILiquidStack | bool | 检查是否可以排出指定类型的流体（不考虑当前状态） |
