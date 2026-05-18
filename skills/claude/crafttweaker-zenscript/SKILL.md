@@ -20,7 +20,7 @@ paths: "**/*.zs"
 3. **物品 ID 不确定时，提示用户在游戏中输入 `/ct hand` 获取准确 ID。**
 4. **写完脚本后，提示用户运行 `/ct syntax` 检查语法错误。**
 5. **不要猜测模组专属 API。** 如果用户要求修改某个模组的配方但你不确定 API，查阅 `references/mods/` 下是否有对应文件，没有则告知用户需要手动查证。
-6. **多向用户提问以获取更多信息。**
+6. **如果有多个方法或API可以达到同样的效果，询问用户使用哪个方法**
 
 ## 类型层级
 
@@ -46,6 +46,13 @@ IIngredient（接口，配方输入槽接受的类型）
 <blockstate:minecraft:stone>// 方块状态 IBlockState
 <potion:minecraft:speed>    // 药水效果 IPotion
 ```
+
+## API / 方法类型
+
+- @ZenGetter：只读属性，使用 `.{属性名}` 访问
+- @ZenSetter：可写属性，使用 `.{属性名} = {值}`
+- @ZenGetter / @ZenSetter：读写属性，使用 `.{属性名}` 访问，`.{属性名} = {值}` 修改
+- 方法：使用 `.{方法签名}({参数})` 调用
 
 ## 快速索引(`${CLAUDE_SKILL_DIR}/references/`目录下)
 
