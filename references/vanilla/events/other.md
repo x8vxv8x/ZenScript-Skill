@@ -181,9 +181,15 @@ events.onCommand(function(event as CommandEvent) {
 
 > `import crafttweaker.event.RenderTickEvent;`
 
-渲染 Tick 时触发。
+客户端渲染 Tick 时触发。
 
 实现接口：ITickEvent
+
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| `renderTickTime` | float | 渲染 Tick 时间（插值值） |
+| `phase` | string | Tick 阶段，值为 `START` 或 `END` |
+| `side` | string | 执行端，值为 `CLIENT` 或 `SERVER` |
 
 ### 物品事件
 
@@ -262,13 +268,33 @@ events.onCommand(function(event as CommandEvent) {
 
 > `import crafttweaker.event.PotionBrewPreEvent;`
 
-药水酿造前触发。
+药水酿造前触发。可取消以阻止酿造。取消后若修改了物品，则会自动触发 `PotionBrewPostEvent`，可用于模拟自定义酿造。
+
+实现接口：IPotionBrewEvent, IEventCancelable
+
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| `length` | int | 酿造台中的物品数量 |
+
+方法：
+- `event.getItem(int index)` 获取酿造台中指定索引的物品（IItemStack），索引超出 `length` 时返回空 IItemStack
+- `event.setItem(int index, IItemStack item)` 替换酿造台中指定索引的物品，索引超出 `length` 时无效
 
 #### PotionBrewPostEvent（药水酿造后事件）
 
 > `import crafttweaker.event.PotionBrewPostEvent;`
 
-药水酿造后触发。
+药水酿造后立即触发，此时输出物品已被替换。若 `PotionBrewPreEvent` 被取消但物品被修改，此事件仍会触发。若 Pre 事件被取消且未修改物品，则此事件**不会**触发。
+
+实现接口：IPotionBrewEvent
+
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| `length` | int | 酿造台中的物品数量 |
+
+方法：
+- `event.getItem(int index)` 获取酿造台中指定索引的物品（IItemStack）
+- `event.setItem(int index, IItemStack item)` 替换酿造台中指定索引的物品
 
 ### 投射物命中事件
 
@@ -276,19 +302,61 @@ events.onCommand(function(event as CommandEvent) {
 
 > `import crafttweaker.event.ProjectileImpactArrowEvent;`
 
-箭矢命中时触发。
+箭矢命中实体时触发（在伤害计算之前）。可取消以阻止命中处理。可通过属性调整伤害、击退力度、拾取状态和暴击判定。
+
+实现接口：IProjectileImpactEvent, IEventCancelable
+
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| `arrow` | IEntity | 箭矢实体 |
+| `shooter` | IEntity | 射手实体 |
+| `damage` | double | 伤害值（可设置） |
+| `knockbackStrength` | int | 击退力度（仅可设置） |
+| `isCritical` | boolean | 是否暴击（可设置） |
+| `pickupStatus` | string | 拾取状态 |
+| `rayTrace` | IRayTraceResult | 射线追踪结果 |
+
+方法：
+- `event.setPickupDisallowed()` 禁止拾取箭矢
+- `event.setPickupAllowed()` 允许拾取箭矢
+- `event.setPickupCreative()` 仅在创造模式下允许拾取
+
+继承自 IProjectileImpactEvent 的 `entity`（IEntity）。
 
 #### ProjectileImpactFireballEvent（火球命中事件）
 
 > `import crafttweaker.event.ProjectileImpactFireballEvent;`
 
-火球命中时触发。
+火球命中实体时触发（在伤害计算之前）。可取消。
+
+实现接口：IProjectileImpactEvent, IEventCancelable
+
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| `fireball` | IEntity | 火球实体 |
+| `shooter` | IEntityLivingBase | 射手实体 |
+| `accelerationX` | double | X 轴加速度（可设置） |
+| `accelerationY` | double | Y 轴加速度（可设置） |
+| `accelerationZ` | double | Z 轴加速度（可设置） |
+| `rayTrace` | IRayTraceResult | 射线追踪结果 |
+
+继承自 IProjectileImpactEvent 的 `entity`（IEntity）。
 
 #### ProjectileImpactThrowableEvent（投掷物命中事件）
 
 > `import crafttweaker.event.ProjectileImpactThrowableEvent;`
 
-投掷物（如雪球、末影珍珠）命中时触发。
+投掷物（如雪球、末影珍珠）命中时触发（在伤害计算之前）。可取消。
+
+实现接口：IProjectileImpactEvent, IEventCancelable
+
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| `throwable` | IEntityThrowable | 投掷物实体 |
+| `thrower` | IEntityLivingBase | 投掷者 |
+| `rayTrace` | IRayTraceResult | 射线追踪结果 |
+
+继承自 IProjectileImpactEvent 的 `entity`（IEntity）。
 
 ### 矿车事件
 
@@ -296,13 +364,29 @@ events.onCommand(function(event as CommandEvent) {
 
 > `import crafttweaker.event.MinecartCollisionEvent;`
 
-矿车碰撞时触发。
+矿车与实体碰撞时触发。
+
+实现接口：IMinecartEvent
+
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| `collider` | IEntity | 碰撞的实体 |
+| `minecart` | IEntity | 矿车实体 |
 
 #### MinecartInteractEvent（矿车交互事件）
 
 > `import crafttweaker.event.MinecartInteractEvent;`
 
-玩家与矿车交互时触发。
+玩家与矿车交互时触发。可取消以阻止打开容器。
+
+实现接口：IMinecartEvent, IEventCancelable
+
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| `player` | IPlayer | 交互的玩家 |
+| `item` | IItemStack | 手持物品 |
+| `hand` | string | 使用的手 |
+| `minecart` | IEntity | 矿车实体 |
 
 ### 睡觉事件
 
@@ -310,13 +394,55 @@ events.onCommand(function(event as CommandEvent) {
 
 > `import crafttweaker.event.SleepingTimeCheckEvent;`
 
-睡觉时间检查时触发。
+检查睡觉中的玩家是否可以继续睡觉时触发。
+
+结果说明：
+- **default**：使用原版逻辑（`World.isDaytime`）
+- **allow**：强制允许玩家继续睡觉
+- **deny**：在此事件中被**忽略**，不起作用
+
+此事件允许你让玩家继续睡觉，但不允许你阻止他们睡觉。
+
+实现接口：IEventPositionable, IPlayerEvent, IEventHasResult
+
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| `result` | string | 事件结果，值为 `default`、`deny` 或 `allow` |
+| `player` | IPlayer | 睡觉的玩家 |
+
+方法：
+- `event.deny()` 设置结果为 `deny`
+- `event.allow()` 设置结果为 `allow`
+- `event.default()` 设置结果为 `default`
+
+继承自 IEventPositionable 的 `position`、`x`、`y`、`z`；继承自 IPlayerEvent 的 `entityLivingBase`。
 
 #### SleepingLocationCheckEvent（睡觉位置检查事件）
 
 > `import crafttweaker.event.SleepingLocationCheckEvent;`
 
-睡觉位置检查时触发。
+检查睡觉中的玩家是否可以在当前位置继续睡觉时触发。
+
+结果说明：
+- **default**：使用原版床方块逻辑
+- **allow**：强制允许玩家继续睡觉
+- **deny**：在此事件中被**忽略**，不起作用
+
+此事件允许你让玩家继续睡觉，但不允许你绕过默认的床逻辑。
+
+实现接口：IEventPositionable, IPlayerEvent, IEventHasResult
+
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| `result` | string | 事件结果，值为 `default`、`deny` 或 `allow` |
+| `player` | IPlayer | 睡觉的玩家 |
+
+方法：
+- `event.deny()` 设置结果为 `deny`
+- `event.allow()` 设置结果为 `allow`
+- `event.default()` 设置结果为 `default`
+
+继承自 IEventPositionable 的 `position`、`x`、`y`、`z`；继承自 IPlayerEvent 的 `entityLivingBase`。
 
 ### 其他事件
 
@@ -339,11 +465,33 @@ events.onCommand(function(event as CommandEvent) {
 
 生物破坏方块（如苦力怕爆炸、末影人搬方块等）时触发。
 
+实现接口：ILivingEvent, IEventHasResult
+
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| `result` | string | 事件结果，值为 `default`、`deny` 或 `allow` |
+
+方法：
+- `event.deny()` 阻止破坏
+- `event.allow()` 允许破坏
+- `event.default()` 使用原版逻辑
+
+继承自 ILivingEvent 的 `entityLivingBase`。
+
 #### LootingLevelEvent（抢夺等级事件）
 
 > `import crafttweaker.event.LootingLevelEvent;`
 
-抢夺等级判定时触发。
+生物被杀死时计算抢夺等级触发。可增加、减少或保持抢夺等级。
+
+实现接口：ILivingEvent
+
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| `lootingLevel` | int | 抢夺等级（可设置） |
+| `damageSource` | IDamageSource | 伤害来源 |
+
+继承自 ILivingEvent 的 `entityLivingBase`。
 
 ---
 

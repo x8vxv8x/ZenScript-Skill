@@ -33,6 +33,16 @@
 | `name` | string | 配方名称 |
 | `commandString` | string | 配方的命令字符串表示 |
 
+#### 方法
+
+```zenscript
+// 获取配方名称（等同于 name 属性）
+rec.getName();
+
+// 获取配方的命令字符串表示（等同于 commandString 属性）
+rec.toCommandString();
+```
+
 ### ICraftingInventory（合成容器）
 
 > `import crafttweaker.recipes.ICraftingInventory;`

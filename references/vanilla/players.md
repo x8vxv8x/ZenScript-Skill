@@ -30,9 +30,11 @@ IPlayer 继承 IEntityLivingBase，IEntityLivingBase 继承 IEntity。
 | `maxHealth` | float | 最大生命值 |
 | `foodLevel` | int | 饥饿值 |
 | `saturation` | float | 饱和度 |
-| `isCreative` | bool | 是否创造模式 |
+| `creative` | bool | 是否创造模式 |
+| `isCreative` | bool | 是否创造模式（同 creative） |
 | `isSpectator` | bool | 是否旁观者模式 |
-| `isAdventure` | bool | 是否冒险模式 |
+| `adventure` | bool | 是否冒险模式 |
+| `isAdventure` | bool | 是否冒险模式（同 adventure） |
 | `isSurvival` | bool | 是否生存模式 |
 | `isFlying` | bool | 是否飞行 |
 | `isSleeping` | bool | 是否睡觉 |

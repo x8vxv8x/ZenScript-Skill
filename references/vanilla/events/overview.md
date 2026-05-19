@@ -156,17 +156,43 @@ events.onPlayerCrafted(function(event as PlayerCraftedEvent) {
 
 投射物命中事件的基础接口。
 
+继承自 IEntityEvent。
+
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| `rayTrace` | IRayTraceResult | 射线追踪结果 |
+| `entity` | IEntity | 投射物实体（继承自 IEntityEvent） |
+
 ### IMinecartEvent
 
 矿车事件的基础接口。
+
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| `minecart` | IEntity | 矿车实体 |
 
 ### IPotionBrewEvent
 
 药水酿造事件的基础接口。
 
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| `length` | int | 酿造台中的物品数量 |
+
+方法：
+- `event.getItem(int index)` 获取酿造台中指定索引的物品（IItemStack），索引超出 `length` 时返回空 IItemStack
+- `event.setItem(int index, IItemStack item)` 替换酿造台中指定索引的物品，索引超出 `length` 时无效
+
 ### IProcessableEvent
 
-可处理事件的基础接口。
+可处理事件的基础接口。这些事件在处理完成后应标记为已处理，其他事件处理器不应再修改。
+
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| `processed` | bool | 是否已处理 |
+
+方法：
+- `event.process()` 将事件标记为已处理
 
 ---
 

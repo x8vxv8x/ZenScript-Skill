@@ -25,6 +25,13 @@
 | `xp` | float | 烧炼经验值 |
 | `commandString` | string | 配方的命令字符串表示 |
 
+#### 方法
+
+```zenscript
+// 获取配方的命令字符串表示（等同于 commandString 属性）
+rec.toCommandString();
+```
+
 ---
 
 ## 熔炉配方
@@ -139,6 +146,14 @@ brewing.removeRecipe(<minecraft:potion>.withTag({Potion: "minecraft:water"}), <m
 ---
 
 ## 草丛掉落
+
+### 控制台命令
+
+在游戏内或控制台执行以下命令可将所有已注册的种子掉落打印到日志（不能写在 zs 文件中）：
+
+```
+/ct seeds
+```
 
 ```zenscript
 // 添加打草掉落（百分比权重）

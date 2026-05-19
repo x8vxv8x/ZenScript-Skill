@@ -43,6 +43,28 @@
 | `.invalidate()` | void | 使无效 |
 | `.remove()` | void | 移除 |
 
+### IMobSpawnerBaseLogic（刷怪笼逻辑）
+
+> `import crafttweaker.tileentity.IMobSpawnerBaseLogic;`
+
+IMobSpawnerBaseLogic 包含刷怪笼如何以及在何处生成实体的各种信息。
+
+#### @ZenGetter / @ZenSetter
+
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| `nbtData` | IData | 刷怪笼的 NBT 数据（可读写） |
+| `entityDefinition` | IEntityDefinition | 要生成的实体定义（可读写） |
+| `world` | IWorld | 刷怪笼所在世界（只读） |
+| `blockPos` | IBlockPos | 刷怪笼方块的位置（只读） |
+
+#### 方法
+
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.updateSpawner()` | void | 更新刷怪笼，用于生成实体和倒计时 |
+| `.setDelayToMin()` | void | 将刷怪笼延迟设置为最小值 |
+
 ---
 
 ## 使用示例

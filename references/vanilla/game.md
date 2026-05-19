@@ -80,12 +80,17 @@
 
 通过 `server` 全局关键字访问。IServer 继承 ICommandSender。
 
+#### @ZenGetter
+
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| `commandManager` | ICommandManager | 获取命令管理器 |
+
 #### 方法
 
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.isOp(IPlayer)` | bool | 检查玩家是否有 OP 权限 |
-| `commandManager` | ICommandManager | 获取命令管理器 |
 
 ### ITeam（队伍）
 

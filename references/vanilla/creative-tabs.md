@@ -24,6 +24,8 @@
 | `commandString` | string | 命令字符串 |
 | `iconItem` | IItemStack | 图标物品 |
 | `tabIndex` | int | 标签页索引 |
+| `tabLabel` | string | 标签页标签文本 |
+| `searchBarWidth` | int | 搜索栏宽度 |
 | `isSearchTab` | bool | 是否搜索标签页 |
 | `hasSearchBar` | bool | 是否有搜索栏 |
 

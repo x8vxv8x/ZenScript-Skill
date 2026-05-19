@@ -290,4 +290,21 @@ event.addItem(<minecraft:iron_ingot>); // 添加物品
 
 > `import crafttweaker.event.LivingKnockBackEvent;`
 
-实体被击退时触发。
+实体被击退时触发。可取消以阻止击退。可调整击退力度和方向比率。
+
+实现接口：IEventCancelable, ILivingEvent
+
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| `attacker` | IEntity | 攻击者（可设置） |
+| `originalAttacker` | IEntity | 原始攻击者 |
+| `strength` | float | 击退力度（可设置） |
+| `originalStrength` | float | 原始击退力度 |
+| `ratioX` | double | X 方向比率（可设置） |
+| `ratioZ` | double | Z 方向比率（可设置） |
+| `originalRatioX` | double | 原始 X 方向比率 |
+| `originalRatioZ` | double | 原始 Z 方向比率 |
+
+继承自 ILivingEvent 的 `entityLivingBase`。
+
+注：事件触发时 `attacker`、`strength`、`ratioX`、`ratioZ` 可能已被其他事件修改，可通过 `original*` 变量获取原始值。

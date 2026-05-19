@@ -8,100 +8,121 @@ ZenScript 语言基础语法。
 
 ---
 
-## 尖括号语法
+## 括号处理器列表
 
-尖括号 `<...>` 是 ZenScript 中最常用的获取游戏对象的方式。
+### 物品括号处理器（Item）
 
-### 物品
+返回 `IItemStack` 对象。
 
 ```zenscript
-<minecraft:apple>                    // 物品
-<minecraft:stone:3>                  // 带 Meta 的物品
-<minecraft:wool:*>                   // 任意 Meta（通配符）
-<minecraft:wool:0>                   // Meta 0
+<minecraft:apple>                    // 苹果
+<minecraft:coal:0>                   // 煤炭（meta 0）
+<minecraft:coal:1>                   // 木炭（meta 1）
+<minecraft:coal:*>                   // 所有 meta 值
+<item:minecraft:coal:*>              // 显式指定为物品（可选）
 ```
 
-### 矿物词典
+- `modid`：物品所属 mod 的 ID
+- `itemname`：物品名称（用 `/ct hand` 获取）
+- `meta`：meta 值（整数，可选，默认 0，可用 `*` 通配符）
+
+### 方块状态括号处理器（BlockState）
+
+返回 `IBlockState` 对象。
 
 ```zenscript
-<ore:ingotIron>                      // 矿辞
-<ore:ingotGold>                      // 矿辞
-<ore:dirt>                           // 矿辞
+<blockstate:minecraft:dirt>                              // 泥土默认状态
+<blockstate:minecraft:log>                               // 原木默认状态
+<blockstate:minecraft:log:variant=oak,axis=y>            // 橡木原木，垂直
+<blockstate:minecraft:log:variant=spruce,axis=x>         // 云杉原木，水平 X 轴
 ```
 
-### 流体
+- 用逗号分隔的 `name=value` 对指定方块属性
+- 未指定的属性使用默认方块状态的值
+
+### 流体括号处理器（Liquid）
+
+返回 `ILiquidStack` 对象。
 
 ```zenscript
-<liquid:water>                       // 流体
-<liquid:lava>                        // 流体
-<liquid:lava> * 1000                 // 带数量的流体
+<liquid:lava>       // 岩浆
+<liquid:water>      // 水
+<fluid:lava>        // 同上，fluid 别名
 ```
 
-### 实体
+### 矿物辞典括号处理器（Ore）
+
+返回 `IOreDictEntry` 对象。如果矿辞不存在，会创建一个新的空矿辞。
 
 ```zenscript
-<entity:minecraft:sheep>             // 实体定义
-<entity:minecraft:creeper>           // 实体定义
+<ore:ingotIron>     // 铁锭矿辞
 ```
 
-### 方块
+### 实体括号处理器（Entity）
+
+返回 `IEntityDefinition` 对象。
 
 ```zenscript
-<block:minecraft:stone>              // 方块定义
-<block:minecraft:dirt>               // 方块定义
+<entity:minecraft:sheep>     // 羊
 ```
 
-### 附魔
+### 药水括号处理器（Potion）
+
+返回 `IPotion` 对象。
 
 ```zenscript
-<enchantment:fortune>                // 附魔定义
-<enchantment:fortune> * 3            // 附魔等级 3
-<enchantment:sharpness>              // 附魔定义
+<potion:minecraft:strength>      // 力量效果
 ```
 
-### 药水效果
+### 药水类型括号处理器（PotionType）
+
+返回 `IPotionType` 对象。
 
 ```zenscript
-<potion:minecraft:speed>             // 药水效果
-<potion:minecraft:slowness>          // 药水效果
+<potiontype:minecraft:strength>          // 力量药水
 ```
 
-### 伤害来源
+### 附魔括号处理器（Enchantment）
+
+返回 `IEnchantmentDefinition` 对象。
 
 ```zenscript
-<damageSource:MAGIC>                 // 魔法伤害
-<damageSource:GENERIC>               // 通用伤害
-<damageSource:IN_FIRE>               // 火焰伤害
-<damageSource:LAVA>                  // 岩浆伤害
-<damageSource:OUT_OF_WORLD>          // 虚空伤害
+<enchantment:minecraft:protection>       // 保护
 ```
 
-### 生物群系
+### 伤害来源括号处理器（DamageSource）
+
+返回 `IDamageSource` 对象。如果伤害来源不是预定义的，会创建一个新的。
 
 ```zenscript
-<biome:minecraft:plains>             // 生物群系
-<biome:minecraft:desert>             // 生物群系
+<damageSource:MAGIC>             // 魔法伤害
+<damageSource:GENERIC>           // 通用伤害
+<damageSource:IN_FIRE>           // 火焰伤害
+<damageSource:LAVA>              // 岩浆伤害
+<damageSource:IN_WALL>           // 窒息伤害
+<damageSource:STARVE>            // 饥饿伤害
+<damageSource:OUT_OF_WORLD>      // 虚空伤害
+<damageSource:FALL>              // 摔落伤害
+<damageSource:CRAMMING>          // 挤压伤害
+<damageSource:DROWN>             // 溺水伤害
+<damageSource:LIGHTNING_BOLT>    // 闪电伤害
+<damageSource:ON_FIRE>           // 着火伤害
+<damageSource:HOT_FLOOR>         // 烫脚伤害
+<damageSource:CACTUS>            // 仙人掌伤害
+<damageSource:FLY_INTO_WALL>     // 撞墙伤害
+<damageSource:WITHER>            // 凋零伤害
+<damageSource:ANVIL>             // 铁砧伤害
+<damageSource:FALLING_BLOCK>     // 下落方块伤害
+<damageSource:DRAGON_BREATH>     // 龙息伤害
+<damageSource:FIREWORKS>         // 烟花伤害
 ```
 
-### 获取对象的其他方式
+### 创造标签页括号处理器（CreativeTab）
+
+返回 `ICreativeTab` 对象。
 
 ```zenscript
-// 从物品定义获取
-<minecraft:wool>.definition.makeStack(3)
-
-// 从矿辞获取
-<ore:ingotIron>.items                // 所有物品列表
-<ore:ingotIron>.firstItem            // 第一个物品
-
-// 从 mod 获取
-loadedMods["minecraft"].items        // mod 所有物品
-
-// 从游戏对象获取
-game.getBlock("minecraft:stone")     // 方块
-game.getItem("minecraft:apple")      // 物品
-game.getEntity("minecraft:sheep")    // 实体定义
-game.getPotion("minecraft:speed")    // 药水效果
-game.getBiome("minecraft:plains")    // 生物群系
+<creativetab:buildingBlocks>  // 建筑方块标签页
 ```
 
 ---
@@ -228,62 +249,4 @@ function recipeTweak(isShaped as bool, out as IItemStack, input as IIngredient[]
 global addition as function(int, int)int = function(a as int, b as int) as int {
     return a + b;
 };
-```
-
----
-
-## ZenClass（自定义类）
-
-ZenScript 支持自定义类，本质上是 Java 类。
-
-### 关键字
-
-| 关键字 | 说明 |
-|--------|------|
-| `zenClass` | 声明类 |
-| `zenConstructor` | 构造函数 |
-| `val` / `var` | 字段（val 不可变，var 可变） |
-| `static` | 静态字段 |
-| `function` | 方法 |
-| `this` | 当前对象 |
-
-### 示例
-
-```zenscript
-zenClass MyClass {
-    zenConstructor(arg as string, arg1 as int) {
-        myValue = arg;
-        myValueTwo = arg1;
-    }
-
-    zenConstructor(arg as string) {
-        myValue = arg;
-        myValueTwo = 25;
-    }
-
-    val myValue as string;
-    val myValueTwo as int;
-    var myValueThree as int;
-    static myStaticValue as int = 233;
-
-    function getMyValue() as string {
-        return this.myValue;
-    }
-
-    function setMyValueThree(arg as int) as MyClass {
-        this.myValueThree = arg;
-        return this;  // 返回自身支持链式调用
-    }
-}
-```
-
-### 使用
-
-```zenscript
-import scripts.Class.MyClass;  // 导入
-
-val obj = MyClass("abc", 1);   // 构造
-print(obj.getMyValue());       // 调用方法
-print(obj.myValueTwo);         // 访问字段
-print(MyClass.myStaticValue);  // 访问静态字段
 ```

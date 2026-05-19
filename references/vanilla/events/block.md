@@ -162,4 +162,14 @@ events.onBlockHarvestDrops(function(event as BlockHarvestDropsEvent) {
 
 > `import crafttweaker.event.PortalSpawnEvent;`
 
-传送门生成时触发。
+尝试生成下界传送门时触发。可取消以阻止传送门生成。
+
+实现接口：IEventCancelable, IBlockEvent
+
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| `valid` | bool | 传送门是否有效（可生成） |
+| `height` | int | 传送门高度 |
+| `width` | int | 传送门宽度 |
+
+继承自 IBlockEvent 的 `world`、`blockState`、`block`、`position`、`x`、`y`、`z`。

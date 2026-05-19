@@ -190,6 +190,8 @@ IItemStack、IOreDictEntry、ILiquidStack 都实现了此接口。
 | `ingredient has item` | bool | 是否包含 |
 | `ingredient | other` | IIngredient | 或运算 |
 | `.or(IIngredient)` | IIngredient | 或运算 |
+| `.applyTransform(IItemStack, IPlayer)` | IItemStack | 应用物品转换器，返回转换后的物品堆叠 |
+| `.hasTransformers()` | bool | 是否绑定了物品转换器 |
 
 ### IMutableItemStack（可变物品堆叠）
 

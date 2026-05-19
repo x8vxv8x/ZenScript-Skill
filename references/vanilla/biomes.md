@@ -23,16 +23,20 @@
 | `temperature` | float | 温度 |
 | `rainfall` | float | 降雨量 |
 | `humidity` | float | 湿度 |
+| `canRain` | bool | 是否可以下雨 |
 | `isSnowyBiome` | bool | 是否雪地 |
+| `highHumidity` | bool | 是否高湿度（湿度 > 0.85） |
 | `isHumid` | bool | 是否潮湿 |
 | `ignorePlayerSpawnSuitability` | bool | 是否忽略玩家生成适应性 |
 | `waterColorMultiplier` | int | 水颜色倍增器 |
+| `spawningChance` | float | 生物生成概率 |
 | `minHeight` | float | 最小高度 |
 | `maxHeight` | float | 最大高度 |
 | `baseHeight` | float | 基础高度 |
 | `heightVariation` | float | 高度变化 |
 | `enableRain` | bool | 是否启用雨 |
 | `enableSnow` | bool | 是否启用雪 |
+| `types` | List\<IBiomeType\> | 此生物群系所属的生物群系类型列表 |
 
 #### 方法
 
@@ -49,6 +53,19 @@
 | `.setMaxHeight(float)` | void | 设置最大高度 |
 | `.setBaseHeight(float)` | void | 设置基础高度 |
 | `.setHeightVariation(float)` | void | 设置高度变化 |
+
+### IBiomeType（生物群系类型）
+
+> `import crafttweaker.world.IBiomeType;`
+
+IBiomeType 代表一种生物群系类型（如森林、沙漠等），通过 `biome.types` 获取。
+
+#### @ZenGetter
+
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| `name` | string | 生物群系类型名称 |
+| `biomes` | List\<IBiome\> | 此类型包含的生物群系列表 |
 
 ---
 

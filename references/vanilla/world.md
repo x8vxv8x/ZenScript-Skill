@@ -14,6 +14,12 @@
 
 > `import crafttweaker.world.IWorld;`
 
+#### 静态方法
+
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `IWorld.getFromID(int)` | IWorld | 通过维度 ID 获取世界对象（需在游戏运行时调用，不可在加载阶段使用） |
+
 #### @ZenGetter
 
 | 属性 | 类型 | 说明 |
@@ -41,6 +47,11 @@
 | `borderWarningTime` | double | 边界警告时间 |
 | `maxHeight` | int | 最大高度 |
 | `minHeight` | int | 最小高度 |
+| `moonPhase` | int | 当前月相 |
+| `dimensionType` | string | 维度类型名称 |
+| `worldInfo` | IWorldInfo | 世界信息对象，可获取更详细的属性 |
+| `provider` | IWorldProvider | 世界维度提供者对象，可获取更详细的维度信息 |
+| `random` | IRandom | 世界随机生成器 |
 
 #### 方法
 
@@ -268,6 +279,15 @@ IRayTraceResult 代表玩家视线或点击的射线检测结果。
 | `isBlock` | bool | 是否命中方块 |
 | `blockPos` | IBlockPos | 命中的方块位置（非 bool 返回值可为 null） |
 | `sideHit` | IFacing | 命中的方块面（非 bool 返回值可为 null） |
+
+#### 已弃用 @ZenGetter
+
+以下 getter 已弃用，因为当前没有可靠的方式同时射线检测方块和实体。
+
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| `isEntity` | bool | 是否命中实体（始终返回 `false`） |
+| `entity` | IEntity | 命中的实体（始终返回 `null`） |
 
 ### IVector3d（三维向量）
 

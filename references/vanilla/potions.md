@@ -25,6 +25,7 @@
 | `liquidColour` | int | 液体颜色（同上，英式拼写） |
 | `badEffect` | bool | 是否负面效果 |
 | `beneficial` | bool | 是否正面效果 |
+| `isBeneficial` | bool | 是否正面效果（同 beneficial） |
 | `isInstant` | bool | 是否即时效果 |
 | `hasStatusIcon` | bool | 是否有状态图标 |
 | `curativeItems` | List\<IItemStack\> | 治愈物品列表 |
