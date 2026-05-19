@@ -1,0 +1,105 @@
+# BuildCraft CraftTweaker API 参考
+
+> Mod ID: `buildcraft`
+> 前置条件: BuildCraft Compat Module
+> 导入: `import mods.buildcraft.*;`
+
+BuildCraft 是一个工业模组。
+
+---
+
+## API 列表
+
+### AssemblyTable（装配台）
+
+> `import mods.buildcraft.AssemblyTable;`
+
+#### 配方添加方法
+
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.addRecipe(recipeName as string, output as IItemStack, power as int, inputs as IIngredient[])` | void | 添加装配台配方 |
+
+**参数说明**:
+- `recipeName`: 配方名称（必须唯一）
+- `output`: 输出物品
+- `power`: 总能量消耗（MJ）
+- `inputs`: 输入材料数组
+
+#### 配方移除方法
+
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.removeByName(name as string)` | void | 按名称移除配方 |
+
+#### 现有配方名称
+
+**芯片组**:
+- `buildcraftsilicon:redstone_chipset`
+- `buildcraftsilicon:iron_chipset`
+- `buildcraftsilicon:gold_chipset`
+- `buildcraftsilicon:quartz_chipset`
+- `buildcraftsilicon:diamond_chipset`
+
+**插件**:
+- `buildcraftsilicon:plug_pulsar`
+- `buildcraftsilicon:light-sensor`
+- `buildcrafttransport:facaderecipes`
+
+**透镜**:
+- `buildcraftsilicon:lens-regular`
+- `buildcraftsilicon:lens-filter`
+- `buildcraftsilicon:lens-regular-<color>`
+- `buildcraftsilicon:lens-filter-<color>`
+
+**电线**:
+- `buildcrafttransport:wire-<color>`
+
+**门**:
+- `buildcraftsilicon:gate-<operation>-<material>-no_modifier`
+- `buildcraftsilicon:gate-modifier-<operation>-<material>-<modifier>`
+
+颜色参数: `white`, `orange`, `magenta`, `lightblue`, `yellow`, `lime`, `pink`, `gray`, `silver`, `cyan`, `purple`, `blue`, `brown`, `green`, `red`, `black`
+
+操作参数: `and`, `or`
+
+材料参数: `iron`, `nether_brick`, `gold`
+
+修饰符参数: `lapis`, `quartz`, `diamond`
+
+### CombustionEngine（燃油引擎）
+
+> `import mods.buildcraft.CombustionEngine;`
+
+
+#### 添加清洁燃料
+
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.addCleanFuel(liquid as ILiquidStack, powerPerTick as double, timePerBucket as int)` | void | 添加清洁燃料 |
+
+**参数说明**:
+- `liquid`: 燃料流体
+- `powerPerTick`: 每tick能量输出（MJ）
+- `timePerBucket`: 每桶燃料运行时间（tick）
+
+#### 添加脏燃料
+
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.addDirtyFuel(lFuel as ILiquidStack, powerPerTick as double, timePerBucket as int, lResidue as ILiquidStack)` | void | 添加脏燃料 |
+
+**参数说明**:
+- `lFuel`: 燃料流体
+- `powerPerTick`: 每tick能量输出（MJ）
+- `timePerBucket`: 每桶燃料运行时间（tick）
+- `lResidue`: 残留流体
+
+---
+
+## 注意事项
+
+- 组装台需要 BuildCraft Silicon 模块
+- 内燃机需要 BuildCraft Energy 模块
+- 配方名称必须唯一，否则会覆盖现有配方
+- 能量单位为 MJ（Minecraft Joules）

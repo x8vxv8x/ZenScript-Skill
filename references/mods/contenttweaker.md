@@ -128,24 +128,77 @@ val denseIngotPart = MaterialSystem.getPartBuilder()
     .build();
 copper.registerPart(denseIngotPart); // 注册致密铜锭
 ```
-
 ---
 
-## 常见错误
+## ChickenFactory（鸡工厂）
 
-| 错误 | 原因 | 修复 |
+> `import mods.contenttweaker.ChickenFactory;`
+
+**注意**: 需要安装 Chickens 模组。
+
+### 创建鸡
+
+```zenscript
+ChickenFactory.createChicken(name as string, color as CTColor, item as IItemStack);
+```
+
+**参数说明**:
+- `name`: 鸡的实体名称
+- `color`: 鸡的颜色
+- `item`: 鸡下的蛋
+
+### ChickenRepresentation（鸡模板）
+
+> `import mods.contenttweaker.Chicken;`
+
+#### @ZenGetter / @ZenSetter
+
+| 属性 | 类型 | 说明 |
 |------|------|------|
-| 脚本无效果 | 未添加 `#loader contenttweaker` | 在脚本第一行添加 |
-| 物品/方块不显示 | 缺少材质文件 | 在 resources/contenttweaker/textures/ 下添加对应 png |
-| 本地化名称不显示 | 缺少语言文件 | 添加 lang 文件或使用 displayName 赋值 |
-| 材料部件不出现 | 未调用 addHeadMaterialStats 等方法 | 确保调用了对应的 add 方法 |
+| `name` | string | 鸡的名称 |
+| `layItem` | IItemStack | 下的蛋 |
+| `dropItem` | IItemStack | 掉落物 |
+| `backgroundColor` | CTColor | 背景颜色 |
+| `foregroundColor` | CTColor | 前景颜色 |
+| `textureLocation` | CTResourceLocation | 纹理位置 |
+| `spawnType` | string | 生成类型 |
+| `layCoefficient` | float | 下蛋系数 |
+| `parentOne` | CTResourceLocation | 父亲1 |
+| `parentTwo` | CTResourceLocation | 父亲2 |
+
+#### 方法
+
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.register()` | void | 注册鸡 |
 
 ---
 
-## 注意事项
+## DropTableBuilder（掉落表构建器）
 
-- CoT 脚本必须以 `#loader contenttweaker` 开头
-- 物品/方块 ID 必须全小写，字母开头，可含数字和下划线
-- 注册后不可再修改属性
-- 材质文件需放在 resources/contenttweaker/textures/ 对应目录
-- 使用 `!world.remote` 确保事件只在服务端执行
+> `import mods.contenttweaker.DropTableBuilder;`
+
+用于创建矿石和样本的掉落表。
+
+### 创建掉落表
+
+```zenscript
+var table = DropTableBuilder.newSlot()
+    .addItem("minecraft:diamond", 1, 2)  // 钻石，权重1，数量2
+    .addItem("minecraft:coal", 9)         // 煤炭，权重9，数量1
+    .enableFortune()                      // 启用时运
+    .newSlot()                            // 新槽
+    .addItem("oredict:stone")             // 矿辞
+    .newSlot()                            // 新槽
+    .addItem("minecraft:cobblestone")
+    .addItem("empty");                    // 空
+```
+
+### 使用掉落表
+
+```zenscript
+var oreData = MaterialSystem.getMaterialBuilder()
+    .setColor(12345678).setName("Fake Lapis").build()
+    .registerPart("ore").getData();
+oreData.addDataValue("drops", table);
+```
