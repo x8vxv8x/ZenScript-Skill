@@ -1,6 +1,6 @@
 # Modular Machinery CraftTweaker API 参考
 
-> 模块化机械，不是社区版，提醒用户区分。
+> 模块化机械，不是社区版，提醒用户区分。一定向用户询问安装的模组的类型！
 > Mod ID: `modularmachinery`
 > 前置条件: 无
 > 导入: `import mods.modularmachinery.RecipeBuilder;` / `import mods.modularmachinery.RecipePrimer;`
