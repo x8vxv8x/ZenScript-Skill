@@ -109,9 +109,7 @@ IIngredient（接口，配方输入槽接受的类型）
 
 | 文件 | 关键内容 |
 |------|---------|
-| global-functions.md | 全局函数（含 ZenUtils 全局函数） |
-| language-basics.md | 语言基础 |
-| variable-types.md | 变量类型 |
+| language-basics.md | 语言基础（含变量类型、控制流、函数、运算符、全局函数/字段、扩展方法、跨脚本引用、import） |
 
 ### 模组参考（动态查找）
 

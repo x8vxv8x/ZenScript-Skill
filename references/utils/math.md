@@ -22,7 +22,7 @@
 | `Math.min(double/float/int/long, double/float/int/long)` | 同类型 | 最小值 |
 | `Math.floor(double)` | int | 向下取整 |
 | `Math.ceil(double)` | int | 向上取整 |
-| `Math.round(double)` | int | 四舍五入 |
+| `Math.round(double/float)` | int | 四舍五入 |
 | `Math.abs(double/float/int/long)` | 同类型 | 绝对值 |
 | `Math.sqrt(double)` | double | 开方 |
 | `Math.log(double)` | double | 自然对数 |

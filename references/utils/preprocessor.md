@@ -21,6 +21,7 @@
 | `#debug` | 输出编译的 class 文件 |
 | `#ignoreBracketErrors` | 忽略尖括号错误 |
 | `#norun` | 不执行脚本（仍检查语法） |
+| `#nowarn` | 警告只写日志（不影响错误） |
 | `#ikwid` | 警告和错误只写日志 |
 | `#profile` | 日志打印配方修改耗时 |
 | `#disable_search_tree` | 禁用配方表重算（加速加载） |
