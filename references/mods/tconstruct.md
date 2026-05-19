@@ -199,3 +199,119 @@ TraitManager.detachTrait("stone", "cheap");
 // 移除木头的所有特性
 TraitManager.detachAllTraits("wood");
 ```
+
+---
+
+## Modtweaker 配方处理器（需安装 Modtweaker）
+
+> `import mods.tconstruct.*;`
+
+### Alloying（合金）
+
+> `import mods.tconstruct.Alloy;`
+
+#### 配方添加方法
+
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.addRecipe(ILiquidStack output, ILiquidStack[] inputs)` | void | 添加合金配方 |
+
+#### 配方移除方法
+
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.removeRecipe(ILiquidStack output)` | void | 按输出移除配方 |
+| `.removeRecipe(ILiquidStack output, ILiquidStack[] inputs)` | void | 按输入输出移除配方 |
+
+### Casting（浇铸）
+
+> `import mods.tconstruct.Casting;`
+
+#### 浇铸台配方
+
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.addTableRecipe(IItemStack output, IIngredient cast, ILiquidStack fluid, int amount, @Optional boolean consumeCast, @Optional int time)` | void | 添加浇铸台配方。`cast` 模具。`amount` 流体量(mB)。`consumeCast` 是否消耗模具 |
+| `.removeTableRecipe(IItemStack output)` | void | 按输出移除浇铸台配方 |
+| `.removeTableRecipe(IItemStack output, ILiquidStack input)` | void | 按输入输出移除 |
+
+#### 铸造盆配方
+
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.addBasinRecipe(IItemStack output, IIngredient cast, ILiquidStack fluid, int amount, @Optional boolean consumeCast, @Optional int time)` | void | 添加铸造盆配方 |
+| `.removeBasinRecipe(IItemStack output)` | void | 按输出移除铸造盆配方 |
+| `.removeBasinRecipe(IItemStack output, ILiquidStack input)` | void | 按输入输出移除 |
+
+### Melting（熔炼）
+
+> `import mods.tconstruct.Melting;`
+
+#### 配方添加方法
+
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.addRecipe(ILiquidStack output, IIngredient input, @Optional int temp)` | void | 添加熔炼配方。`temp` 可选温度 |
+| `.addEntityMelting(IEntityDefinition entity, ILiquidStack stack)` | void | 添加实体熔炼配方（可直接覆盖已有配方） |
+
+#### 配方移除方法
+
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.removeRecipe(ILiquidStack output)` | void | 按输出移除配方 |
+| `.removeRecipe(ILiquidStack output, IItemStack input)` | void | 按输入输出移除配方 |
+| `.removeEntityMelting(IEntityDefinition entity)` | void | 移除实体熔炼配方 |
+
+### Drying（晾干架）
+
+> `import mods.tconstruct.Drying;`
+
+#### 配方添加方法
+
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.addRecipe(IItemStack output, IIngredient input, int time)` | void | 添加晾干配方。`time` 为时间(tick) |
+
+#### 配方移除方法
+
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.removeRecipe(IItemStack output)` | void | 按输出移除配方 |
+| `.removeRecipe(IItemStack output, IItemStack input)` | void | 按输入输出移除配方 |
+
+### Fuel（冶炼炉燃料）
+
+> `import mods.tconstruct.Fuel;`
+
+#### 燃料注册方法
+
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.registerFuel(ILiquidStack fuel, int duration)` | void | 注册冶炼炉燃料。`fuel` 的 amount 为最小消耗增量。`duration` 为消耗一次持续的 tick 数 |
+
+**注意**: 无法通过此 API 设置流体温度，需使用 `ILiquidDefinition` 的 ZenSetter 预先修改流体温度。
+
+### Modtweaker 使用示例
+
+```zenscript
+import mods.tconstruct.Alloy;
+import mods.tconstruct.Casting;
+import mods.tconstruct.Melting;
+import mods.tconstruct.Drying;
+import mods.tconstruct.Fuel;
+
+// 合金配方
+Alloy.addRecipe(<liquid:water> * 10, [<liquid:lava> * 10, <liquid:molten_iron> * 5]);
+
+// 浇铸台配方
+Casting.addTableRecipe(<minecraft:gold_ingot>, <minecraft:gold_ingot>, <liquid:molten_gold>, 140);
+
+// 熔炼配方
+Melting.addRecipe(<liquid:molten_gold> * 144, <minecraft:gold_ingot>);
+
+// 晾干架配方
+Drying.addRecipe(<minecraft:leather>, <minecraft:rotten_flesh>, 100);
+
+// 冶炼炉燃料
+Fuel.registerFuel(<liquid:water> * 2, 300);
+```
