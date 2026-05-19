@@ -10,17 +10,10 @@
 
 > `import mods.botania.Apothecary;`
 
-#### 配方添加方法
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addRecipe(IItemStack output, IIngredient[] input)` | void | 添加配方 |
 | `.addRecipe(String output, IIngredient[] input)` | void | 添加配方（Botania 花名） |
-
-#### 配方移除方法
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.removeRecipe(IItemStack output)` | void | 按输出移除配方 |
 | `.removeRecipe(String output)` | void | 按花名移除配方 |
 
@@ -30,67 +23,39 @@
 
 > `import mods.botania.Brew;`
 
-#### 配方添加方法
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addRecipe(IIngredient[] input, String brewName)` | void | 添加酿造配方。`brewName` 为 Botania 注册的酿造名，可用 `/ct botbrews` 查看 |
-
-#### 配方移除方法
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.removeRecipe(String brewName)` | void | 按酿造名移除配方 |
 
 ### ElvenTrade（精灵交易）
 
 > `import mods.botania.ElvenTrade;`
 
-#### 配方添加方法
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addRecipe(IIngredient[] outputs, IIngredient[] input)` | void | 添加精灵交易配方 |
-
-#### 配方移除方法
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.removeRecipe(IIngredient output)` | void | 按输出移除配方 |
 
 ### ManaInfusion（魔力灌注）
 
 > `import mods.botania.ManaInfusion;`
 
-#### 配方添加方法
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addInfusion(IItemStack output, IIngredient input, int mana)` | void | 添加魔力池灌注配方 |
 | `.addAlchemy(IItemStack output, IIngredient input, int mana)` | void | 添加炼金催化配方 |
 | `.addConjuration(IItemStack output, IIngredient input, int mana)` | void | 添加炼造催化配方 |
-
-#### 配方移除方法
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.removeRecipe(IIngredient output)` | void | 按输出移除配方 |
 
 ### Orechid（矿石花）
 
 > `import mods.botania.Orechid;`
 
-#### 配方添加方法
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addOre(IOreDictEntry oreDict, int weight)` | void | 添加矿石花生成矿石。`weight` 为权重，**相同权重的两个配方会导致游戏崩溃** |
 | `.addOre(String oreDict, int weight)` | void | 同上，使用字符串矿辞名 |
-
-#### 配方移除方法
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.removeOre(IOreDictEntry oreDict)` | void | 按矿辞移除配方 |
 | `.removeOre(String oreDict)` | void | 同上，使用字符串矿辞名 |
 
@@ -98,17 +63,10 @@
 
 > `import mods.botania.OrechidIgnem;`
 
-#### 配方添加方法
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addOre(IOreDictEntry oreDict, int weight)` | void | 添加凝矿兰生成矿石 |
 | `.addOre(String oreDict, int weight)` | void | 同上，使用字符串矿辞名 |
-
-#### 配方移除方法
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.removeOre(IOreDictEntry oreDict)` | void | 按矿辞移除配方 |
 | `.removeOre(String oreDict)` | void | 同上，使用字符串矿辞名 |
 
@@ -116,39 +74,25 @@
 
 > `import mods.botania.PureDaisy;`
 
-#### 配方添加方法
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addRecipe(IIngredient blockInput, IItemStack blockOutput, @Optional int time)` | void | 添加白雏菊配方。`time` 默认 150 tick |
-
-#### 配方移除方法
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.removeRecipe(IIngredient output)` | void | 按输出移除配方 |
 
 ### RuneAltar（符文祭坛）
 
 > `import mods.botania.RuneAltar;`
 
-#### 配方添加方法
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addRecipe(IItemStack output, IIngredient[] input, int mana)` | void | 添加符文祭坛配方 |
-
-#### 配方移除方法
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.removeRecipe(IIngredient output)` | void | 按输出移除配方 |
 
 ### Lexicon（植物魔法辞典）
 
 > `import mods.botania.Lexicon;`
 
-#### 页面添加方法
+#### 页面管理
 
 | 方法 | 返回 | 说明 |
 |------|------|------|
@@ -164,21 +108,16 @@
 | `.addPetalPage(String name, String entry, int page_number, IItemStack[] outputs, IIngredient[][] inputs)` | void | 添加花瓣台页面 |
 | `.addRunePage(String name, String entry, int page_number, IItemStack[] outputs, IIngredient[][] inputs, int[] mana)` | void | 添加符文祭坛页面 |
 | `.addTextPage(String name, String entry, int page_number)` | void | 添加文本页面 |
-
-#### 页面移除方法
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.removePage(String entry, int page_number)` | void | 移除指定页面 |
 
-#### 条目管理方法
+#### 条目管理
 
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addEntry(String entry, String catagory, IItemStack stack)` | void | 添加辞典条目 |
 | `.removeEntry(String entry)` | void | 移除辞典条目 |
 
-#### 分类管理方法
+#### 分类管理
 
 | 方法 | 返回 | 说明 |
 |------|------|------|
@@ -186,7 +125,7 @@
 | `.removeCategory(String name)` | void | 移除辞典分类 |
 | `.setCategoryIcon(String name, String icon)` | void | 设置分类图标 |
 
-#### 配方映射方法
+#### 配方映射
 
 | 方法 | 返回 | 说明 |
 |------|------|------|

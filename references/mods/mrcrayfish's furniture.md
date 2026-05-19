@@ -14,11 +14,12 @@
 
 > `import mods.cfm.Blender;`
 
-#### 添加配方
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addDrink(String name, IItemStack[] ingredients, int food, int[] colour)` | void | 添加搅拌饮品 |
+| `.remove()` | void | 移除所有饮品 |
+| `.remove(@Optional String name)` | void | 根据名称移除饮品 |
+| `.remove(@Optional String name, @Optional IItemStack[] ingredients, @Optional Integer food, @Optional int[] colour)` | void | 根据参数匹配移除饮品 |
 
 参数说明：
 - `name`：饮品名称
@@ -26,35 +27,18 @@
 - `food`：恢复的食物值（饱和度与食物值无法独立设置）
 - `colour`：RGB 颜色数组，如 `[255,182,193]`
 
-#### 移除配方
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
-| `.remove()` | void | 移除所有饮品 |
-| `.remove(@Optional String name)` | void | 根据名称移除饮品 |
-| `.remove(@Optional String name, @Optional IItemStack[] ingredients, @Optional Integer food, @Optional int[] colour)` | void | 根据参数匹配移除饮品 |
-
 ### ChoppingBoard（砧板）
 
 > `import mods.cfm.ChoppingBoard;`
 
-#### 添加配方
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addRecipe(IItemStack output, IItemStack input)` | void | 添加砧板配方。输入必须为 1 个物品 |
-
-#### 移除配方
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.remove(@Optional IIngredient output, @Optional IIngredient input)` | void | 根据输入/输出匹配移除配方 |
 
 ### Dishwasher（洗碗机）
 
 > `import mods.cfm.Dishwasher;`
-
-#### 管理方法
 
 | 方法 | 返回 | 说明 |
 |------|------|------|
@@ -65,87 +49,50 @@
 
 > `import mods.cfm.Freezer;`
 
-#### 添加配方
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addRecipe(IItemStack output, IItemStack input)` | void | 添加冷冻配方。输入必须为 1 个物品 |
-
-#### 移除配方
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.remove(@Optional IIngredient output, @Optional IIngredient input)` | void | 根据输入/输出匹配移除配方。无参数则移除全部 |
 
 ### Grill（烧烤架）
 
 > `import mods.cfm.Grill;`
 
-#### 添加配方
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addRecipe(IItemStack output, IItemStack input)` | void | 添加烧烤配方。输入必须为 1 个物品 |
-
-#### 移除配方
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.remove(@Optional IIngredient output, @Optional IIngredient input)` | void | 根据输入/输出匹配移除配方。无参数则移除全部 |
 
 ### Microwave（微波炉）
 
 > `import mods.cfm.Microwave;`
 
-#### 添加配方
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addRecipe(IItemStack output, IItemStack input)` | void | 添加微波炉配方 |
-
-#### 移除配方
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.remove(@Optional IIngredient output, @Optional IIngredient input)` | void | 根据输入/输出匹配移除配方。无参数则移除全部 |
 
 ### MineBay（交易市场）
 
 > `import mods.cfm.MineBay;`
 
-#### 添加交易
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addTrade(IItemStack item, IItemStack currency)` | void | 添加交易。item 为商品，currency 为货币 |
-
-#### 移除交易
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.remove(@Optional IIngredient item)` | void | 根据交易结果移除交易。无参数则移除全部 |
 
 ### Oven（烤箱）
 
 > `import mods.cfm.Oven;`
 
-#### 添加配方
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addRecipe(IItemStack output, IItemStack input)` | void | 添加烤箱配方 |
-
-#### 移除配方
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.remove(@Optional IIngredient output, @Optional IIngredient input)` | void | 根据输入/输出匹配移除配方。无参数则移除全部 |
 
 ### Printer（打印机）
 
 > `import mods.cfm.Printer;`
-
-#### 管理方法
 
 | 方法 | 返回 | 说明 |
 |------|------|------|
@@ -156,23 +103,14 @@
 
 > `import mods.cfm.Toaster;`
 
-#### 添加配方
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addRecipe(IItemStack output, IItemStack input)` | void | 添加烤面包机配方。输入必须为 1 个物品 |
-
-#### 移除配方
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.remove(@Optional IIngredient output, @Optional IIngredient input)` | void | 根据输入/输出匹配移除配方。无参数则移除全部 |
 
 ### WashingMachine（洗衣机）
 
 > `import mods.cfm.WashingMachine;`
-
-#### 管理方法
 
 | 方法 | 返回 | 说明 |
 |------|------|------|

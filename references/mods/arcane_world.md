@@ -10,8 +10,6 @@
 
 > `import mods.ArcaneWorld;`
 
-#### 创建仪式方法
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.createRitualSummon(String name, String displayName, String entityID, IIngredient... inputs)` | void | 创建召唤仪式 |
@@ -22,6 +20,8 @@
 | `.createRitualCreateItem(String name, String displayName, IItemStack result, IIngredient... inputs)` | void | 创建物品仪式（类似合成配方） |
 | `.createRitualDungeon(String name, String displayName, IIngredient... inputs)` | void | 创建副本仪式（传送到副本维度） |
 | `.createRitualCommand(String name, String displayName, String[] commands, IIngredient... inputs)` | void | 创建命令仪式 |
+| `.remove(String registryName)` | void | 根据注册名移除仪式 |
+| `.removeAll()` | void | 移除所有仪式 |
 
 **参数说明：**
 - `name`：仪式注册名
@@ -32,13 +32,6 @@
 - `result`：输出物品
 - `commands`：要执行的命令数组
 - `inputs`：输入材料（可变参数）
-
-#### 移除仪式方法
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
-| `.remove(String registryName)` | void | 根据注册名移除仪式 |
-| `.removeAll()` | void | 移除所有仪式 |
 
 **注意：** 通过 CraftTweaker 添加的仪式注册名为 `"crafttweaker:<name>"`
 

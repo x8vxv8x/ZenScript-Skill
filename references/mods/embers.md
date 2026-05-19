@@ -14,22 +14,10 @@ Embers Rekindled 是一个以蒸汽朋克为主题的模组，提供多种机器
 
 > `import mods.embers.DawnstoneAnvil;`
 
-#### 配方添加方法
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.add(outputs as IItemStack[], inputTop as IIngredient, inputBottom as IIngredient)` | void | 添加黎明石砧配方 |
-
-#### 配方移除方法
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.remove(inputTop as IIngredient, inputBottom as IIngredient)` | void | 按输入移除配方 |
-
-#### 黑名单方法
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.blacklistRepair(input as IIngredient)` | void | 禁止修复 |
 | `.blacklistMateriaRepair(input as IIngredient)` | void | 禁止材料修复 |
 | `.blacklistBreakdown(input as IIngredient)` | void | 禁止分解 |
@@ -76,8 +64,6 @@ var boreset = EmberBore.create(dimensionIDs as int[], biomes as string[]);
 var defaultBoreset = EmberBore.getDefault();
 ```
 
-#### 方法
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addOutput(output as WeightedItemStack)` | void | 添加输出 |
@@ -101,39 +87,17 @@ var defaultBoreset = EmberBore.getDefault();
 
 > `import mods.embers.EmberGeneration;`
 
-#### 余烬燃料
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
-| `.addEmberFuel(item as IIngredient, ember as double)` | void | 添加余烬燃料 ember代表产生的灰烬能量值|
+| `.addEmberFuel(item as IIngredient, ember as double)` | void | 添加余烬燃料 ember代表产生的灰烬能量值 |
 | `.removeEmberFuel(item as IItemStack)` | void | 移除余烬燃料 |
-
-#### 金属块增加参能倍数
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.addMetalCoefficient(item as IIngredient, coefficient as double)` | void | 添加系数 |
-
-#### 燃烧/催化室
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.addCombustionFuel(item as IIngredient, coefficient as double)` | void | 添加燃烧燃料 |
 | `.removeCombustionFuel(item as IItemStack)` | void | 移除燃烧燃料 |
 | `.addCatalysisFuel(item as IIngredient, coefficient as double)` | void | 添加催化燃料 |
 | `.removeCatalysisFuel(item as IItemStack)` | void | 移除催化燃料 |
-
-#### 锅炉
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.addBoilerFluid(fluid as ILiquidStack, gas as ILiquidStack)` | void | 添加锅炉流体 |
 | `.removeBoilerFluid(input as ILiquidStack)` | void | 移除锅炉流体 |
-
-#### 反应锅炉
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.addSteamEngineFuel(fluid as ILiquidStack, multiplier as double)` | void | 添加燃料 |
 | `.removeSteamEngineFuel(fluid as ILiquidStack)` | void | 移除燃料 |
 
@@ -141,86 +105,46 @@ var defaultBoreset = EmberBore.getDefault();
 
 > `import mods.embers.Alchemy;`
 
-#### 配方添加方法
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.add(output as IItemStack, inputs as IIngredient[], aspectRange as int[][string])` | void | 添加炼金台配方 |
+| `.remove(output as IItemStack)` | void | 按输出移除配方 |
+| `.addAspect(name as string, item as IItemStack)` | void | 添加自定义方面 |
 
 **注意**: `inputs` 的第一个元素对应炼金台中心。`aspectRange` 必须是关联数组，键为 `string aspect`，值为 `int[] range`。
-
-#### 配方移除方法
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
-| `.remove(output as IItemStack)` | void | 按输出移除配方 |
-
-#### 自定义方面
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
-| `.addAspect(name as string, item as IItemStack)` | void | 添加自定义方面 |
 
 ### HeatCoil（线圈炉）
 
 > `import mods.embers.HeatCoil;`
 
-#### 配方添加方法
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.add(output as IItemStack, input as IIngredient)` | void | 添加配方 |
-
-#### 配方移除方法
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.remove(output as IItemStack)` | void | 按输出移除配方 |
 
 ### Melter（熔炼炉）
 
 > `import mods.embers.Melter;`
 
-#### 配方添加方法
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.add(outputfluid as ILiquidStack, input as IIngredient, @Optional secondaryfluidoutput as ILiquidStack)` | void | 添加熔炼配方 |
-
-#### 配方移除方法
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.remove(outputfluid as ILiquidStack)` | void | 按输出移除配方 |
 
 ### Mixer（混合离心机）
 
 > `import mods.embers.Mixer;`
 
-#### 配方添加方法
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.add(outputfluid as ILiquidStack, inputfluids as ILiquidStack[])` | void | 添加混合离心机配方 |
-
-#### 配方移除方法
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.remove(outputfluid as ILiquidStack)` | void | 按输出移除配方 |
 
 ### Stamper（压印锤）
 
 > `import mods.embers.Stamper;`
 
-#### 配方添加方法
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.add(output as IItemStack, liquid as ILiquidStack, stamp as IIngredient, @Optional input as IIngredient)` | void | 添加冲压机配方 |
-
-#### 配方移除方法
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.remove(output as IItemStack)` | void | 按输出移除配方 |

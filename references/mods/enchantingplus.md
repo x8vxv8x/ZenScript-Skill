@@ -14,16 +14,9 @@ Enchanting Plus 允许玩家更好地控制附魔体验。CraftTweaker 可以用
 
 > `import mods.eplus.Eplus;`
 
-#### 物品黑名单方法
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.blacklistItem(item as IItemStack)` | void | 禁止物品进入高级附魔台 |
-
-#### 附魔黑名单方法
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.blacklistEnchantment(enchantment as IEnchantmentDefinition)` | void | 禁止特定附魔 |
 
 ---

@@ -10,63 +10,32 @@
 
 > `import mods.tcomplement.Blacklist;`
 
-#### 配方添加方法
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addRecipe(ILiquidStack output, IItemStack input)` | void | 将物品加入冶炼炉黑名单（禁止熔炼） |
-
-#### 配方移除方法
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.removeRecipe(IItemStack input)` | void | 将物品从黑名单移除 |
 
 ### Overrides（熔炼器覆盖）
 
 > `import mods.tcomplement.Overrides;`
 
-#### 配方添加方法
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addRecipe(ILiquidStack output, IItemStack input, @Optional int temp)` | void | 添加熔炼覆盖配方。`temp` 可选温度 |
-
-#### 配方移除方法
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.removeRecipe(ILiquidStack output, @Optional IItemStack input)` | void | 按输出移除覆盖配方 |
 
 ### HighOven（高炉）
 
 > `import mods.tcomplement.highoven.HighOven;`
 
-#### 燃料管理
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addFuel(IIngredient fuel, int time, int rate)` | void | 添加高炉燃料。`time` 持续时间(秒)。`rate` 每秒温度增量 |
 | `.removeFuel(IIngredient fuel)` | void | 移除高炉燃料 |
-
-#### 熔炼覆盖
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.addMeltingOverride(ILiquidStack output, IIngredient input, @Optional int temp)` | void | 添加熔炼覆盖。`temp` 最低熔炼温度(K) |
 | `.removeMeltingOverride(ILiquidStack output, @Optional IItemStack input)` | void | 移除熔炼覆盖 |
-
-#### 热量配方
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.addHeatRecipe(ILiquidStack output, ILiquidStack input, int temp)` | void | 添加热量配方（流体转换）。`temp` 最低温度(K) |
 | `.removeHeatRecipe(ILiquidStack output, @Optional ILiquidStack input)` | void | 移除热量配方 |
-
-#### 混合配方
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.newMixRecipe(ILiquidStack output, ILiquidStack input, int temp)` | MixRecipeBuilder | 创建混合配方构建器 |
 | `.removeMixRecipe(ILiquidStack output, @Optional ILiquidStack input)` | void | 移除混合配方 |
 | `.manageMixRecipe(ILiquidStack output, @Optional ILiquidStack input)` | MixRecipeManager | 获取混合配方管理器 |
@@ -109,8 +78,6 @@
 ### MixRecipeManager（混合配方管理器）
 
 > `import mods.tcomplement.highoven.MixRecipeManager;`
-
-#### 方法
 
 | 方法 | 返回 | 说明 |
 |------|------|------|

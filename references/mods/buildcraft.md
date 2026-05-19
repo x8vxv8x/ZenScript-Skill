@@ -14,23 +14,16 @@ BuildCraft 是一个工业模组。
 
 > `import mods.buildcraft.AssemblyTable;`
 
-#### 配方添加方法
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addRecipe(recipeName as string, output as IItemStack, power as int, inputs as IIngredient[])` | void | 添加装配台配方 |
+| `.removeByName(name as string)` | void | 按名称移除配方 |
 
 **参数说明**:
 - `recipeName`: 配方名称（必须唯一）
 - `output`: 输出物品
 - `power`: 总能量消耗（MJ）
 - `inputs`: 输入材料数组
-
-#### 配方移除方法
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
-| `.removeByName(name as string)` | void | 按名称移除配方 |
 
 #### 现有配方名称
 
@@ -71,26 +64,13 @@ BuildCraft 是一个工业模组。
 
 > `import mods.buildcraft.CombustionEngine;`
 
-
-#### 添加清洁燃料
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addCleanFuel(liquid as ILiquidStack, powerPerTick as double, timePerBucket as int)` | void | 添加清洁燃料 |
-
-**参数说明**:
-- `liquid`: 燃料流体
-- `powerPerTick`: 每tick能量输出（MJ）
-- `timePerBucket`: 每桶燃料运行时间（tick）
-
-#### 添加脏燃料
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.addDirtyFuel(lFuel as ILiquidStack, powerPerTick as double, timePerBucket as int, lResidue as ILiquidStack)` | void | 添加脏燃料 |
 
 **参数说明**:
-- `lFuel`: 燃料流体
+- `liquid`: 燃料流体
 - `powerPerTick`: 每tick能量输出（MJ）
 - `timePerBucket`: 每桶燃料运行时间（tick）
 - `lResidue`: 残留流体

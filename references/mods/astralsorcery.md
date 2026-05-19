@@ -10,60 +10,36 @@
 
 > `import mods.astralsorcery.Altar;`
 
-#### 移除配方方法
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.removeAltarRecipe(String recipeLocation)` | void | 根据配方名称移除祭坛配方 |
+| `.addDiscoveryAltarRecipe(String recipeLocation, IItemStack output, int starlightRequired, int craftingTickTime, IIngredient[] inputs)` | void | 添加星辉合成台配方（inputs 长度必须为 9） |
+| `.addAttunementAltarRecipe(String recipeLocation, IItemStack output, int starlightRequired, int craftingTickTime, IIngredient[] inputs)` | void | 添加星辉祭坛配方（inputs 长度必须为 13） |
+| `.addConstellationAltarRecipe(String recipeLocation, IItemStack output, int starlightRequired, int craftingTickTime, IIngredient[] inputs)` | void | 添加天辉祭坛配方（inputs 长度必须为 21） |
+| `.addTraitAltarRecipe(String recipeLocation, IItemStack output, int starlightRequired, int craftingTickTime, IIngredient[] inputs, @Optional String constellationFocus)` | void | 添加五彩祭坛配方（inputs 长度必须为 25+） |
 
-**注意：** 可在 JEI 或 Astral Tome 中悬停在配方输出上，按 F3 查看。
-
-#### 添加配方方法 - Discovery（星辉合成台）
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
-| `.addDiscoveryAltarRecipe(String recipeLocation, IItemStack output, int starlightRequired, int craftingTickTime, IIngredient[] inputs)` | void | 添加星辉合成台配方 |
-
-**参数说明：**
-- `recipeLocation`：配方名称（必须提供）
-- `output`：输出物品
-- `starlightRequired`：所需星能
-- `craftingTickTime`：制作时间（ticks）
-- `inputs`：输入材料数组（长度必须为 9）
+**注意：** 可在 JEI 或 Astral Tome 中悬停在配方输出上，按 F3 查看配方名称。
 
 **输入顺序：**
+
+星辉合成台（9 格）：
 ```
 [0] [1] [2]
 [3] [4] [5]
 [6] [7] [8]
 ```
 
-#### 添加配方方法 - Attunement（星辉祭坛）
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
-| `.addAttunementAltarRecipe(String recipeLocation, IItemStack output, int starlightRequired, int craftingTickTime, IIngredient[] inputs)` | void | 添加星辉祭坛配方 |
-- inputs长度必须为 13
-
-**输入顺序：** 
+星辉祭坛（13 格）：
 ```
 [9]             [10]
     [0] [1] [2]
     [3] [4] [5]
-    [6] [7] [9]
+    [6] [7] [8]
 [11]            [12]
 ```
 
-#### 添加配方方法 - Constellation（天辉祭坛）
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
-| `.addConstellationAltarRecipe(String recipeLocation, IItemStack output, int starlightRequired, int craftingTickTime, IIngredient[] inputs)` | void | 添加天辉祭坛配方 |
-- inputs长度必须为 21
-
-**输入顺序：**
+天辉祭坛（21 格）：
 ```
-
 [9]  [13]    [14] [10]
 [15] [0] [1] [2]  [16]
      [3] [4] [5]
@@ -71,16 +47,7 @@
 [11] [19]    [20] [12]
 ```
 
-#### 添加配方方法 - Trait（五彩祭坛）
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
-| `.addTraitAltarRecipe(String recipeLocation, IItemStack output, int starlightRequired, int craftingTickTime, IIngredient[] inputs, @Optional String constellationFocus)` | void | 添加五彩祭坛配方 |
-
-**参数说明：**
-- `constellationFocus`：所需星座（可选，未本地化字符串）
-- inputs长度必须为 25 或更高（索引 25+ 为外围物品）
-**输入顺序：** 
+五彩祭坛（25+ 格）：
 ```
 [9]  [13] [21] [14] [10]
 [15] [0]  [1]  [2]  [16]
@@ -90,129 +57,55 @@
 [25+] 外部物品（放在祭坛周围光波增幅器上）
 ```
 
----
-
 ### Grindstone（砂轮）
 
 > `import mods.astralsorcery.Grindstone;`
-
-#### 添加配方方法
 
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addRecipe(IItemStack input, IItemStack output)` | void | 添加研磨配方 |
 | `.addRecipe(IItemStack input, IItemStack output, float doubleChance)` | void | 添加研磨配方（带双倍产出概率） |
-
-#### 移除配方方法
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.removeRecipe(IItemStack output)` | void | 移除指定输出的配方 |
-
----
 
 ### StarlightInfusion（星能聚合器）
 
 > `import mods.astralsorcery.StarlightInfusion;`
 
-#### 添加配方方法
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
-| `.addInfusion(IItemStack input, IItemStack output, boolean consumeMultiple, float consumptionChance, int craftingTickTime)` | void | 添加配方 |
-
-**参数说明：**
-- `input`：输入物品
-- `output`：输出物品
-- `consumeMultiple`：是否消耗多个输入
-- `consumptionChance`：消耗概率
-- `craftingTickTime`：制作时间（ticks）
-
-#### 移除配方方法
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
+| `.addInfusion(IItemStack input, IItemStack output, boolean consumeMultiple, float consumptionChance, int craftingTickTime)` | void | 添加配方。`consumeMultiple` 是否消耗多个输入。`consumptionChance` 消耗概率 |
 | `.removeInfusion(IItemStack output)` | void | 移除指定输出的配方 |
-
----
 
 ### LiquidInteraction（液体交互）
 
 > `import mods.astralsorcery.LiquidInteraction;`
 
-#### 添加配方方法
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
-| `.addInteraction(ILiquidStack liquid1, float chance1, ILiquidStack liquid2, float chance2, int weight, IItemStack output)` | void | 添加液体交互配方 |
-
-**参数说明：**
-- `liquid1`、`liquid2`：输入液体（数量表示消耗量）
-- `chance1`、`chance2`：对应液体的消耗概率
-- `weight`：配方权重（相对于其他相同液体对的交互）
-- `output`：输出物品
-
-#### 移除配方方法
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
+| `.addInteraction(ILiquidStack liquid1, float chance1, ILiquidStack liquid2, float chance2, int weight, IItemStack output)` | void | 添加液体交互配方。`liquid1`/`liquid2` 数量表示消耗量。`chance1`/`chance2` 消耗概率。`weight` 配方权重 |
 | `.removeInteraction(ILiquidStack liquid1, ILiquidStack liquid2, @Optional IItemStack output)` | void | 移除液体交互配方 |
-
----
 
 ### LightTransmutation（星光嬗变）
 
 > `import mods.astralsorcery.LightTransmutation;`
 
-#### 添加配方方法
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addTransmutation(IItemStack input, IItemStack output, double cost)` | void | 添加嬗变配方 |
-
-#### 移除配方方法
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
-| `.removeTransmutation(IItemStack stackToRemove, boolean matchMeta)` | void | 移除嬗变配方 |
-
-**参数说明：**
-- `matchMeta`：是否匹配物品元数据
-
----
+| `.removeTransmutation(IItemStack stackToRemove, boolean matchMeta)` | void | 移除嬗变配方。`matchMeta` 是否匹配物品元数据 |
 
 ### Lightwell（聚星缸）
 
 > `import mods.astralsorcery.Lightwell;`
 
-#### 添加配方方法
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
-| `.addLiquefaction(IItemStack input, ILiquidStack output, float productionMultiplier, float shatterMultiplier, int colorHEX)` | void | 添加液化配方 |
-
-**参数说明：**
-- `input`：输入物品（催化剂）
-- `output`：输出液体（仅类型有效，数量取决于日夜等因素）
-- `productionMultiplier`：产出倍率（通常 0.3 - 1.2）
-- `shatterMultiplier`：碎裂倍率（越高，催化剂碎裂概率越低）
-- `colorHEX`：粒子颜色（十六进制）
-
-#### 移除配方方法
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
-| `.removeLiquefaction(IItemStack input, @Optional ILiquidStack output)` | void | 移除液化配方 |
-
-**注意：** 可将 `output` 设为 `null` 仅通过输入物品搜索。
-
----
+| `.addLiquefaction(IItemStack input, ILiquidStack output, float productionMultiplier, float shatterMultiplier, int colorHEX)` | void | 添加液化配方。`productionMultiplier` 产出倍率（通常 0.3-1.2）。`shatterMultiplier` 碎裂倍率（越高碎裂概率越低）。`colorHEX` 粒子颜色 |
+| `.removeLiquefaction(IItemStack input, @Optional ILiquidStack output)` | void | 移除液化配方。可将 `output` 设为 `null` 仅通过输入物品搜索 |
 
 ### Utils（工具类）
 
 > `import mods.astralsorcery.Utils;`
-
-#### 获取水晶方法
 
 | 方法 | 返回 | 说明 |
 |------|------|------|

@@ -12,26 +12,14 @@
 
 **注意**: 由于 ModTweaker 的旧 bug，熔魂钢钢砧配方会沿对角线翻转。使用 `addShapedFixed`/`removeShapedFixed` 可修复此问题。
 
-#### 有序合成方法
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addShaped(IItemStack output, IIngredient[][] inputs)` | void | 添加 4x4 有序配方（有翻转 bug） |
 | `.addShapedFixed(IItemStack output, IIngredient[][] inputs)` | void | 添加 4x4 有序配方（修复版） |
 | `.removeShaped(IItemStack output, @Optional IIngredient[][] inputs)` | void | 移除有序配方 |
 | `.removeShapedFixed(IItemStack output, @Optional IIngredient[][] inputs)` | void | 移除有序配方（修复版） |
-
-#### 无序合成方法
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.addShapeless(IItemStack output, IIngredient[] inputs)` | void | 添加无序配方 |
 | `.removeShapeless(IItemStack output, @Optional IIngredient[] inputs)` | void | 移除无序配方 |
-
-#### 清除方法
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.removeAll()` | void | 清除所有熔魂钢钢砧配方 |
 
 ### Bellows（风箱）
@@ -54,20 +42,18 @@
 
 > `import mods.betterwithmods.Cauldron;`
 
-#### 基础配方方法
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addUnstoked(IIngredient[] inputs, IItemStack[] outputs)` | void | 添加无火釜锅配方 |
 | `.addStoked(IIngredient[] inputs, IItemStack[] outputs)` | void | 添加有火釜锅配方 |
 | `.remove(IItemStack[] outputs)` | void | 按输出移除配方 |
 | `.removeAll()` | void | 清除所有配方 |
+| `.builder()` | CauldronBuilder | 创建配方构建器 |
 
 #### Builder 方法
 
 | 方法 | 返回 | 说明 |
 |------|------|------|
-| `.builder()` | CauldronBuilder | 创建配方构建器 |
 | `builder.buildRecipe(IIngredient[] inputs, IItemStack[] outputs)` | CauldronBuilder | 设置输入输出 |
 | `builder.setPriority(int priority)` | CauldronBuilder | 设置优先级（越低越优先，默认 0） |
 | `builder.setHeat(int heat)` | CauldronBuilder | 设置热量需求（无火=1，有火=2） |
@@ -78,24 +64,21 @@
 
 > `import mods.betterwithmods.Crucible;`
 
-#### 基础配方方法
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addUnstoked(IIngredient[] inputs, IItemStack[] outputs)` | void | 添加无火坩埚配方 |
 | `.addStoked(IIngredient[] inputs, IItemStack[] outputs)` | void | 添加有火坩埚配方 |
 | `.remove(IItemStack[] outputs)` | void | 按输出移除配方 |
 | `.removeAll()` | void | 清除所有配方 |
+| `.builder()` | CrucibleBuilder | 创建配方构建器 |
 
-#### Builder 方法（同 Cauldron）
+Builder 方法同 Cauldron。
 
 ### Kiln（窑炉）
 
 > `import mods.betterwithmods.Kiln;`
 
 **注意**: 输入**必须**有关联的方块状态。
-
-#### 基础配方方法
 
 | 方法 | 返回 | 说明 |
 |------|------|------|
@@ -104,12 +87,12 @@
 | `.remove(IItemStack[] outputs)` | void | 按输出移除配方 |
 | `.removeAll()` | void | 清除所有配方 |
 | `.registerBlock(IItemStack input)` | void | 注册窑炉结构方块（输入必须是方块） |
+| `.builder()` | KilnBuilder | 创建配方构建器 |
 
 #### Builder 方法
 
 | 方法 | 返回 | 说明 |
 |------|------|------|
-| `.builder()` | KilnBuilder | 创建配方构建器 |
 | `builder.buildRecipe(IIngredient input, IItemStack[] outputs)` | KilnBuilder | 设置输入输出 |
 | `builder.setHeat(int heat)` | KilnBuilder | 设置热量需求 |
 | `builder.setIgnoreHeat(boolean ignoreHeat)` | KilnBuilder | 设置忽略热量 |
@@ -119,19 +102,17 @@
 
 > `import mods.betterwithmods.Mill;`
 
-#### 基础配方方法
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addRecipe(IIngredient[] inputs, IItemStack[] outputs)` | void | 添加磨石配方 |
 | `.remove(IItemStack[] outputs)` | void | 按输出移除配方 |
 | `.removeAll()` | void | 清除所有配方 |
+| `.builder()` | MillBuilder | 创建配方构建器 |
 
 #### Builder 方法
 
 | 方法 | 返回 | 说明 |
 |------|------|------|
-| `.builder()` | MillBuilder | 创建配方构建器 |
 | `builder.buildRecipe(IIngredient[] inputs, IItemStack[] outputs)` | MillBuilder | 设置输入输出 |
 | `builder.setPriority(int priority)` | MillBuilder | 设置优先级 |
 | `builder.setGrindType(String soundLocation)` | MillBuilder | 设置研磨音效 |
@@ -169,18 +150,11 @@
 
 > `import mods.betterwithmods.FilteredHopper;`
 
-#### 过滤器管理
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addFilter(String name, IIngredient item)` | void | 创建新过滤器并指定过滤槽物品 |
 | `.addFilteredItem(String name, IIngredient item)` | void | 向过滤器添加允许通过的物品 |
 | `.clearFilter(String name)` | void | 清除指定过滤器的允许物品 |
-
-#### 过滤配方
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.addFilterRecipe(String name, IIngredient input, IIngredient[] insideOutput, IIngredient[] outsideOutput)` | void | 添加过滤配方。`insideOutput` 进入漏斗库存，`outsideOutput` 弹出到世界 |
 | `.addSoulUrnRecipe(IIngredient input, IItemStack[] outputs, IItemStack[] secondary)` | void | 添加灵魂瓮配方 |
 | `.removeRecipe(IIngredient[] insideOutput, IIngredient[] outsideOutput)` | void | 按输出移除配方 |

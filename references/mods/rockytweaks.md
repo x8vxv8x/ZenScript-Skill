@@ -12,36 +12,27 @@
 
 > `import mods.rockytweaks.Anvil;`
 
-#### 添加方法
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addRecipe(IIngredient left, IIngredient right, IItemStack output, int expCost)` | void | 添加铁砧配方，expCost 为经验消耗 |
 | `.addRecipe(IIngredient left, IIngredient right, IItemStack output, int expCost, IRecipeFunction function)` | void | 添加带自定义函数的铁砧配方 |
-
-#### 移除方法
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.remove(IIngredient[] inputs)` | void | 根据输入物品黑名单移除/禁用铁砧配方 |
 | `.remove(IIngredient output)` | void | 根据输出物品移除/禁用铁砧配方 |
 | `.removeAll()` | void | 移除所有铁砧配方 |
 
-- 铁砧不使用常规配方系统，移除操作实质上是黑名单机制
+铁砧不使用常规配方系统，移除操作实质上是黑名单机制。
 
 ### Merchant（村民交易）
 
 > `import mods.rockytweaks.Merchant;`
 
-#### 添加方法
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addTrade(String profession, String career, IItemStack input1, @Optional IItemStack input2, IItemStack output, int level)` | void | 添加村民交易，profession 为职业，career 为职业分支，level 为交易等级 |
 
-- 移除功能目前不可用
-- 使用 `/ct merchant professions` 查看有效职业
-- 使用 `/ct merchant careers [profession]` 查看有效职业分支
+移除功能目前不可用。
+
+使用 `/ct merchant professions` 查看有效职业。使用 `/ct merchant careers [profession]` 查看有效职业分支。
 
 ## 使用示例
 

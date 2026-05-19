@@ -10,32 +10,18 @@
 
 > `import mods.extrautils2.Crusher;`
 
-#### 配方添加方法
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.add(IItemStack output, IItemStack input, @Optional IItemStack secondaryOutput, @Optional float secondaryChance)` | void | 添加粉碎配方，可选副产物及概率 |
-
-#### 配方移除方法
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.remove(IItemStack output)` | void | 按输出移除配方 |
 
 ### Resonator（共振仪）
 
 > `import mods.extrautils2.Resonator;`
 
-#### 配方添加方法
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.add(IItemStack output, IItemStack input, int energy, @Optional boolean addOwnerTag)` | void | 添加共振仪配方。`energy` 为能量消耗（1 GP = 100 energy）。`addOwnerTag` 是否添加所有者标签 |
-
-#### 配方移除方法
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.remove(IItemStack output)` | void | 按输出移除配方 |
 
 ## 使用示例
@@ -70,8 +56,6 @@ Resonator.add(<minecraft:gold_block>, <minecraft:iron_block>, 200, false);
 
 > `import extrautilities2.Tweaker.XUTweaker;`
 
-### 方法
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.allowSurvivalFlight()` | void | 允许所有玩家永久飞行 |
@@ -84,8 +68,6 @@ Resonator.add(<minecraft:gold_block>, <minecraft:iron_block>, 200, false);
 ## InterModCommsHandler（模组间通信）
 
 > `import extrautilities2.Tweaker.InterModCommsHandler;`
-
-### 方法
 
 | 方法 | 返回 | 说明 |
 |------|------|------|

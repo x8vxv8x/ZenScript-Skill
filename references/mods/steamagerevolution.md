@@ -10,14 +10,9 @@
 
 > `import mods.steamagerevolution.AlloyForge;`
 
-#### 添加配方方法
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addRecipe(ILiquidStack input, ILiquidStack input, ILiquidStack output, int craftTime)` | void | 添加合金锻造配方，craftTime 为合成时间 |
-
-#### 移除配方方法
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.removeRecipe(ILiquidStack output)` | void | 移除指定输出的合金锻造配方 |
 | `.removeAll()` | void | 移除所有合金锻造配方 |
 
@@ -25,14 +20,9 @@
 
 > `import mods.steamagerevolution.CastingBlock;`
 
-#### 添加配方方法
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addRecipe(ILiquidStack input, IItemStack output, int craftTime)` | void | 添加铸造配方，craftTime 为合成时间 |
-
-#### 移除配方方法
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.removeRecipe(IItemStack output)` | void | 移除指定输出的铸造配方 |
 | `.removeAll()` | void | 移除所有铸造配方 |
 
@@ -40,14 +30,9 @@
 
 > `import mods.steamagerevolution.Crucible;`
 
-#### 添加配方方法
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addRecipe(IIngredient input, ILiquidStack output, int craftTime, int steamCost)` | void | 添加坩埚配方，craftTime 为合成时间，steamCost 为蒸汽消耗 |
-
-#### 移除配方方法
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.removeRecipe(ILiquidStack output)` | void | 移除指定输出的坩埚配方 |
 | `.removeAll()` | void | 移除所有坩埚配方 |
 
@@ -55,14 +40,9 @@
 
 > `import mods.steamagerevolution.Distiller;`
 
-#### 添加配方方法
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addRecipe(ILiquidStack input, IItemStack outputStack, ILiquidStack output, int craftTime, int steamCost)` | void | 添加蒸馏配方，craftTime 为合成时间，steamCost 为蒸汽消耗 |
-
-#### 移除配方方法
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.removeRecipe(IItemStack outputStack, ILiquidStack output)` | void | 移除指定输出的蒸馏配方 |
 | `.removeAll()` | void | 移除所有蒸馏配方 |
 
@@ -70,14 +50,9 @@
 
 > `import mods.steamagerevolution.Grinder;`
 
-#### 添加配方方法
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addRecipe(IIngredient input, IItemStack output, int craftTime, int steamCost)` | void | 添加研磨配方，craftTime 为合成时间，steamCost 为蒸汽消耗 |
-
-#### 移除配方方法
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.removeRecipe(IItemStack output)` | void | 移除指定输出的研磨配方 |
 | `.removeAll()` | void | 移除所有研磨配方 |
 
@@ -85,14 +60,9 @@
 
 > `import mods.steamagerevolution.SteamFurnace;`
 
-#### 添加配方方法
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addRecipe(IIngredient input, IItemStack output, int craftTime, int steamCost)` | void | 添加蒸汽熔炉配方，craftTime 为合成时间，steamCost 为蒸汽消耗 |
-
-#### 移除配方方法
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.removeRecipe(IItemStack output)` | void | 移除指定输出的蒸汽熔炉配方 |
 | `.removeAll()` | void | 移除所有蒸汽熔炉配方 |
 
@@ -100,14 +70,9 @@
 
 > `import mods.steamagerevolution.SteamHammer;`
 
-#### 添加配方方法
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addRecipe(IIngredient input, IIngredient input, IItemStack output, int craftTime, int steamCost)` | void | 添加蒸汽锤配方，craftTime 为合成时间，steamCost 为蒸汽消耗 |
-
-#### 移除配方方法
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.removeRecipe(IItemStack output)` | void | 移除指定输出的蒸汽锤配方 |
 | `.removeAll()` | void | 移除所有蒸汽锤配方 |
 
@@ -115,14 +80,9 @@
 
 > `import mods.steamagerevolution.Steelworks;`
 
-#### 添加配方方法
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addRecipe(ILiquidStack input, IIngredient input2, IItemStack output, int craftTime, int steamCost)` | void | 添加炼钢配方，craftTime 为合成时间，steamCost 为蒸汽消耗 |
-
-#### 移除配方方法
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.removeRecipe(IItemStack output)` | void | 移除指定输出的炼钢配方 |
 | `.removeAll()` | void | 移除所有炼钢配方 |
 
@@ -130,13 +90,8 @@
 
 > `import mods.steamagerevolution.Vat;`
 
-#### 添加配方方法
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addRecipe(ILiquidStack[] input, IIngredient[] inputItems, ILiquidStack output, int craftTime)` | void | 添加大桶配方，craftTime 为合成时间 |
-
-#### 移除配方方法
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.removeRecipe(ILiquidStack output)` | void | 移除指定输出的大桶配方 |
 | `.removeAll()` | void | 移除所有大桶配方 |

@@ -10,27 +10,10 @@
 
 > `import mods.arcanearchives.GCT;`
 
-#### 添加配方方法
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addRecipe(String name, IItemStack output, IIngredient[] inputs)` | void | 添加 GCT 配方 |
-
-**参数说明：**
-- `name`：配方名称
-- `output`：输出物品
-- `inputs`：输入材料数组
-
-#### 移除配方方法
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.removeRecipe(IItemStack output)` | void | 移除指定输出的配方（数量必须匹配） |
-
-#### 替换配方方法
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.replaceRecipe(String name, IItemStack output, IIngredient[] inputs)` | void | 替换已有配方（不打乱 GCT 界面顺序） |
 
 **参数说明：**

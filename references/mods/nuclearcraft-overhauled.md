@@ -16,16 +16,9 @@
 
 > `mods.nuclearcraft.ChanceItemIngredient`
 
-#### 创建方法
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.create(IIngredient ingredient, int chancePercent, @Optional int minStackSize)` | ChanceItemIngredient | 创建概率物品成分 |
-
-#### 查询方法
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.getInternalIngredient()` | IIngredient | 获取内部成分 |
 | `.getChancePercent()` | int | 获取概率百分比 |
 | `.getMinStackSize()` | int | 获取最小堆叠数 |
@@ -34,16 +27,9 @@
 
 > `mods.nuclearcraft.ChanceFluidIngredient`
 
-#### 创建方法
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.create(IIngredient ingredient, int chancePercent, int stackDiff, @Optional int minStackSize)` | ChanceFluidIngredient | 创建概率流体成分 |
-
-#### 查询方法
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.getInternalIngredient()` | IIngredient | 获取内部成分 |
 | `.getChancePercent()` | int | 获取概率百分比 |
 | `.getStackDiff()` | int | 获取堆叠差异 |
@@ -57,16 +43,9 @@
 
 > `import mods.nuclearcraft.Manufactory;`
 
-#### 添加配方
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addRecipe(IIngredient itemInput, IIngredient itemOutput, @Optional double timeMultiplier, @Optional double powerMultiplier, @Optional double processRadiation)` | void | 添加制造机配方 |
-
-#### 移除配方
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.removeRecipeWithInput(IIngredient itemInput)` | void | 根据输入移除 |
 | `.removeRecipeWithOutput(IIngredient itemOutput)` | void | 根据输出移除 |
 | `.removeAllRecipes()` | void | 移除所有配方 |
@@ -75,16 +54,9 @@
 
 > `import mods.nuclearcraft.AlloyFurnace;`
 
-#### 添加配方
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addRecipe(IIngredient itemInput1, IIngredient itemInput2, IIngredient itemOutput, @Optional double timeMultiplier, @Optional double powerMultiplier, @Optional double processRadiation)` | void | 添加合金炉配方 |
-
-#### 移除配方
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.removeRecipeWithInput(IIngredient itemInput1, IIngredient itemInput2)` | void | 根据输入移除 |
 | `.removeRecipeWithOutput(IIngredient itemOutput)` | void | 根据输出移除 |
 | `.removeAllRecipes()` | void | 移除所有配方 |
@@ -93,16 +65,9 @@
 
 > `import mods.nuclearcraft.Assembler;`
 
-#### 添加配方
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addRecipe(IIngredient itemInput1, IIngredient itemInput2, IIngredient itemInput3, IIngredient itemInput4, IIngredient itemOutput, @Optional double timeMultiplier, @Optional double powerMultiplier, @Optional double processRadiation)` | void | 添加装配机配方 |
-
-#### 移除配方
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.removeRecipeWithInput(IIngredient itemInput1, IIngredient itemInput2, IIngredient itemInput3, IIngredient itemInput4)` | void | 根据输入移除 |
 | `.removeRecipeWithOutput(IIngredient itemOutput)` | void | 根据输出移除 |
 | `.removeAllRecipes()` | void | 移除所有配方 |
@@ -111,16 +76,9 @@
 
 > `import mods.nuclearcraft.Separator;`
 
-#### 添加配方
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addRecipe(IIngredient itemInput, IIngredient itemOutput1, IIngredient itemOutput2, @Optional double timeMultiplier, @Optional double powerMultiplier, @Optional double processRadiation)` | void | 添加分离器配方 |
-
-#### 移除配方
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.removeRecipeWithInput(IIngredient itemInput)` | void | 根据输入移除 |
 | `.removeRecipeWithOutput(IIngredient itemOutput1, IIngredient itemOutput2)` | void | 根据输出移除 |
 | `.removeAllRecipes()` | void | 移除所有配方 |
@@ -129,16 +87,9 @@
 
 > `import mods.nuclearcraft.DecayHastener;`
 
-#### 添加配方
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addRecipe(IIngredient itemInput, IIngredient itemOutput, @Optional double timeMultiplier, @Optional double powerMultiplier, @Optional double processRadiation)` | void | 添加衰变加速器配方 |
-
-#### 移除配方
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.removeRecipeWithInput(IIngredient itemInput)` | void | 根据输入移除 |
 | `.removeRecipeWithOutput(IIngredient itemOutput)` | void | 根据输出移除 |
 | `.removeAllRecipes()` | void | 移除所有配方 |
@@ -147,16 +98,9 @@
 
 > `import mods.nuclearcraft.FuelReprocessor;`
 
-#### 添加配方
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addRecipe(IIngredient itemInput, IIngredient itemOutput1~8, @Optional double timeMultiplier, @Optional double powerMultiplier, @Optional double processRadiation)` | void | 添加燃料再处理配方（8 个输出） |
-
-#### 移除配方
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.removeRecipeWithInput(IIngredient itemInput)` | void | 根据输入移除 |
 | `.removeRecipeWithOutput(IIngredient itemOutput1~8)` | void | 根据输出移除 |
 | `.removeAllRecipes()` | void | 移除所有配方 |
@@ -165,16 +109,9 @@
 
 > `import mods.nuclearcraft.Electrolyzer;`
 
-#### 添加配方
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addRecipe(ILiquidStack fluidInput, ILiquidStack fluidOutput1~4, @Optional double timeMultiplier, @Optional double powerMultiplier, @Optional double processRadiation)` | void | 添加电解配方 |
-
-#### 移除配方
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.removeRecipeWithInput(ILiquidStack fluidInput)` | void | 根据输入移除 |
 | `.removeRecipeWithOutput(ILiquidStack fluidOutput1~4)` | void | 根据输出移除 |
 | `.removeAllRecipes()` | void | 移除所有配方 |
@@ -183,16 +120,9 @@
 
 > `import mods.nuclearcraft.Centrifuge;`
 
-#### 添加配方
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addRecipe(ILiquidStack fluidInput, ILiquidStack fluidOutput1~6, @Optional double timeMultiplier, @Optional double powerMultiplier, @Optional double processRadiation)` | void | 添加离心机配方（6 个输出） |
-
-#### 移除配方
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.removeRecipeWithInput(ILiquidStack fluidInput)` | void | 根据输入移除 |
 | `.removeRecipeWithOutput(ILiquidStack fluidOutput1~6)` | void | 根据输出移除 |
 | `.removeAllRecipes()` | void | 移除所有配方 |
@@ -201,16 +131,9 @@
 
 > `import mods.nuclearcraft.ChemicalReactor;`
 
-#### 添加配方
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addRecipe(ILiquidStack fluidInput1, ILiquidStack fluidInput2, ILiquidStack fluidOutput1, ILiquidStack fluidOutput2, @Optional double timeMultiplier, @Optional double powerMultiplier, @Optional double processRadiation)` | void | 添加化学反应器配方 |
-
-#### 移除配方
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.removeRecipeWithInput(ILiquidStack fluidInput1, ILiquidStack fluidInput2)` | void | 根据输入移除 |
 | `.removeRecipeWithOutput(ILiquidStack fluidOutput1, ILiquidStack fluidOutput2)` | void | 根据输出移除 |
 | `.removeAllRecipes()` | void | 移除所有配方 |
@@ -219,16 +142,9 @@
 
 > `import mods.nuclearcraft.Melter;`
 
-#### 添加配方
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addRecipe(IIngredient itemInput, ILiquidStack fluidOutput, @Optional double timeMultiplier, @Optional double powerMultiplier, @Optional double processRadiation)` | void | 添加配方 |
-
-#### 移除配方
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.removeRecipeWithInput(IIngredient itemInput)` | void | 根据输入移除 |
 | `.removeRecipeWithOutput(ILiquidStack fluidOutput)` | void | 根据输出移除 |
 | `.removeAllRecipes()` | void | 移除所有配方 |
@@ -237,16 +153,9 @@
 
 > `import mods.nuclearcraft.Supercooler;`
 
-#### 添加配方
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addRecipe(ILiquidStack fluidInput, ILiquidStack fluidOutput, @Optional double timeMultiplier, @Optional double powerMultiplier, @Optional double processRadiation)` | void | 添加超冷却机配方 |
-
-#### 移除配方
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.removeRecipeWithInput(ILiquidStack fluidInput)` | void | 根据输入移除 |
 | `.removeRecipeWithOutput(ILiquidStack fluidOutput)` | void | 根据输出移除 |
 | `.removeAllRecipes()` | void | 移除所有配方 |
@@ -257,16 +166,9 @@
 
 **注意：部分功能损坏**
 
-#### 添加配方
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addRecipe(ILiquidStack fluidInput, ILiquidStack fluidOutput, @Optional double coolingRequired, @Optional int condensingTemperature)` | void | 添加配方 |
-
-#### 移除配方
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.removeRecipeWithInput(ILiquidStack fluidInput)` | void | 根据输入移除 |
 | `.removeRecipeWithOutput(ILiquidStack fluidOutput)` | void | 根据输出移除 |
 | `.removeAllRecipes()` | void | 移除所有配方 |
@@ -275,16 +177,9 @@
 
 > `import mods.nuclearcraft.Crystallizer;`
 
-#### 添加配方
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addRecipe(ILiquidStack fluidInput, IIngredient itemOutput, @Optional double timeMultiplier, @Optional double powerMultiplier, @Optional double processRadiation)` | void | 添加结晶器配方 |
-
-#### 移除配方
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.removeRecipeWithInput(ILiquidStack fluidInput)` | void | 根据输入移除 |
 | `.removeRecipeWithOutput(IIngredient itemOutput)` | void | 根据输出移除 |
 | `.removeAllRecipes()` | void | 移除所有配方 |
@@ -293,16 +188,9 @@
 
 > `import mods.nuclearcraft.Infuser;`
 
-#### 添加配方
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addRecipe(IIngredient itemInput, ILiquidStack fluidInput, IIngredient itemOutput, @Optional double timeMultiplier, @Optional double powerMultiplier, @Optional double processRadiation)` | void | 添加配方 |
-
-#### 移除配方
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.removeRecipeWithInput(IIngredient itemInput, ILiquidStack fluidInput)` | void | 根据输入移除 |
 | `.removeRecipeWithOutput(IIngredient itemOutput)` | void | 根据输出移除 |
 | `.removeAllRecipes()` | void | 移除所有配方 |
@@ -311,16 +199,9 @@
 
 > `import mods.nuclearcraft.IngotFormer;`
 
-#### 添加配方
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addRecipe(ILiquidStack fluidInput, IIngredient itemOutput, @Optional double timeMultiplier, @Optional double powerMultiplier, @Optional double processRadiation)` | void | 添加配方 |
-
-#### 移除配方
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.removeRecipeWithInput(ILiquidStack fluidInput)` | void | 根据输入移除 |
 | `.removeRecipeWithOutput(IIngredient itemOutput)` | void | 根据输出移除 |
 | `.removeAllRecipes()` | void | 移除所有配方 |
@@ -329,16 +210,9 @@
 
 > `import mods.nuclearcraft.Pressurizer;`
 
-#### 添加配方
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addRecipe(IIngredient itemInput, IIngredient itemOutput, @Optional double timeMultiplier, @Optional double powerMultiplier, @Optional double processRadiation)` | void | 添加配方 |
-
-#### 移除配方
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.removeRecipeWithInput(IIngredient itemInput)` | void | 根据输入移除 |
 | `.removeRecipeWithOutput(IIngredient itemOutput)` | void | 根据输出移除 |
 | `.removeAllRecipes()` | void | 移除所有配方 |
@@ -347,16 +221,9 @@
 
 > `import mods.nuclearcraft.RockCrusher;`
 
-#### 添加配方
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addRecipe(IIngredient itemInput, IIngredient itemOutput1, IIngredient itemOutput2, IIngredient itemOutput3, @Optional double timeMultiplier, @Optional double powerMultiplier, @Optional double processRadiation)` | void | 添加岩石粉碎机配方 |
-
-#### 移除配方
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.removeRecipeWithInput(IIngredient itemInput)` | void | 根据输入移除 |
 | `.removeRecipeWithOutput(IIngredient itemOutput1, IIngredient itemOutput2, IIngredient itemOutput3)` | void | 根据输出移除 |
 | `.removeAllRecipes()` | void | 移除所有配方 |
@@ -365,16 +232,9 @@
 
 > `import mods.nuclearcraft.Enricher;`
 
-#### 添加配方
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addRecipe(IIngredient itemInput, ILiquidStack fluidInput, ILiquidStack fluidOutput, @Optional double timeMultiplier, @Optional double powerMultiplier, @Optional double processRadiation)` | void | 添加配方 |
-
-#### 移除配方
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.removeRecipeWithInput(IIngredient itemInput, ILiquidStack fluidInput)` | void | 根据输入移除 |
 | `.removeRecipeWithOutput(ILiquidStack fluidOutput)` | void | 根据输出移除 |
 | `.removeAllRecipes()` | void | 移除所有配方 |
@@ -383,16 +243,9 @@
 
 > `import mods.nuclearcraft.Extractor;`
 
-#### 添加配方
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addRecipe(IIngredient itemInput, IIngredient itemOutput, ILiquidStack fluidOutput, @Optional double timeMultiplier, @Optional double powerMultiplier, @Optional double processRadiation)` | void | 添加流体提取机配方 |
-
-#### 移除配方
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.removeRecipeWithInput(IIngredient itemInput)` | void | 根据输入移除 |
 | `.removeRecipeWithOutput(IIngredient itemOutput, ILiquidStack fluidOutput)` | void | 根据输出移除 |
 | `.removeAllRecipes()` | void | 移除所有配方 |
@@ -401,16 +254,9 @@
 
 > `import mods.nuclearcraft.SaltMixer;`
 
-#### 添加配方
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addRecipe(ILiquidStack fluidInput1, ILiquidStack fluidInput2, ILiquidStack fluidOutput, @Optional double timeMultiplier, @Optional double powerMultiplier, @Optional double processRadiation)` | void | 添加盐混合器配方 |
-
-#### 移除配方
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.removeRecipeWithInput(ILiquidStack fluidInput1, ILiquidStack fluidInput2)` | void | 根据输入移除 |
 | `.removeRecipeWithOutput(ILiquidStack fluidOutput)` | void | 根据输出移除 |
 | `.removeAllRecipes()` | void | 移除所有配方 |
@@ -421,16 +267,9 @@
 
 **注意：部分功能损坏**
 
-#### 添加配方
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addRecipe(ILiquidStack fluidInput, ILiquidStack fluidOutput, double heatRequired, int temperatureIn, int temperatureOut)` | void | 添加热交换器配方 |
-
-#### 移除配方
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.removeRecipeWithInput(ILiquidStack fluidInput)` | void | 根据输入移除 |
 | `.removeRecipeWithOutput(ILiquidStack fluidOutput)` | void | 根据输出移除 |
 | `.removeAllRecipes()` | void | 移除所有配方 |
@@ -439,16 +278,9 @@
 
 > `import mods.nuclearcraft.Turbine;`
 
-#### 添加配方
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addRecipe(ILiquidStack fluidInput, ILiquidStack fluidOutput, double powerPerMB, double expansionLevel, @Optional String particleEffect, @Optional double particleSpeedMultiplier)` | void | 添加配方 |
-
-#### 移除配方
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.removeRecipeWithInput(ILiquidStack fluidInput)` | void | 根据输入移除 |
 | `.removeRecipeWithOutput(ILiquidStack fluidOutput)` | void | 根据输出移除 |
 | `.removeAllRecipes()` | void | 移除所有配方 |
@@ -457,16 +289,9 @@
 
 > `import mods.nuclearcraft.DecayGenerator;`
 
-#### 添加配方
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addRecipe(IIngredient blockInput, IIngredient blockOutput, double meanLifetime, double power, double radiation)` | void | 添加配方 |
-
-#### 移除配方
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.removeRecipeWithInput(IIngredient blockInput)` | void | 根据输入移除 |
 | `.removeRecipeWithOutput(IIngredient blockOutput)` | void | 根据输出移除 |
 | `.removeAllRecipes()` | void | 移除所有配方 |
@@ -546,6 +371,7 @@
 | `.addRecipe(ILiquidStack fluidInput, ILiquidStack fluidOutput, double coolingPerInputMB)` | void | 添加裂变紧急冷却配方 |
 | `.removeRecipeWithInput(ILiquidStack fluidInput)` | void | 根据输入移除 |
 | `.removeRecipeWithOutput(ILiquidStack fluidOutput)` | void | 根据输出移除 |
+| `.removeAllRecipes()` | void | 移除所有配方 |
 
 ### Fusion（聚变）
 
@@ -553,16 +379,9 @@
 
 **注意：尚未实现**
 
-#### 添加配方
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addRecipe(ILiquidStack fluidInput1, ILiquidStack fluidInput2, ILiquidStack fluidOutput1~4, double comboTime, double comboPower, double comboHeatVar, double processRadiation)` | void | 添加聚变配方 |
-
-#### 移除配方
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.removeRecipeWithInput(ILiquidStack fluidInput1, ILiquidStack fluidInput2)` | void | 根据输入移除 |
 | `.removeRecipeWithOutput(ILiquidStack fluidOutput1~4)` | void | 根据输出移除 |
 | `.removeAllRecipes()` | void | 移除所有配方 |
@@ -608,72 +427,33 @@
 
 > `import mods.nuclearcraft.Radiation;`
 
-#### 成分辐射
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.getRadiationLevel(IIngredient ingredient)` | double | 获取成分辐射值（rads/tick） |
 | `.setRadiationLevel(IIngredient ingredient, double radiation)` | void | 设置成分辐射值 |
-
-#### 食物辐射
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.setFoodRadiationStats(IItemStack food, double radiation, double resistance)` | void | 设置食物辐射统计 |
-
-#### 其他辐射
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.addToRadiationBlacklist(IIngredient ingredient)` | void | 将成分加入辐射黑名单 |
 | `.setMaterialRadiationLevel(String oreSuffix, double radiation)` | void | 设置材料辐射等级（支持 Unix 通配符） |
-
-#### 辐射免疫
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.setRadiationImmunityGameStages(boolean defaultImmunity, String[] stageNames)` | void | 设置玩家辐射免疫 |
 
 ### 实体辐射扩展
 
 NuclearCraft: Overhauled 为 IEntityLivingBase 添加了以下扩展方法：
 
-#### 辐射值操作
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addRadiation(double amount, @Optional boolean useImmunity)` | void | 增加辐射值 |
 | `.setRadiation(double amount, @Optional boolean useImmunity)` | void | 设置辐射值 |
 | `.getRadiation()` | double | 获取辐射值 |
-
-#### 抗辐射缓冲操作
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.addRadawayBuffer(double amount, @Optional boolean slowBuffer)` | void | 增加抗辐射缓冲 |
 | `.setRadawayBuffer(double amount, @Optional boolean slowBuffer)` | void | 设置抗辐射缓冲 |
 | `.getRadawayBuffer(boolean slowBuffer)` | double | 获取抗辐射缓冲。slowBuffer=true 返回慢速缓冲 |
-
-#### 中毒缓冲操作
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.addPoisonBuffer(double amount)` | void | 增加中毒缓冲 |
 | `.setPoisonBuffer(double amount)` | void | 设置中毒缓冲 |
 | `.getPoisonBuffer()` | double | 获取中毒缓冲 |
-
-#### 辐射抗性操作
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.addRadiationResistance(double amount)` | void | 增加辐射抗性 |
 | `.setRadiationResistance(double amount)` | void | 设置辐射抗性 |
 | `.getRadiationResistance()` | double | 获取辐射抗性 |
-
-#### 辐射等级获取
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.getRawRadiationLevel()` | double | 获取原始辐射值（rads） |
 | `.getRadiationLevel()` | double | 获取辐射变化值（rads/tick） |
 
@@ -685,34 +465,12 @@ NuclearCraft: Overhauled 为 IEntityLivingBase 添加了以下扩展方法：
 
 **注意：需要 `#loader preinit` 预处理器**
 
-### 裂变散热器
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.registerFissionSink(String name, int coolingValue, String placementRule)` | void | 注册裂变散热器 |
-
-### 熔盐裂变冷却加热器
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.registerFissionHeater(String name, String fluidInput, int inputAmount, String fluidOutput, int outputAmount, int coolingValue, String placementRule)` | void | 注册熔盐裂变冷却加热器 |
-
-### 涡轮线圈
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.registerTurbineCoil(String name, double efficiency, String placementRule)` | void | 注册涡轮线圈 |
-
-### 涡轮转子叶片
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.registerTurbineBlade(String name, double efficiency, double expansionCoefficient)` | void | 注册涡轮转子叶片 |
-
-### 涡轮转子定子
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.registerTurbineStator(String name, double expansionCoefficient)` | void | 注册涡轮转子定子 |
 
 ---

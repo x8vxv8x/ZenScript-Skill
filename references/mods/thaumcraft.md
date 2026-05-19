@@ -17,17 +17,10 @@
 
 > `import mods.thaumcraft.ArcaneWorkbench;`
 
-#### 配方添加方法
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.registerShapedRecipe(String name, String research, int vis, CTAspectStack[] aspectList, IItemStack output, IIngredient[][] input)` | void | 添加有序奥术配方。`research` 研究名(空串=无需研究)。`vis` 魔力消耗 |
 | `.registerShapelessRecipe(String name, String research, int vis, CTAspectStack[] aspectList, IItemStack output, IIngredient[] input)` | void | 添加无序奥术配方 |
-
-#### 配方移除方法
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.removeRecipe(String name)` | void | 按配方名移除 |
 | `.removeRecipe(IItemStack output)` | void | 按输出移除 |
 
@@ -35,16 +28,9 @@
 
 > `import mods.thaumcraft.Crucible;`
 
-#### 配方添加方法
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.registerRecipe(String name, String researchKey, IItemStack output, IIngredient input, CTAspectStack[] aspects)` | void | 添加坩埚配方 |
-
-#### 配方移除方法
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.removeRecipe(String name)` | void | 按配方名移除 |
 | `.removeRecipe(IItemStack output)` | void | 按输出移除 |
 
@@ -52,16 +38,9 @@
 
 > `import mods.thaumcraft.Infusion;`
 
-#### 配方添加方法
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.registerRecipe(String name, String research, IItemStack output, int instability, CTAspectStack[] aspects, IIngredient centralItem, IIngredient[] recipe)` | void | 添加注魔配方。`instability` 不稳定度 |
-
-#### 配方移除方法
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.removeRecipe(String name)` | void | 按配方名移除 |
 | `.removeRecipe(IItemStack output)` | void | 按输出移除 |
 

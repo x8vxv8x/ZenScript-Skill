@@ -10,11 +10,10 @@
 
 > `import mods.naturesaura.Altar;`
 
-#### 添加配方
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addRecipe(String name, IIngredient input, IItemStack output, IIngredient catalyst, int aura, int time)` | void | 添加自然祭坛配方 |
+| `.removeRecipe(IItemStack output)` | void | 根据输出物品移除配方 |
 
 参数说明：
 - `name`：配方注册名
@@ -24,21 +23,14 @@
 - `aura`：完成配方所需的灵气量
 - `time`：处理时间（tick）
 
-#### 移除配方
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
-| `.removeRecipe(IItemStack output)` | void | 根据输出物品移除配方 |
-
 ### TreeRitual（森林仪式）
 
 > `import mods.naturesaura.TreeRitual;`
 
-#### 添加配方
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addRecipe(String name, IIngredient saplingType, IItemStack output, int time, IIngredient[] items)` | void | 添加森林仪式配方 |
+| `.removeRecipe(IItemStack output)` | void | 根据输出物品移除配方 |
 
 参数说明：
 - `name`：配方注册名
@@ -47,21 +39,14 @@
 - `time`：处理时间（tick）
 - `items`：仪式所需物品列表
 
-#### 移除配方
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
-| `.removeRecipe(IItemStack output)` | void | 根据输出物品移除配方 |
-
 ### Offering（献祭）
 
 > `import mods.naturesaura.Offering;`
 
-#### 添加配方
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addRecipe(String name, IIngredient input, int inputAmount, IIngredient startItem, IItemStack output)` | void | 添加献祭配方 |
+| `.removeRecipe(IItemStack output)` | void | 根据输出物品移除配方 |
 
 参数说明：
 - `name`：配方注册名
@@ -70,21 +55,14 @@
 - `startItem`：启动献祭所需的物品
 - `output`：献祭产出物品
 
-#### 移除配方
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
-| `.removeRecipe(IItemStack output)` | void | 根据输出物品移除配方 |
-
 ### AnimalSpawner（生物生成祭坛）
 
 > `import mods.naturesaura.AnimalSpawner;`
 
-#### 添加配方
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addRecipe(String name, String entity, int aura, int time, IIngredient[] ingredients)` | void | 添加生物生成配方 |
+| `.removeRecipe(String name)` | void | 根据配方注册名移除配方 |
 
 参数说明：
 - `name`：配方注册名
@@ -92,9 +70,3 @@
 - `aura`：完成配方所需的灵气量
 - `time`：处理时间（tick）
 - `ingredients`：所需物品列表
-
-#### 移除配方
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
-| `.removeRecipe(String name)` | void | 根据配方注册名移除配方 |

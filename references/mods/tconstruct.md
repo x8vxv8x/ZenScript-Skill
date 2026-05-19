@@ -134,8 +134,6 @@ ZenTraits 允许通过脚本动态附加/移除已有匠魂材料的特性。
 
 ### TraitManager（特性管理器）
 
-#### 方法
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `TraitManager.attachTrait(string materialID, string traitID, @Optional string partType)` | 未说明 | 为材料附加特性。`partType` 可选，留空则作为默认特性。注意：为原本没有部件特性的材料添加部件特性会替换默认特性 |
@@ -210,16 +208,9 @@ TraitManager.detachAllTraits("wood");
 
 > `import mods.tconstruct.Alloy;`
 
-#### 配方添加方法
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addRecipe(ILiquidStack output, ILiquidStack[] inputs)` | void | 添加合金配方 |
-
-#### 配方移除方法
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.removeRecipe(ILiquidStack output)` | void | 按输出移除配方 |
 | `.removeRecipe(ILiquidStack output, ILiquidStack[] inputs)` | void | 按输入输出移除配方 |
 
@@ -227,18 +218,11 @@ TraitManager.detachAllTraits("wood");
 
 > `import mods.tconstruct.Casting;`
 
-#### 浇铸台配方
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addTableRecipe(IItemStack output, IIngredient cast, ILiquidStack fluid, int amount, @Optional boolean consumeCast, @Optional int time)` | void | 添加浇铸台配方。`cast` 模具。`amount` 流体量(mB)。`consumeCast` 是否消耗模具 |
 | `.removeTableRecipe(IItemStack output)` | void | 按输出移除浇铸台配方 |
 | `.removeTableRecipe(IItemStack output, ILiquidStack input)` | void | 按输入输出移除 |
-
-#### 铸造盆配方
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.addBasinRecipe(IItemStack output, IIngredient cast, ILiquidStack fluid, int amount, @Optional boolean consumeCast, @Optional int time)` | void | 添加铸造盆配方 |
 | `.removeBasinRecipe(IItemStack output)` | void | 按输出移除铸造盆配方 |
 | `.removeBasinRecipe(IItemStack output, ILiquidStack input)` | void | 按输入输出移除 |
@@ -247,17 +231,10 @@ TraitManager.detachAllTraits("wood");
 
 > `import mods.tconstruct.Melting;`
 
-#### 配方添加方法
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addRecipe(ILiquidStack output, IIngredient input, @Optional int temp)` | void | 添加熔炼配方。`temp` 可选温度 |
 | `.addEntityMelting(IEntityDefinition entity, ILiquidStack stack)` | void | 添加实体熔炼配方（可直接覆盖已有配方） |
-
-#### 配方移除方法
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.removeRecipe(ILiquidStack output)` | void | 按输出移除配方 |
 | `.removeRecipe(ILiquidStack output, IItemStack input)` | void | 按输入输出移除配方 |
 | `.removeEntityMelting(IEntityDefinition entity)` | void | 移除实体熔炼配方 |
@@ -266,24 +243,15 @@ TraitManager.detachAllTraits("wood");
 
 > `import mods.tconstruct.Drying;`
 
-#### 配方添加方法
-
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.addRecipe(IItemStack output, IIngredient input, int time)` | void | 添加晾干配方。`time` 为时间(tick) |
-
-#### 配方移除方法
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
 | `.removeRecipe(IItemStack output)` | void | 按输出移除配方 |
 | `.removeRecipe(IItemStack output, IItemStack input)` | void | 按输入输出移除配方 |
 
 ### Fuel（冶炼炉燃料）
 
 > `import mods.tconstruct.Fuel;`
-
-#### 燃料注册方法
 
 | 方法 | 返回 | 说明 |
 |------|------|------|
