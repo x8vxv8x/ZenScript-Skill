@@ -216,18 +216,6 @@ val extra = cow.addPool("extra", 1, 1, 0, 0);
 extra.addItemEntry(<minecraft:apple>, 5);
 ```
 
-### 带条件的掉落
-
-```zenscript
-import loottweaker.LootTweaker;
-import loottweaker.Conditions;
-
-// 只有被玩家击杀时才掉落钻石
-val pool = LootTweaker.getTable("minecraft:entities/zombie")
-    .addPool("diamond_drop", 1, 1, 0, 0);
-pool.addItemEntry(<minecraft:diamond>, 10, 1, [], [Conditions.killedByPlayer()]);
-```
-
 ### 使用函数修改掉落物
 
 ```zenscript
@@ -272,15 +260,26 @@ pool.addItemEntry(<minecraft:potato>, 10, 1, [
 
 ```zenscript
 import loottweaker.LootTweaker;
+import crafttweaker.event.EntityLivingJumpEvent;
+import crafttweaker.player.IPlayer;
+import crafttweaker.damage.IDamageSource;
 
-if (!world.remote) {
-    val generator = LootTweaker.createLootGenerator(world)
-        .luck(2.0)
-        .player(somePlayer);
-    for item in generator.generate("minecraft:entities/cow") {
-        print(item);
+events.onEntityLivingJump(function(event as EntityLivingJumpEvent) {
+    val world = event.entity.world;
+    if (world.remote || !(event.entity instanceof IPlayer))
+    {
+        return;
     }
-}
+    val player as IPlayer = event.entity;
+    val lootGenerator = LootTweaker.createLootGenerator(world)
+        .luck(42.0)
+        .lootedEntity(event.entity)
+        .player(player)
+        .damageSource(IDamageSource.MAGIC());
+    for item in lootGenerator.generate("minecraft:entities/cow") {
+        player.dropItem(item);
+    }
+});
 ```
 
 ### 完整示例（来自官方文档）

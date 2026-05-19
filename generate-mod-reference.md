@@ -53,7 +53,7 @@
 |------|------|------|
 | `.{方法签名}` | {类型} | {说明} |
 
-## 使用示例 (用户提供的资料没有就不写)
+## 使用示例
 
 ### 示例一
 
@@ -69,13 +69,13 @@ import mods.<modid>.<ClassName>;
 // 提供的示例二
 \`\`\`
 
-## 常见错误 (没有不写)
+## 常见错误
 
 | 错误 | 原因 | 修复 |
 |------|------|------|
 | 错误信息 | 原因说明 | 修复方法 |
 
-## 注意事项 (没有不写)
+## 注意事项
 
 - 已知的限制或注意事项
 - 与其他模组的兼容性问题
@@ -95,14 +95,15 @@ import mods.<modid>.<ClassName>;
 11. **配方操作是最重要的部分，必须包含添加和移除的完整示例。**
 12. **如果用户提供的资料中对方法中的参数有定义或解释，请添加到方法说明中，如果没有，直接不写**
 13. **对于属性，如果只读，分到@ZenGetter，如果可读写，分到@ZenGetter / @ZenSetter** 严格执行属性分类，不要把只读属性放到@ZenGetter/@ZenSetter中，也不要把可读写属性放到@ZenGetter中。
+14. **使用示例，常见错误和注意事项必须来自用户提供的资料的原文，如果没有，那么就不写，绝对不能自己编造**
 
 ## 文件组织规则
 
 ### 归类原则
 
-13. **按被扩展的模组归类**，而不是按提供 API 的模组归类。例如 zenutils 提供的 ContentTweaker 扩展（`mods.zenutils.cotx.*`）应放入 `references/mods/contenttweaker.md`，而不是留在 `zenutils.md` 中
-14. **扩展原版类型（IEntity、IPlayer、IWorld 等）的 API** → 移到 `references/vanilla/` 下对应的功能文件中，不需要新增文件，用户已经分类好了
-15. **每个模组提供的方法集中在一起**，在该组方法前用一个统一的 import 块标注来源和导入语句
+14. **按被扩展的模组归类**，而不是按提供 API 的模组归类。例如 zenutils 提供的 ContentTweaker 扩展（`mods.zenutils.cotx.*`）应放入 `references/mods/contenttweaker.md`，而不是留在 `zenutils.md` 中
+15. **扩展原版类型（IEntity、IPlayer、IWorld 等）的 API** → 移到 `references/vanilla/` 下对应的功能文件中，不需要新增文件，用户已经分类好了
+16. **每个模组提供的方法集中在一起**，在该组方法前用一个统一的 import 块标注来源和导入语句
 
 ### 标注格式
 
