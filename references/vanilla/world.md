@@ -153,46 +153,6 @@
 | `.asPosition3f` | IPosition3f | 转为 Position3f 对象 |
 | `.getOffset(IFacing, int)` | IBlockPos | 获取指定方向偏移指定距离后的新位置 |
 
-### IBiome（生物群系）
-
-> `import crafttweaker.world.IBiome;`
-
-#### @ZenGetter
-
-| 属性 | 类型 | 说明 |
-|------|------|------|
-| `name` | string | 生物群系名称 |
-| `id` | int | ID |
-| `temperature` | float | 温度 |
-| `rainfall` | float | 降雨量 |
-| `humidity` | float | 湿度 |
-| `isSnowyBiome` | bool | 是否雪地 |
-| `isHumid` | bool | 是否潮湿 |
-| `ignorePlayerSpawnSuitability` | bool | 是否忽略玩家生成适应性 |
-| `waterColorMultiplier` | int | 水颜色倍增器 |
-| `minHeight` | float | 最小高度 |
-| `maxHeight` | float | 最大高度 |
-| `baseHeight` | float | 基础高度 |
-| `heightVariation` | float | 高度变化 |
-| `enableRain` | bool | 是否启用雨 |
-| `enableSnow` | bool | 是否启用雪 |
-
-#### 方法
-
-| 方法 | 返回 | 说明 |
-|------|------|------|
-| `.canRain()` | bool | 是否可以下雨 |
-| `.isSnowyBiome()` | bool | 是否雪地 |
-| `.setTemperature(float)` | void | 设置温度 |
-| `.setRainfall(float)` | void | 设置降雨量 |
-| `.setWaterColorMultiplier(int)` | void | 设置水颜色倍增器 |
-| `.setEnableRain(bool)` | void | 设置是否启用雨 |
-| `.setEnableSnow(bool)` | void | 设置是否启用雪 |
-| `.setMinHeight(float)` | void | 设置最小高度 |
-| `.setMaxHeight(float)` | void | 设置最大高度 |
-| `.setBaseHeight(float)` | void | 设置基础高度 |
-| `.setHeightVariation(float)` | void | 设置高度变化 |
-
 ### IBlockAccess（方块访问接口）
 
 > `import crafttweaker.world.IBlockAccess;`
@@ -418,20 +378,6 @@ IWorldProvider 用于获取 IWorld 的更多维度信息，通过 `world.provide
 
 ---
 
-## 使用示例
-
-### 草丛掉落
-
-```zenscript
-// 添加打草掉落（百分比权重）
-vanilla.seeds.addSeed(<minecraft:carrot> % 1);  // 1% 几率
-
-// 移除打草掉落
-vanilla.seeds.removeSeed(<minecraft:wheat_seeds>);
-```
-
----
-
 ## ZenUtils 扩展（需安装 ZenUtils）
 
 > `import mods.zenutils.*;`
@@ -440,12 +386,64 @@ vanilla.seeds.removeSeed(<minecraft:wheat_seeds>);
 
 对 `crafttweaker.world.IWorld` 的扩展，所有世界对象自动可用。
 
+**注意**：以下玩家查询方法在找不到玩家时返回 **null**。
+
+#### 玩家查询方法
+
 | 方法 | 返回 | 说明 |
 |------|------|------|
-| `getCustomTileEntity(IBlockPos)` | TileEntityInGame | 获取指定位置的 ZenUtils 自定义方块实体，不存在则返回 null |
-| `getLiquidHandler(IBlockPos, @Optional IFacing)` | LiquidHandler | 获取方块实体的流体处理器 |
+| `.getPlayerByName(String name)` | IPlayer | 通过名称获取玩家 |
+| `.getPlayerByUUID(CrTUUID uuid)` | IPlayer | 通过 UUID 获取玩家 |
+| `.getAllPlayers()` | List\<IPlayer\> | 获取所有玩家 |
+| `.getClosestPlayerToEntity(IEntity, double distance, boolean spectator)` | IPlayer | 获取离指定实体最近的玩家 |
+| `.getClosestPlayer(double x, double y, double z, double distance, boolean spectator)` | IPlayer | 获取离指定坐标最近的玩家 |
+
+#### 实体查询方法
+
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.getEntities()` | List\<IEntity\> | 获取世界中所有实体 |
+| `.getEntityItems()` | List\<IEntityItem\> | 获取世界中所有物品实体 |
+
+#### 自定义世界数据
+
+@since 1.4.4
+
+不同维度有不同的数据。
+
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.getCustomWorldData()` | IData | 获取自定义世界数据（非空） |
+| `.setCustomWorldData(IData)` | void | 设置自定义世界数据 |
+| `.updateCustomWorldData(IData)` | void | 更新自定义世界数据 |
+
+#### 自定义区块数据
+
+IBlockPos 参数用于定位所在区块，获取的是该区块的数据而非方块位置的数据。
+
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.getCustomChunkData(IBlockPos)` | IData | 获取自定义区块数据（非空） |
+| `.setCustomChunkData(IData, IBlockPos)` | void | 设置自定义区块数据 |
+| `.updateCustomChunkData(IData, IBlockPos)` | void | 更新自定义区块数据 |
+
+#### 其他方法
+
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.getCustomTileEntity(IBlockPos)` | TileEntityInGame | 获取 ZenUtils 自定义方块实体，不存在返回 null |
+| `.getLiquidHandler(IBlockPos, @Optional IFacing)` | LiquidHandler | 获取方块实体的流体处理器 |
+| `.destroyBlock(IBlockPos, bool dropBlock)` | bool | 破坏方块（@since 1.5.2） |
+
+#### @ZenGetter
+
+| 属性 | 类型 | 说明 |
+|------|------|------|
 | `gameRuleHelper` | GameRuleHelper | 获取游戏规则管理器 |
-| `getGameRuleHelper()` | GameRuleHelper | 获取游戏规则管理器（方法形式） |
+
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.getGameRuleHelper()` | GameRuleHelper | 获取游戏规则管理器（方法形式） |
 
 ### GameRuleHelper（游戏规则）
 
@@ -455,9 +453,92 @@ vanilla.seeds.removeSeed(<minecraft:wheat_seeds>);
 
 | 方法 | 返回 | 说明 |
 |------|------|------|
-| `addGameRule(String, String, String)` | void | 添加自定义游戏规则。type 必须为 `"Any"`、`"Numeric"` 或 `"Boolean"` |
-| `hasRule(String)` | bool | 检查规则是否存在 |
-| `getRules()` | String[] | 获取所有规则名 |
-| `getBoolean(String)` | bool | 获取布尔值规则 |
-| `getInt(String)` | int | 获取整数规则 |
-| `getString(String)` | String | 获取字符串规则 |
+| `.addGameRule(String key, String value, String type)` | void | 添加自定义游戏规则。type 必须为 `"Any"`、`"Numeric"` 或 `"Boolean"` |
+| `.hasRule(String)` | bool | 检查规则是否存在 |
+| `.getRules()` | String[] | 获取所有规则名 |
+| `.getBoolean(String)` | bool | 获取布尔值规则 |
+| `.getInt(String)` | int | 获取整数规则 |
+| `.getString(String)` | String | 获取字符串规则 |
+
+### CrTItemHandler（物品容器）
+
+> `import mods.zenutils.ItemHandler;`
+
+@since 1.6.3
+
+物品容器操作，类似箱子或玩家背包。
+
+#### 获取实例
+
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `world.getItemHandler(IBlockPos, @Optional IFacing)` | ItemHandler | 从方块实体获取物品容器 |
+| `player.getPlayerInventoryItemHandler()` | ItemHandler | 获取玩家背包容器 |
+| `player.getPlayerBaubleItemHandler()` | ItemHandler | 获取玩家饰品栏容器（需安装 Baubles） |
+
+#### @ZenGetter
+
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| `size` | int | 可用槽位数 |
+
+#### 方法
+
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.getStackInSlot(int)` | IItemStack | 获取指定槽位物品（可为 null） |
+| `.setStackInSlot(int, IItemStack)` | bool | 设置指定槽位物品 |
+| `.insertItem(int, IItemStack, bool simulate)` | IItemStack | 插入物品，返回剩余部分（全部接受返回 null） |
+| `.extractItem(int, int amount, bool simulate)` | IItemStack | 提取物品 |
+| `.getSlotLimit(int)` | int | 获取指定槽位最大堆叠数 |
+| `.isItemValid(int, IItemStack)` | bool | 检查物品是否可插入该槽位 |
+
+支持 for 循环遍历。
+
+### CrTLiquidHandler（流体容器）
+
+> `import mods.zenutils.LiquidHandler;`
+
+@since 1.9.8
+
+流体容器操作。
+
+#### 获取实例
+
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `world.getLiquidHandler(IBlockPos, @Optional IFacing)` | LiquidHandler | 从方块实体获取流体容器 |
+
+#### @ZenGetter
+
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| `tankProperties` | List\<ILiquidTankProperties\> | 流体槽属性列表（只读） |
+
+#### 方法
+
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.drain(int maxDrain, bool doDrain)` | ILiquidStack | 排出流体（不区分流体类型） |
+| `.drain(ILiquidStack resource, bool doDrain)` | ILiquidStack | 排出指定流体 |
+| `.fill(ILiquidStack resource, bool doFill)` | int | 填充流体，返回实际填充量 |
+
+### ILiquidTankProperties（流体槽属性）
+
+> `import mods.zenutils.ILiquidTankProperties;`
+
+#### @ZenGetter
+
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| `contents` | ILiquidStack | 流体内容副本（可为 null） |
+| `capacity` | int | 最大容量（mB） |
+| `canFill` | bool | 是否可填充 |
+| `canDrain` | bool | 是否可排出 |
+
+#### 方法
+
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.canFillFluidType(ILiquidStack)` | bool | 是否可填充指定类型流体 |
+| `.canDrainFluidType(ILiquidStack)` | bool | 是否可排出指定类型流体 |

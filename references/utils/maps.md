@@ -114,3 +114,35 @@ val myEntry = map.entrySet[0];
 myEntry.key;    // Entry 的键
 myEntry.value;  // Entry 的值
 ```
+
+---
+
+## ZenUtils 扩展（需安装 ZenUtils 1.13.0+）
+
+### OrderlyMap（有序映射）
+
+普通 Map 的迭代顺序不可预测。ZenUtils 提供 `$orderly` 后缀声明有序映射，迭代顺序与插入顺序一致。
+
+```zenscript
+// 普通映射 - 迭代顺序不可预测
+val map as string[string] = {
+    "test": "abc",
+    "foo": "bar",
+    "mine": "craft"
+};
+
+// 有序映射 - 迭代顺序与声明顺序一致
+val orderlyMap as string[string]$orderly = {
+    "test": "abc",
+    "foo": "bar",
+    "mine": "craft"
+};
+
+for key, value in orderlyMap {
+    print(key ~ ": " ~ value);
+}
+// 输出:
+// test: abc
+// foo: bar
+// mine: craft
+```

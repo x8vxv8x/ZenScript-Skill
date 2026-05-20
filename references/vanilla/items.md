@@ -411,20 +411,6 @@ CoT 脚本第一行必须为 `#loader contenttweaker`。
 ```zenscript
 #loader contenttweaker
 import mods.contenttweaker.VanillaFactory;
-import mods.contenttweaker.Item;
-
-val zsItem as Item = VanillaFactory.createItem("zs_item");
-zsItem.maxDamage = 8848;
-zsItem.rarity = "rare";
-zsItem.creativeTab = <creativetab:tools>;
-zsItem.toolClass = "pickaxe";
-zsItem.toolLevel = 5;
-zsItem.register();
-```
-
-```zenscript
-#loader contenttweaker
-import mods.contenttweaker.VanillaFactory;
 import mods.contenttweaker.ItemFood;
 
 var soup as ItemFood = VanillaFactory.createItemFood("sweet_soup", 4);

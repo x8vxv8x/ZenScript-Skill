@@ -177,3 +177,79 @@ events.onPlayerCrafted(function(event as PlayerCraftedEvent) {
 // 需要用 update 覆盖
 event.player.update({PlayerPersisted: {custom: 10}});
 ```
+
+---
+
+## ZenUtils 扩展（需安装 ZenUtils）
+
+> `import mods.zenutils.DataUpdateOperation;`
+
+### IData.deepUpdate（深度更新）
+
+@since 1.14.0
+
+`IData.update` 会覆盖子数据，而 `deepUpdate` 会递归更新子数据，保留未覆盖的字段。
+
+#### 方法
+
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.deepUpdate(IData toUpdate)` | IData | 深度更新，默认 OVERWRITE 行为 |
+| `.deepUpdate(IData toUpdate, IData updateOperation)` | IData | 指定更新操作方式 |
+
+#### DataUpdateOperation（更新操作）
+
+> `import mods.zenutils.DataUpdateOperation;`
+
+| 操作 | 说明 |
+|------|------|
+| `OVERWRITE` | 覆盖旧数据（默认行为，等同于 `update`） |
+| `APPEND` | 列表/数组：新数据追加到旧数据之后；Map：新数据合并到旧数据中 |
+| `MERGE` | 列表/数组：旧数据中不存在的新元素才追加；Map：等同于 APPEND |
+| `REMOVE` | 移除指定元素；若更新数据为空则清空原数据 |
+| `BUMP` | 将更新数据列表作为单个元素处理（可与其他操作组合） |
+
+#### 使用示例
+
+```zenscript
+import crafttweaker.data.IData;
+import mods.zenutils.DataUpdateOperation.OVERWRITE;
+import mods.zenutils.DataUpdateOperation.APPEND;
+import mods.zenutils.DataUpdateOperation.MERGE;
+import mods.zenutils.DataUpdateOperation.REMOVE;
+import mods.zenutils.DataUpdateOperation.BUMP;
+
+val a as IData = {foo: {bar: 0}, baz: 5};
+val b as IData = {foo: {abc: 1}};
+
+// OVERWRITE: {foo: {abc: 1}} - bar 被覆盖
+print(a.deepUpdate(b, OVERWRITE));
+
+// 列表操作
+val listA as IData = ["a", "b", "c", "d"];
+val listB as IData = ["d", "e", "f", "g"];
+
+// APPEND: ["a", "b", "c", "d", "d", "e", "f", "g"]
+print(listA.deepUpdate(listB, APPEND));
+
+// MERGE: ["a", "b", "c", "d", "e", "f", "g"] - 重复的 d 不添加
+print(listA.deepUpdate(listB, MERGE));
+
+// REMOVE: ["a", "b", "c"] - d 被移除
+print(listA.deepUpdate(listB, REMOVE));
+
+// BUMP | APPEND: ["a", "b", "c", "d", ["d", "e", "f", "g"]] - 整个列表作为单个元素
+print(listA.deepUpdate(listB, BUMP | APPEND));
+
+// 按键指定操作
+val treeA as IData = {foo: {bar: 0}, baz: 5};
+val treeB as IData = {foo: {abc: 1}};
+// {baz: 5, foo: {abc: 1}} - 只对 foo 使用 OVERWRITE
+print(treeA.deepUpdate(treeB, {foo: OVERWRITE}));
+
+// 按索引指定操作
+val nestedA as IData = [[1, 2], [3, 4], [5, 6]];
+val nestedB as IData = [[3, 4], [4, 5], [5, 7]];
+// [[3, 4], [3, 4, 5], [5, 6, 7]] - 索引0用OVERWRITE，索引1用MERGE，索引2沿用MERGE
+print(nestedA.deepUpdate(nestedB, [OVERWRITE, MERGE]));
+```

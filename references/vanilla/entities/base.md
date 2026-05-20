@@ -381,30 +381,26 @@ val world = crafttweaker.world.IWorld.getFromString("overworld"); // 示例
 
 对 `crafttweaker.entity.IEntity` 的扩展，所有实体对象自动可用。
 
-#### ZenGetter
-
-| 属性 | 返回 | 说明 |
-|------|------|------|
-| `nbt` | IData | 获取实体的完整 NBT 数据 |
-| `position` | IBlockPos | 获取实体位置（方块坐标） |
-| `world` | IWorld | 获取实体所在世界 |
-| `id` | int | 获取实体的实体 ID |
-| `uuid` | String | 获取实体 UUID 字符串 |
-| `name` | String | 获取实体名称 |
-| `eyeHeight` | float | 获取实体眼睛高度 |
-| `width` | float | 获取实体宽度 |
-| `height` | float | 获取实体高度 |
-| `isCreatureType(CreatureType, bool)` | bool | 检查实体是否属于指定生物类型 |
-
-#### ZenMethods
+#### 方法
 
 | 方法 | 返回 | 说明 |
 |------|------|------|
-| `setNBT(IData)` | void | 设置实体 NBT 数据 |
-| `sendMessage(String)` | void | 向实体发送消息（仅玩家有效） |
-| `getRelatedEntities()` | IEntity[] | 获取相关实体列表 |
-| `getEntitiesNear(double)` | IEntity[] | 获取附近实体 |
-| `teleport(IWorld, double, double, double)` | void | 传送实体到指定坐标 |
+| `.setMotionX(double)` | void | 设置 X 轴速度 |
+| `.setMotionVector(IVector3d)` | void | 设置速度向量 |
+| `.getUUIDObject()` | CrTUUID | 获取实体的 UUID 对象 |
+| `.updateNBT(IData)` | void | 更新实体 NBT 数据。与 CraftTweaker 的 `setNBT` 不同，此方法修改实体的完整 NBT，而非仅 ForgeData |
+
+```zenscript
+// 设置实体速度
+entity.setMotionX(0.5);
+entity.setMotionVector(crafttweaker.world.IVector3d.create(0.5, 1.0, 0.5));
+
+// 获取 UUID 对象
+val uuid = entity.getUUIDObject();
+
+// 更新完整 NBT（区别于仅修改 ForgeData 的 setNBT）
+entity.updateNBT({CustomName: "自定义名称"});
+```
 
 ### IEntityDefinition 扩展
 
@@ -412,7 +408,7 @@ val world = crafttweaker.world.IWorld.getFromString("overworld"); // 示例
 
 | 方法 | 返回 | 说明 |
 |------|------|------|
-| `onTick(IEntityTick, @Optional int)` | void | 为特定实体类型添加周期性 tick 回调。仅服务端执行，无需检查 `world.remote` |
+| `.onTick(IEntityTick, @Optional int)` | void | 为特定实体类型添加周期性 tick 回调。仅服务端执行，无需检查 `world.remote`。第二个参数为间隔 tick 数 |
 
 ```zenscript
 // 每 50 tick 对所有苦力怕执行一次

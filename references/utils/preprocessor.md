@@ -54,3 +54,24 @@ import crafttweaker.item.IItemStack;
 | 指令 | 说明 |
 |------|------|
 | `#hardfail` | 脚本产生未被 `#suppress` 抑制的错误时使游戏崩溃 |
+
+#### #reloadable / #notreloadable
+
+> 版本要求: 1.12.0+
+
+ZenUtils 允许重载部分脚本。运行 `/ct reload` 命令重载。
+
+可重载的操作：事件、LateSetCoTFunction、自定义命令、实体掉落。安装 ZenRecipeReload 可支持配方重载。
+
+| 指令 | 说明 |
+|------|------|
+| `#reloadable` | 标记当前脚本为可重载 |
+| `#notreloadable` | 标记当前脚本不可重载（用于 `addReloadableLoader` 后排除特定脚本） |
+
+#### addReloadableLoader
+
+全局函数，标记指定 loader 的所有脚本为可重载。
+
+```zenscript
+addReloadableLoader("crafttweaker");
+```

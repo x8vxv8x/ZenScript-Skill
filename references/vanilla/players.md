@@ -182,35 +182,120 @@ event.player.update({PlayerPersisted: {custom: 10}});
 
 对 `crafttweaker.player.IPlayer` 的扩展，所有玩家对象自动可用。
 
-#### ZenGetter
-
-| 属性 | 返回 | 说明 |
-|------|------|------|
-| `foodStats` | IFoodStats | 获取食物状态 |
-| `inventory` | IInventory | 获取玩家背包 |
-| `xpLevel` | int | 获取经验等级 |
-| `xp` | float | 获取经验值百分比 |
-
-#### ZenMethods
+#### 方法
 
 | 方法 | 返回 | 说明 |
 |------|------|------|
-| `setFoodStats(IFoodStats)` | void | 设置食物状态 |
-| `sendTitle(String, int, int, int)` | void | 发送标题消息（标题, 淡入, 持续, 淡出） |
-| `setXpLevel(int)` | void | 设置经验等级 |
+| `.replaceItemInInventory(int slot, IItemStack stack)` | bool | 替换玩家背包指定槽位的物品 |
+| `.readStat(PlayerStat stat)` | int | 读取统计值 |
+| `.addStat(PlayerStat stat, @Optional int amount)` | void | 增加统计计数（默认 1） |
+| `.takeStat(PlayerStat stat)` | void | 将统计值重置为 0 |
+
+### 玩家交互模拟
+
+@since 1.14.3
+
+模拟玩家交互（左键/右键），仅应在服务端调用。
+
+#### simulateRightClickItem
+
+模拟玩家右键使用物品（不指向方块或实体）。
+
+| 参数 | 类型 | 说明 | 默认值 |
+|------|------|------|--------|
+| item | IItemStack | 使用的物品 | |
+| hand | IEntityEquipmentSlot | 使用的手（仅 mainHand/offHand） | mainHand |
+
+返回 `String`：`SUCCESS`、`PASS` 或 `FAIL`
+
+#### simulateRightClickBlock
+
+模拟玩家右键点击方块。
+
+| 参数 | 类型 | 说明 | 默认值 |
+|------|------|------|--------|
+| item | IItemStack | 使用的物品 | |
+| hand | IEntityEquipmentSlot | 使用的手 | mainHand |
+| pos | IBlockPos | 方块位置 | 根据玩家视线确定 |
+| side | IFacing | 点击的方块面 | 根据玩家视线确定 |
+| hitX | float | 点击相对 X 坐标（0~1） | 根据玩家视线确定 |
+| hitY | float | 点击相对 Y 坐标（0~1） | 根据玩家视线确定 |
+| hitZ | float | 点击相对 Z 坐标（0~1） | 根据玩家视线确定 |
+
+返回 `String`：`SUCCESS`、`PASS` 或 `FAIL`
+
+#### simulateRightClickEntity
+
+模拟玩家右键点击实体。
+
+| 参数 | 类型 | 说明 | 默认值 |
+|------|------|------|--------|
+| entity | IEntity | 目标实体 | |
+| item | IItemStack | 使用的物品 | 手中物品 |
+| hand | IEntityEquipmentSlot | 使用的手 | mainHand |
+
+返回 `String`：`SUCCESS`、`PASS` 或 `FAIL`
+
+#### simulateLeftClickBlock
+
+模拟玩家左键点击方块。
+
+| 参数 | 类型 | 说明 | 默认值 |
+|------|------|------|--------|
+| item | IItemStack | 使用的物品 | 主手物品 |
+| pos | IBlockPos | 方块位置 | 根据玩家视线确定 |
+| side | IFacing | 点击的方块面 | 根据玩家视线确定 |
+
+无返回值。
+
+#### simulateUseItemFinish
+
+模拟玩家完成使用物品（如吃完食物）。返回结果物品（如牛奶桶→空桶）。
+
+| 参数 | 类型 | 说明 | 默认值 |
+|------|------|------|--------|
+| item | IItemStack | 使用的物品 | |
+| hand | IEntityEquipmentSlot | 使用的手 | 当前激活手 |
 
 ### PlayerStat（玩家统计）
 
 > `import mods.zenutils.PlayerStat;`
 
+#### 获取 PlayerStat
+
 | 方法 | 返回 | 说明 |
 |------|------|------|
-| `PlayerStat.getStat(String)` | PlayerStat | 获取统计对象 |
-| `player.addStat(PlayerStat, @Optional int)` | void | 增加统计计数 |
-| `player.getStatCount(PlayerStat)` | int | 获取统计计数值 |
-| `player.setStatFormatter(PlayerStat, IStatFormatter)` | void | 设置统计显示格式化器 |
+| `PlayerStat.getBasicStat(String)` | PlayerStat | 获取基础统计（用 `/ct stats` 查看所有） |
+| `PlayerStat.getBlockStats(IBlockDefinition)` | PlayerStat | 方块相关统计 |
+| `PlayerStat.getCraftStats(IItemDefinition)` | PlayerStat | 合成统计 |
+| `PlayerStat.getObjectUseStats(IItemDefinition)` | PlayerStat | 物品使用统计 |
+| `PlayerStat.getObjectBreakStats(IItemDefinition)` | PlayerStat | 物品破坏统计 |
+| `PlayerStat.getObjectsPickedUpStats(IItemDefinition)` | PlayerStat | 物品拾取统计 |
+| `PlayerStat.getDroppedObjectStats(IItemDefinition)` | PlayerStat | 物品掉落统计 |
+| `PlayerStat.getKillEntityStats(IEntityDefinition)` | PlayerStat | 击杀实体统计 |
+| `PlayerStat.getKilledByEntityStats(IEntityDefinition)` | PlayerStat | 被实体击杀统计 |
 
-#### IStatFormatter（统计格式化器）
+#### 创建 PlayerStat
+
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `PlayerStat.create(String id, ITextComponent name, @Optional IStatFormatter)` | PlayerStat | 创建自定义统计（需在游戏初始化阶段调用） |
+
+#### @ZenGetter
+
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| `name` | ITextComponent | 统计名称 |
+
+#### 玩家统计操作
+
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `player.readStat(PlayerStat)` | int | 读取统计值 |
+| `player.addStat(PlayerStat, @Optional int)` | void | 增加统计计数（默认 1） |
+| `player.takeStat(PlayerStat)` | void | 重置统计值为 0 |
+
+### IStatFormatter（统计格式化器）
 
 > `import mods.zenutils.IStatFormatter;`
 

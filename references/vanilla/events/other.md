@@ -502,8 +502,15 @@ events.onCommand(function(event as CommandEvent) {
 ### EntityRemoveEvent（实体移除事件）
 
 > `import mods.zenutils.event.EntityRemoveEvent;`
+> 版本要求: 1.12.2+
 
-当实体从世界中移除时触发。
+当实体被销毁或卸载时触发。不可取消。
+
+实现接口：IEntityEvent
+
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| `world` | IWorld | 实体所在世界 |
 
 ### EntityItemDeathEvent（物品实体销毁事件）
 
@@ -511,6 +518,8 @@ events.onCommand(function(event as CommandEvent) {
 > 版本要求: 1.13.9+
 
 当物品实体被岩浆、火焰、虚空等销毁时触发（不包括漏斗等传输设备）。
+
+实现接口：IEntityEvent
 
 | 属性 | 类型 | 说明 |
 |------|------|------|
@@ -525,15 +534,80 @@ events.onEntityItemDeath(function(event as EntityItemDeathEvent) {
 
 ### EntityItemFallEvent（物品实体掉落事件）
 
-当物品实体掉落时触发。
+> `import mods.zenutils.event.EntityItemFallEvent;`
+> 版本要求: 1.13.8+
+
+当物品实体掉落时触发。不可取消。
+
+实现接口：IEntityEvent
+
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| `item` | IEntityItem | 掉落的物品实体 |
+| `distance` | float | 掉落距离 |
+| `blockStates` | List\<IBlockState\> | 碰撞的方块状态列表 |
+
 
 ### WorldEvents（世界事件）
 
-世界相关事件。
+> 版本要求: 1.14.6+
+
+世界加载/保存/卸载事件，可用于保存或读取世界数据。
+
+| 事件 | 导入 | 说明 |
+|------|------|------|
+| `events.onWorldLoad(handler)` | `mods.zenutils.event.WorldLoadEvent` | 世界加载时触发 |
+| `events.onWorldSave(handler)` | `mods.zenutils.event.WorldSaveEvent` | 世界保存时触发 |
+| `events.onWorldUnload(handler)` | `mods.zenutils.event.WorldUnloadEvent` | 世界卸载时触发 |
+
+均包含 `world` getter 获取 IWorld 对象。
 
 ### GenericEventManager（通用事件管理器）
 
-通用事件管理器，支持注册自定义事件。
+> `import mods.zenutils.EventPriority;`
+> 版本要求: 1.16.0+
+
+扩展事件管理器，支持为几乎所有事件（包括 Forge 原生和模组事件）注册处理器，并可设置事件优先级和是否接收已取消事件。
+
+#### 注册方法
+
+| 方法 | 说明 |
+|------|------|
+| `events.register(handler, @Optional priority, @Optional receiveCanceled, @Optional busID)` | 注册通用事件处理器 |
+
+- `handler`：事件处理函数
+- `priority`：事件优先级（默认 `EventPriority.normal()`）
+- `receiveCanceled`：是否接收已取消事件（默认 false）
+- `busID`：事件总线 ID（0=主总线，1=地形生成总线，2=矿石生成总线）
+
+#### EventPriority
+
+> `import mods.zenutils.EventPriority;`
+
+| 方法 | 说明 |
+|------|------|
+| `EventPriority.highest()` | 最高优先级 |
+| `EventPriority.high()` | 高优先级 |
+| `EventPriority.normal()` | 普通优先级（默认） |
+| `EventPriority.low()` | 低优先级 |
+| `EventPriority.lowest()` | 最低优先级 |
+
+#### 使用示例
+
+```zenscript
+import crafttweaker.event.EntityLivingAttackedEvent;
+import mods.zenutils.EventPriority;
+
+// 最低优先级，接收已取消事件 - 始终在最后执行
+events.register(function(event as EntityLivingAttackedEvent) {
+    event.entity.sendMessage("事件已取消: " ~ event.canceled);
+}, EventPriority.lowest(), true);
+```
+
+#### 已知不支持的事件
+
+CraftTweaker：PlayerLoggedIn、PlayerLoggedOut、PlayerSmelted
+ZenUtils：EntityRemove、EntityItemFall、EntityItemDeath
 
 ---
 
