@@ -528,3 +528,29 @@ antiIceBlock.register();
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `VanillaFactory.putTileEntityTickFunction(int, ITileEntityTick)` | void | 注册方块实体 tick 函数（可重载） |
+
+---
+
+## RandomTweaker 扩展（需安装 RandomTweaker）
+
+> `import mods.randomtweaker.vanilla.IBlockPos;`
+
+IBlockPos 的扩展类，IBlockPos 实例可直接使用这些方法。
+
+### 静态方法
+
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `IBlockPos.getAllInBox(from as IBlockPos, to as IBlockPos)` | IBlockPos[] | 返回 from 到 to 范围内所有的 IBlockPos 对象集合。只能用类名调用，用对象调用会报错 |
+
+### 扩展实例方法
+
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.add(x as int, y as int, z as int)` | IBlockPos | 返回坐标偏移 xyz 后的新坐标 |
+| `.up(@Optional n as int)` | IBlockPos | 返回坐标向上偏移 n 格后的新坐标，默认 n=1 |
+| `.down(@Optional n as int)` | IBlockPos | 返回坐标向下偏移 n 格后的新坐标，默认 n=1 |
+| `.north(@Optional n as int)` | IBlockPos | 返回坐标向北偏移 n 格后的新坐标，默认 n=1 |
+| `.south(@Optional n as int)` | IBlockPos | 返回坐标向南偏移 n 格后的新坐标，默认 n=1 |
+| `.west(@Optional n as int)` | IBlockPos | 返回坐标向西偏移 n 格后的新坐标，默认 n=1 |
+| `.east(@Optional n as int)` | IBlockPos | 返回坐标向东偏移 n 格后的新坐标，默认 n=1 |

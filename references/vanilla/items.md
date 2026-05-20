@@ -488,3 +488,17 @@ import mods.zenutils.cotx.LateSetCoTFunction;
     return ActionResult.success();
 };
 ```
+
+---
+
+## RandomTweaker 扩展（需安装 RandomTweaker）
+
+> `import mods.randomtweaker.vanilla.IItemStack;`
+
+IItemStack 的扩展类，IItemStack 实例可直接使用这些方法。由于类名与 CrT 自带的 IItemStack 重合，如需用类名调用需使用 `as` 重定向：`import mods.randomtweaker.vanilla.IItemStack as IItemStackExpansion;`
+
+### 静态方法
+
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.getTagSize()` | int | 返回物品 NBT 中有多少个 key（空 NBT `{}` 返回 0）

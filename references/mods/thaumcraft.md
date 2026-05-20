@@ -165,3 +165,52 @@ Infusion.registerRecipe("testName", "", <minecraft:diamond>, 20, [<aspect:aer>, 
 <minecraft:stone>.setAspects(<aspect:ignis> * 5);
 <entity:blaze>.removeAspects(<aspect:ignis>);
 ```
+
+---
+
+## RandomTweaker 扩展（需安装 RandomTweaker）
+
+### Dream Journal（异梦日志）
+
+> `import mods.randomtweaker.thaumcraft.IPlayer;`
+
+IPlayer 的扩展类，需在配置文件中将 `B:DreamJournal` 设为 `true` 才可使用。提供修改异梦来源的接口。
+
+#### 静态方法
+
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.giverDreamJournl()` | void | 给予玩家一本异梦并发送本地化消息（key: `got.dream`） |
+
+#### 使用示例
+
+```zenscript
+import crafttweaker.event.PlayerRightClickItemEvent;
+
+events.onPlayerRightClickItem(function(event as PlayerRightClickItemEvent) {
+    if(!event.world.remote && <minecraft:stick>.matches(event.item)) {
+        event.player.giverDreamJournl();
+    }
+});
+```
+
+### 源质查询扩展
+
+> `import mods.randomtweaker.thaumcraft.IItemStack;`
+> `import mods.randomtweaker.thaumcraft.IEntity;`
+
+为 IItemStack 和 IEntity 提供获取源质名称的扩展方法。
+
+#### IItemStack 扩展
+
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.getAspects()` | string[] | 获取物品所具有的源质名称 |
+
+#### IEntity 扩展
+
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.getAspects()` | string[] | 获取实体所具有的源质名称 |
+
+**注意：** 源质在 PostInitialization 阶段注册，因此在游戏生命周期事件内调用 `getAspects()` 会返回空数组。需在 PostInitialization 之后的事件中使用（如玩家交互事件）。

@@ -132,30 +132,256 @@
 | `.addRecipeMapping(IItemStack stack, String Entry, int page)` | void | 添加配方映射 |
 | `.removeRecipeMapping(IItemStack stack)` | void | 移除配方映射 |
 
-## 使用示例
+---
 
-### 添加花药台配方
+## RandomTweaker 扩展（需安装 RandomTweaker）
+
+### IManaItemHandler（魔力物品操作）
+
+> `import mods.randomtweaker.botania.IManaItemHandler;`
+
+暴露植魔的魔力操作方法，可向玩家提取/发送魔力。
+
+#### 静态方法
+
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.getManaItems(player as IPlayer)` | IItemStack[] | 返回玩家背包中可容纳魔力的物品 |
+| `.getManaBaubles(player as IPlayer)` | IItemStack[int] | 返回玩家饰品栏中的魔力物品（非魔力饰品），int 为饰品格位置 |
+| `.requestMana(stack as IItemStack, player as IPlayer, manaToGet as int, remove as bool)` | int | 提取魔力。`stack` 为提取魔力的物品（跳过该物品以免自扣），`remove` 为是否真实提取。返回实际减少的魔力 |
+| `.requestManaExact(stack as IItemStack, player as IPlayer, manaToGet as int, remove as bool)` | bool | 精确提取魔力。魔力不足 manaToGet 时返回 false |
+| `.requestManaForTool(stack as IItemStack, player as IPlayer, manaToGet as int, remove as bool)` | int | 提取魔力（考虑魔力减免）。返回本应减少的魔力数量 |
+| `.requestManaExactForTool(stack as IItemStack, player as IPlayer, manaToGet as int, remove as bool)` | bool | 精确提取魔力（考虑魔力减免） |
+| `.dispatchMana(stack as IItemStack, player as IPlayer, manaToSend as int, add as bool)` | int | 向玩家发送魔力。`add` 为是否真实发送。返回实际发送的魔力 |
+| `.dispatchManaExact(stack as IItemStack, player as IPlayer, manaToSend as int, add as bool)` | bool | 精确发送魔力。可容纳量不足时返回 false |
+| `.getFullDiscountForTools(player as IPlayer, tool as IItemStack)` | float | 返回玩家的魔力减免值 |
+
+**注意：** 操纵魔力的方法优先检查背包，没有符合条件的魔力容器再去饰品栏找。
+
+#### 使用示例
 
 ```zenscript
-import mods.botania.Apothecary;
+import mods.randomtweaker.botania.IManaItemHandler;
 
-Apothecary.addRecipe(<minecraft:melon>, [<ore:petalLime>, <ore:petalLime>, <ore:petalLime>]);
+// 获取魔力减免
+var discount as float = IManaItemHandler.getFullDiscountForTools(player, <minecraft:stick>);
+
+// 模拟提取 100 魔力，足够则真实提取
+if(IManaItemHandler.requestMana(<minecraft:stick>, player, 100, false) >= 80) {
+    IManaItemHandler.requestMana(<minecraft:stick>, player, 100, true);
+}
+
+// 精确提取 10000 魔力
+if(IManaItemHandler.requestManaExact(<minecraft:stick>, player, 10000, false)) {
+    IManaItemHandler.requestManaExact(<minecraft:stick>, player, 10000, true);
+}
+
+// 考虑魔力减免的提取（穿泰拉套减免 20%）
+IManaItemHandler.requestManaForTool(<minecraft:stick>, player, 1000, true);
+
+// 发送魔力
+IManaItemHandler.dispatchMana(<minecraft:stick>, player, 10000, true);
 ```
 
-### 添加魔力灌注配方
+### ISubTileEntity（自定义植魔花基类）
 
-```zenscript
-import mods.botania.ManaInfusion;
+> `import mods.randomtweaker.cote.SubTileEntity;`
 
-ManaInfusion.addInfusion(<minecraft:grass>, <ore:stone>, 1000);
-ManaInfusion.addAlchemy(<minecraft:gold_ore>, <ore:stone>, 5000);
-ManaInfusion.addConjuration(<minecraft:stone>, <minecraft:stone>, 1000);
+需同时安装 ContentTweaker。用于自定义产魔花或功能花的基础类。
+
+贴图存放位置：`resources/contenttweaker/textures/blocks/unlocalizedName.png`
+
+#### @ZenGetter / @ZenSetter
+
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| `unlocalizedName` | string | 注册名 |
+| `range` | int | 自定义花的工作范围 |
+| `color` | int | 自定义花的魔力条颜色 |
+| `maxMana` | int | 最大魔力容量 |
+| `acceptsRedstone` | bool | 是否接受红石信号 |
+| `overgrowthAffected` | bool | 是否受蕴魔土的影响 |
+
+#### 本地化
+
+```
+tile.botania:flower.自定义花的名字.name = 本地化名称
+tile.botania:flower.自定义花的名字.reference = 本地化 tooltip
 ```
 
-### 添加符文祭坛配方
+### ISubTileEntityGenerating（产魔花）
+
+> `import mods.randomtweaker.cote.ISubTileEntityGenerating;`
+
+继承 ISubTileEntity。创建方式：`VanillaFactory.createSubTileGenerating(name, color)`
+
+#### @ZenGetter / @ZenSetter
+
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| `PassiveFlower` | bool | 是否为被动产魔花 |
+| `valueForPassiveGeneration` | int | 每 Tick 被动产出多少魔力（受 canGeneratePassively 函数影响） |
+| `delayBetweenPassiveGeneration` | int | 被动产魔后的冷却时间（Tick） |
+| `shouldSyncPassiveGeneration` | bool | 被动产魔时是否同步 TileEntity |
+
+#### 使用示例
 
 ```zenscript
-import mods.botania.RuneAltar;
+#loader contenttweaker
+import mods.contenttweaker.VanillaFactory;
+import mods.randomtweaker.cote.ISubTileEntityGenerating;
 
-RuneAltar.addRecipe(<minecraft:planks>, [<minecraft:grass>, <minecraft:dirt>], 200);
+var test_flower0 as ISubTileEntityGenerating = VanillaFactory.createSubTileGenerating("test_flower0", 0xFFFFFF);
+test_flower0.maxMana = 2000;
+test_flower0.onUpdate = function(subtile, world, pos) {
+    if(!world.remote) {
+        if(isNull(subtile.data.time))
+            subtile.updateCustomData({time : 0});
+        if(!isNull(subtile.data.time)) {
+            subtile.updateCustomData({time : subtile.data.time.asInt() + 1});
+            if(subtile.data.time.asInt() == 100) {
+                server.commandManager.executeCommand(server, "dididididididididi~~~");
+            }
+        }
+    }
+};
+test_flower0.register();
+```
+
+### ISubTileEntityFunctional（功能花）
+
+> `import mods.randomtweaker.cote.ISubTileEntityFunctional;`
+
+继承 ISubTileEntity。创建方式：`VanillaFactory.createSubTileFunctional(name, color)`
+
+小功能花贴图：`resources/contenttweaker/textures/blocks/unlocalizedName_chibi.png`
+
+#### @ZenGetter / @ZenSetter
+
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| `hasMini` | bool | 是否创建小型功能花 |
+| `miniRange` | int | 小型功能花的工作范围 |
+
+#### 使用示例
+
+```zenscript
+#loader contenttweaker
+import mods.contenttweaker.VanillaFactory;
+import mods.randomtweaker.cote.ISubTileEntityFunctional;
+
+var test_flower1 as ISubTileEntityFunctional = VanillaFactory.createSubTileFunctional("test_flower1", 0x000000);
+test_flower1.maxMana = 10086;
+test_flower1.register();
+```
+
+### ISubTileFunctions（自定义花回调函数）
+
+自定义花可使用的回调函数。以下函数均赋值给对应的 ISubTileEntity 实例。
+
+#### onBlockAdded
+
+当自定义花被添加到世界上时调用。
+
+> `import mods.randomtweaker.cote.BlockAdded;`
+
+```zenscript
+subTileEntityObj.onBlockAdded = function(world as IWorld, pos as IBlockPos, state as IBlockState) { };
+```
+
+#### canSelect
+
+森林法杖是否可以选择此自定义花并绑定到方块上。需返回 bool。
+
+> `import mods.randomtweaker.cote.CanSelect;`
+
+```zenscript
+subTileEntityObj.canSelect = function(player as ICTPlayer, wand as IItemStack, pos as IBlockPos, side as IFacing) {
+    return true;
+};
+```
+
+#### onBlockPlaceBy
+
+当自定义花被一个实体放置在世界时调用。
+
+> `import mods.randomtweaker.cote.BlockPlacedBy;`
+
+```zenscript
+subTileEntityObj.onBlockPlaceBy = function(world as IWorld, pos as IBlockPos, state as IBlockState, entity as IEntityLivingBase, stack as IItemStack) { };
+```
+
+#### onUpdate
+
+每 Tick 调用。
+
+> `import mods.randomtweaker.cote.Update;`
+
+```zenscript
+subTileEntityObj.onUpdate = function(subtile as SubTileEntityInGame, world as IWorld, pos as IBlockPos) { };
+```
+
+#### onBlockHarvested
+
+当自定义花被挖掘完时调用。
+
+> `import mods.randomtweaker.cote.BlockHarvested;`
+
+```zenscript
+subTileEntityObj.onBlockHarvested = function(world as IWorld, pos as IBlockPos, state as IBlockState, player as ICTPlayer) { };
+```
+
+#### onBlockActivated
+
+当玩家右键自定义花时调用。需返回 bool。
+
+> `import mods.randomtweaker.cote.BlockActivated;`
+
+```zenscript
+subTileEntityObj.onBlockActivated = function(world as IWorld, pos as IBlockPos, state as IBlockState, player as ICTPlayer, hand as Hand, side as IFacing, hitX as float, hitY as float, hitZ as float) {
+    if(<botania:twigwand>.matches(player.getHeldItem(hand))) {
+        return false;
+    }
+    return true;
+};
+```
+
+#### canGeneratePassively（仅产魔花）
+
+自定义花是否被动产能。需返回 bool。
+
+> `import mods.randomtweaker.cote.CanGeneratePassively;`
+
+```zenscript
+subTileGeneratingObj.canGeneratePassively = function(pos as IBlockPos, world as IWorld) { };
+```
+
+#### populateDropStackNBTs（仅产魔花）
+
+决定挖掘完自定义花的掉落物。
+
+> `import mods.randomtweaker.cote.PopulateDropStackNBTs;`
+
+```zenscript
+subTileGeneratingObj.populateDropStackNBTs = function(drops as IItemStack[]) { };
+```
+
+### TileData（ITileData，自定义花 NBT 数据管理）
+
+> `import mods.randomtweaker.utils.ITileData;`
+
+主要用于管理自定义植魔花内部的 NBT 数据。
+
+#### @ZenGetter / @ZenSetter
+
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| `data` | IData | 存储的数据 |
+
+#### 使用示例
+
+```zenscript
+TileDataObj.data = {"test" : "testValue" as string};
+TileDataObj.data = {"testTwo" : {"testThree" : "testValue"}};
+print(TileDataObj.data.asString());
 ```

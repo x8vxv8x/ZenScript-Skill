@@ -103,3 +103,64 @@ for potion in game.potions {
     print(potion.name ~ ": " ~ potion.displayName);
 }
 ```
+---
+## randomtweaker 扩展
+
+### IPotion（自定义药水效果）
+
+> `import mods.randomtweaker.cote.IPotion;`
+
+需安装 ContentTweaker。使用 CoT 来自定义药水效果。加载器: `#loader contenttweaker`
+
+#### @ZenGetter / @ZenSetter
+
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| `instant` | bool | 药水效果是否即刻生效（true 为即刻，false 为持续） |
+| `badEffectIn` | bool | 药水效果是否为负面效果 |
+| `beneficial` | bool | 药水效果是否对玩家有益（有益的药水会放在第一格） |
+| `shouldRender` | bool | 药水效果是否在背包栏渲染 |
+| `shouldRenderHUD` | bool | 药水效果是否在 HUD（右上角）渲染 |
+
+#### 函数
+
+| 函数 | 说明 |
+|------|------|
+| `isReady` | 决定当前 Tick 是否触发 performEffect 函数 |
+| `performEffect` | 此函数每 Tick 都会调用 |
+| `affectEntity` | 此函数仅 instant 为 true 时触发 |
+
+#### VanillaFactory 创建方法
+
+```zenscript
+var potion as IPotion = VanillaFactory.createPotion(unlocalizedName as string, liquidColorIn as int);
+```
+
+- `unlocalizedName`：注册名，不可重复
+- `liquidColorIn`：药水颜色，例如 `0xF7D575`
+- 贴图位置：`contenttweaker:textures/gui/unlocalizedName.png`
+
+#### 使用示例
+
+```zenscript
+#loader contenttweaker
+
+import mods.contenttweaker.VanillaFactory;
+import mods.randomtweaker.cote.IPotion;
+import mods.contenttweaker.Player;
+
+var potion as IPotion = VanillaFactory.createPotion("lhhd", 0xF7D575);
+potion.shouldRender = false;
+potion.shouldRenderHUD = false;
+potion.badEffectIn = false;
+potion.isReady = function(duration, amplifier) {
+    return duration % 20 == 0; // 20tick 触发一次（1秒）
+};
+potion.performEffect = function(living, amplifier) {
+    if(!living.world.remote && living instanceof Player) {
+        var player as Player = living;
+        player.sendChat("didiidid~~~");
+    }
+};
+potion.register();
+```

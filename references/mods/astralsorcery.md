@@ -112,84 +112,154 @@
 |------|------|------|
 | `.getCrystalORIngredient(boolean hasToBeCelestial, boolean hasToBeAttuned)` | IIngredient | 获取匹配的 AS 水晶配方材料 |
 
-## 使用示例
+---
 
-### 示例一：祭坛配方
+## RandomTweaker 扩展（需安装 RandomTweaker）
 
-```zenscript
-import mods.astralsorcery.Altar;
+> `import mods.randomtweaker.astralsorcery.IPlayer;`
+> `import mods.randomtweaker.astralsorcery.AttunementAltar;`
+> `import mods.randomtweaker.astralsorcery.AttunementStartEvent;`
+> `import mods.randomtweaker.astralsorcery.AttunementRecipeCompleteEvent;`
 
-// 添加 星辉合成台配方
-Altar.addDiscoveryAltarRecipe("mypack:dirt_recipe", <minecraft:dirt>, 200, 200, [
-    <minecraft:grass>, null, <ore:treeLeaves>,
-    null, <minecraft:grass>, null,
-    <liquid:astralsorcery.liquidstarlight>, null, <ore:treeLeaves>]);
+### IPlayer 扩展（星能力系统）
 
-// 添加 五彩祭坛配方（带星座要求）
-Altar.addTraitAltarRecipe("mypack:tnt_recipe", <minecraft:tnt>, 4500, 100, [
-    <liquid:lava>, <liquid:lava>, <liquid:lava>, <liquid:lava>, <minecraft:gunpowder>,
-    <liquid:lava>, <liquid:lava>, <liquid:lava>, <liquid:lava>, null,
-    null, null, null, <ore:blockMarble>, <ore:blockMarble>,
-    <astralsorcery:itemusabledust>, <astralsorcery:itemusabledust>, <astralsorcery:itemusabledust>, <astralsorcery:itemusabledust>, <ore:blockMarble>,
-    <ore:blockMarble>, <minecraft:redstone>, <minecraft:redstone>, <minecraft:redstone>, <minecraft:redstone>,
-    // 外部物品
-    <minecraft:sand>, <minecraft:sand>, <minecraft:sand>, <minecraft:sand>, <minecraft:sand>
-], "astralsorcery.constellation.evorsio");
+> `import mods.randomtweaker.astralsorcery.IPlayer;`
 
-// 移除配方
-Altar.removeAltarRecipe("astralsorcery:shaped/internal/altar/lightwell");
-```
+IPlayer 的扩展类，提供操作玩家星能力和共鸣星座的方法。
 
-### 示例二：砂轮和星能聚合配方
+#### 静态方法
 
-```zenscript
-import mods.astralsorcery.Grindstone;
-import mods.astralsorcery.StarlightInfusion;
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.getPerkPercentToNextLevel()` | float | 返回升级星能力等级所需经验与超出现等级经验的百分比 |
+| `.getPerkLevel()` | int | 返回当前星能力等级 |
+| `.getPerkExp()` | double | 返回当前星能力总经验 |
+| `.getAttunedConstellation()` | string | 获取玩家共鸣星座名称 |
+| `.getKnownConstellations()` | List\<String> | 获取玩家已连线的星座名称 |
+| `.getSeenConstellations()` | List\<String> | 获取玩家已知（已发现但未连线）星座名称 |
+| `.modifyPerkExp(double exp)` | bool | 添加玩家星能力经验。如有共鸣星座返回 true，否则返回 false。`exp` 最大为 `(下一级容纳经验 - 当前容纳经验) * 0.08`。仅服务端可用 |
+| `.setPerkExp(double exp)` | bool | 设置玩家星能力经验。参数含义同上。仅服务端可用 |
 
-// 添加磨石配方（50% 双倍产出）
-Grindstone.addRecipe(<minecraft:cobblestone>, <minecraft:gravel>, 0.5);
-
-// 添加星能聚合配方
-StarlightInfusion.addInfusion(<astralsorcery:itemjournal>, <minecraft:bow>, false, 0.7, 200);
-
-// 移除配方
-Grindstone.removeRecipe(<minecraft:redstone>);
-StarlightInfusion.removeInfusion(<minecraft:ice>);
-```
-
-### 示例三：液体交互和嬗变
+#### 使用示例
 
 ```zenscript
-import mods.astralsorcery.LiquidInteraction;
-import mods.astralsorcery.LightTransmutation;
+import mods.randomtweaker.astralsorcery.IPlayer;
 
-// 添加液体交互（岩浆 + 水 = 钻石）
-LiquidInteraction.addInteraction(<liquid:lava> * 10, 0.1, <liquid:water> * 90, 0.2, 400, <minecraft:diamond>);
+events.onPlayerRightClickItem(function(event as PlayerRightClickItemEvent) {
+    var player as IPlayer = event.player;
+    var world as IWorld = event.world;
 
-// 添加嬗变配方（草方块 -> 金矿，消耗 10 星光）
-LightTransmutation.addTransmutation(<minecraft:grass>, <minecraft:gold_ore>, 10);
-
-// 移除配方
-LiquidInteraction.removeInteraction(<liquid:lava>, <liquid:starlight>);
-LightTransmutation.removeTransmutation(<minecraft:end_stone>, false);
+    if(!world.remote && <minecraft:stick>.matches(event.item)) {
+        player.setPerkExp(158);
+        var percent as float = player.getPerkPercentToNextLevel();
+        var level as int = player.getPerkLevel();
+        var exp as double = player.getPerkExp();
+        var constellation as string = player.getAttunedConstellation();
+        var knownConstellation as [string] = player.getKnownConstellations();
+        var seenConstellation as [string] = player.getSeenConstellations();
+        player.modifyPerkExp(13);
+    }
+});
 ```
 
-### 示例四：聚星缸配方
+### AttunementAltar（共鸣祭坛配方）
+
+> `import mods.randomtweaker.astralsorcery.AttunementAltar;`
+
+#### 静态方法
+
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.addRecipe(input as IIngredient, output as IItemStack, constellation as string)` | void | 添加共鸣祭坛配方，指定共鸣星座。星座名可通过 `/as constellation playerName` 按 Tab 查看，需全小写 |
+| `.addRecipe(input as IIngredient, output as IItemStack)` | void | 添加共鸣祭坛配方，无需指定星座 |
+
+**注意：** 共鸣祭坛会优先匹配有星座的配方。
+
+#### 使用示例
 
 ```zenscript
-import mods.astralsorcery.Lightwell;
+import mods.randomtweaker.astralsorcery.AttunementAltar;
 
-// 添加液化配方
-Lightwell.addLiquefaction(<minecraft:dirt>, <liquid:water>, 1, 0.2, 0);
-
-// 移除配方
-Lightwell.removeLiquefaction(<astralsorcery:itemcraftingcomponent:0>, null);
+AttunementAltar.addRecipe(<minecraft:stick>, <minecraft:dirt>, "astralsorcery.constellation.discidia");
+AttunementAltar.addRecipe(<minecraft:dirt>, <minecraft:stick>);
 ```
 
-## 注意事项
+### AttunementStartEvent（共鸣开始事件）
 
-- 祭坛配方必须提供资源位置，可在 JEI 或 Astral Tome 中按 F3 查看
-- 不同祭坛的输入数组长度要求不同：9、13、21、25
-- 五彩祭坛的索引 25+ 物品需要放在祭坛周围的中继器上
-- 聚星缸的产出倍率通常在 0.3 - 1.2 之间，过高会导致不合理产出
-- 移除配方时，如果存在多个相同输出的配方，需要多次调用移除方法
+> `import mods.randomtweaker.astralsorcery.AttunementStartEvent;`
+
+当共鸣开始时触发。实现了 IEntityEvent。
+
+#### @ZenGetter
+
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| `world` | IWorld | 共鸣祭坛所处世界 |
+| `constellation` | string | 共鸣的星座 |
+| `entity` | IEntity | 与共鸣祭坛共鸣的实体（物品实体或生物） |
+
+#### 实例方法
+
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.getWorld()` | IWorld | 与 world Getter 一致 |
+| `.getConstellation()` | string | 与 constellation Getter 一致 |
+
+### AttunementRecipeCompleteEvent（共鸣配方完成事件）
+
+> `import mods.randomtweaker.astralsorcery.AttunementRecipeCompleteEvent;`
+
+当共鸣配方完成时触发。实现了 IEventCancelable（可取消，取消后配方不输出物品并返还输入）和 IEntityEvent。
+
+#### @ZenGetter
+
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| `input` | IItemStack | 在共鸣祭坛上触发配方的物品 |
+| `output` | IItemStack | 配方输出的物品 |
+| `world` | IWorld | 共鸣祭坛所在的世界 |
+| `constellation` | string | 共鸣的星座 |
+| `entity` | IEntity | 与共鸣祭坛共鸣的实体 |
+| `itemEntity` | IEntityItem | 与共鸣祭坛共鸣的物品实体 |
+
+#### @ZenSetter
+
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| `output` | IItemStack | 设置配方输出的物品 |
+
+#### 实例方法
+
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.getInput()` | IItemStack | 与 input Getter 一致 |
+| `.getOutput()` | IItemStack | 与 output Getter 一致 |
+| `.setOutput(output as IItemStack)` | void | 与 output Setter 一致 |
+| `.getWorld()` | IWorld | 与 world Getter 一致 |
+| `.getItemEntity()` | IEntityItem | 与 itemEntity Getter 一致 |
+| `.getConstellation()` | string | 与 constellation Getter 一致 |
+| `.getAdditionalOutput()` | List\<IItemStack> | 获取额外输出的物品 |
+| `.addAdditionalOutput(additionalOutput as IItemStack)` | void | 添加额外输出的物品 |
+
+#### 使用示例
+
+```zenscript
+import mods.randomtweaker.astralsorcery.AttunementAltar;
+import mods.randomtweaker.astralsorcery.AttunementRecipeCompleteEvent;
+
+AttunementAltar.addRecipe(<minecraft:stick>.withAmount(2), <minecraft:dirt>, "astralsorcery.constellation.discidia");
+
+events.onAttunementRecipeComplete(function(event as AttunementRecipeCompleteEvent) {
+    var world as IWorld = event.world;
+    if(!world.remote && <minecraft:stick>.matches(event.itemEntity.item)) {
+        var output as IItemStack = event.output;
+        var constellation as string = event.constellation;
+
+        if(<minecraft:dirt>.matches(output) && constellation == "astralsorcery.constellation.discidia") {
+            event.setOutput(<minecraft:planks>.withAmount(10));
+            event.addAdditionalOutput(<minecraft:stone>.withAmount(64));
+            // event.cancel(); // 取消事件（取消后上述修改无效，返还输入物品）
+        }
+    }
+});
+```

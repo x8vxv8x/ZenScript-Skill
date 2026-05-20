@@ -70,3 +70,77 @@
 - `aura`：完成配方所需的灵气量
 - `time`：处理时间（tick）
 - `ingredients`：所需物品列表
+
+---
+
+## RandomTweaker 扩展（需安装 RandomTweaker）
+
+> `import mods.randomtweaker.naturesaura.IWorld;`
+> `import mods.randomtweaker.naturesaura.IAuraChunk;`
+
+### IWorld 扩展（灵气查询）
+
+> `import mods.randomtweaker.naturesaura.IWorld;`
+
+IWorld 的扩展类，IWorld 实例可直接使用这些方法。
+
+#### 静态方法
+
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.getAuraChunk(pos as IBlockPos)` | IAuraChunk | 返回 pos 所在的灵气区块 |
+| `.getHighestSpot(pos as IBlockPos, radius as int, defaultSpot as IBlockPos)` | IBlockPos | 返回以 pos 为中心、radius 为半径的范围内灵气量最高的坐标。最高灵气量小于 0 时返回 defaultSpot |
+| `.getLowestSpot(pos as IBlockPos, radius as int, defaultSpot as IBlockPos)` | IBlockPos | 返回灵气量最低的坐标。最低灵气量大于 0 时返回 defaultSpot |
+| `.getSpotAmountInArea(pos as IBlockPos, radius as int)` | int | 返回范围内灵气点总和 |
+| `.getAuraInArea(pos as IBlockPos, radius as int)` | int | 返回范围内灵气总和 |
+| `.triangulateAuraInArea(pos as IBlockPos, radius as int)` | int | 返回范围内灵气总和（每个灵气点的灵气量乘以与 pos 距离的百分比：`1 - (距离 / radius)`） |
+
+#### 使用示例
+
+```zenscript
+import mods.randomtweaker.naturesaura.IAuraChunk;
+
+events.onPlayerRightClickItem(function(event as PlayerRightClickItemEvent) {
+    var world as IWorld = event.world;
+    if(!world.remote && <minecraft:stick>.matches(event.item)) {
+        var auraChunk as IAuraChunk = world.getAuraChunk(event.position);
+        var highestPos = world.getHighestSpot(event.position, 4, event.position);
+        var lowestPos = world.getLowestSpot(event.position, 4, event.position);
+        var spotAmount as int = world.getSpotAmountInArea(event.position, 4);
+        var auraTotal as int = world.getAuraInArea(event.position, 4);
+        var triangulateAura as int = world.triangulateAuraInArea(event.position, 4);
+    }
+});
+```
+
+### IAuraChunk（灵气区块）
+
+> `import mods.randomtweaker.naturesaura.IAuraChunk;`
+
+#### 静态方法
+
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.drainAura(pos as IBlockPos, amount as int, aimForZero as bool, simulate as bool)` | int | 消耗给定 pos 的灵气。`aimForZero` 为 true 时灵气被消耗至负数则返回消耗前的灵气量。返回实际消耗的灵气 |
+| `.drainAura(pos as IBlockPos, amount as int)` | int | 同上，后两个参数默认 false |
+| `.storeAura(pos as IBlockPos, amount as int, aimForZero as bool, simulate as bool)` | int | 增加给定 pos 的灵气。`aimForZero` 为 true 时灵气被增加至正数则返回增加前的灵气量。返回实际增加的灵气 |
+| `.storeAura(pos as IBlockPos, amount as int)` | int | 同上，后两个参数默认 false |
+| `.getDrainSpot(pos as IBlockPos)` | int | 返回 pos 的灵气量 |
+
+#### 使用示例
+
+```zenscript
+import mods.randomtweaker.naturesaura.IAuraChunk;
+
+events.onPlayerRightClickItem(function(event as PlayerRightClickItemEvent) {
+    var world as IWorld = event.world;
+    var pos as IBlockPos = event.position;
+
+    if(!world.remote && <minecraft:stick>.matches(event.item)) {
+        var auraChunk as IAuraChunk = world.getAuraChunk(event.position);
+        auraChunk.drainAura(pos, 10000);   // 消耗 10000 灵气
+        auraChunk.storeAura(pos, 10000);   // 增加 10000 灵气
+        var amount as int = auraChunk.getDrainSpot(pos); // 获取灵气量
+    }
+});
+```
