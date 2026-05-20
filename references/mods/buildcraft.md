@@ -83,3 +83,43 @@ BuildCraft 是一个工业模组。
 - 内燃机需要 BuildCraft Energy 模块
 - 配方名称必须唯一，否则会覆盖现有配方
 - 能量单位为 MJ（Minecraft Joules）
+
+---
+
+## MoreTweaker 扩展（需安装 MoreTweaker）
+
+> `import moretweaker.buildcraft.AssemblyTable;`
+> `import moretweaker.buildcraft.IntegrationTable;`
+> `import moretweaker.buildcraft.Refinery;`
+
+### AssemblyTable（装配台）
+
+> `import moretweaker.buildcraft.AssemblyTable;`
+
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.add(IItemStack output, long energyCost, IIngredient[] inputs)` | void | 添加装配台配方。`energyCost` 为能量消耗（MJ） |
+| `.remove(IIngredient output)` | void | 按输出移除配方 |
+| `.removeAll()` | void | 移除所有配方 |
+
+### IntegrationTable（集成台）
+
+> `import moretweaker.buildcraft.IntegrationTable;`
+
+催化剂（catalyst）为中间的物品。配方按催化剂移除，**不是**按输出。
+
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.add(IItemStack output, long energyCost, IIngredient catalyst, IIngredient[] inputs)` | void | 添加集成配方。`energyCost` 为能量消耗（MJ），`catalyst` 为催化剂 |
+| `.remove(IIngredient catalyst)` | void | 按催化剂移除配方 |
+| `.removeAll()` | void | 移除所有配方 |
+
+### Refinery（精炼厂）
+
+> `import moretweaker.buildcraft.Refinery;`
+
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.addDistilling(ILiquidStack input, ILiquidStack output, ILiquidStack gasOutput, int energy)` | void | 添加蒸馏配方。`output` 为液体输出，`gasOutput` 为气体输出，`energy` 为能量消耗 |
+| `.removeDistilling(ILiquidStack input)` | void | 按输入移除蒸馏配方 |
+| `.removeAll()` | void | 移除所有配方 |
