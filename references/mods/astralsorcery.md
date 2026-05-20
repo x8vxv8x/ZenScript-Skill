@@ -13,6 +13,7 @@
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.removeAltarRecipe(String recipeLocation)` | void | 根据配方名称移除祭坛配方 |
+| `.removeAltarRecipe(IItemStack output, int altarLevel)` | void | 根据输出物品和祭坛等级移除配方（已弃用，v1.10+ 推荐使用上方字符串版本）。`altarLevel`：0=星辉合成台、1=星辉祭坛、2=天辉祭坛 |
 | `.addDiscoveryAltarRecipe(String recipeLocation, IItemStack output, int starlightRequired, int craftingTickTime, IIngredient[] inputs)` | void | 添加星辉合成台配方（inputs 长度必须为 9） |
 | `.addAttunementAltarRecipe(String recipeLocation, IItemStack output, int starlightRequired, int craftingTickTime, IIngredient[] inputs)` | void | 添加星辉祭坛配方（inputs 长度必须为 13） |
 | `.addConstellationAltarRecipe(String recipeLocation, IItemStack output, int starlightRequired, int craftingTickTime, IIngredient[] inputs)` | void | 添加天辉祭坛配方（inputs 长度必须为 21） |

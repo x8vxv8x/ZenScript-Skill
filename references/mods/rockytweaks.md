@@ -16,6 +16,7 @@
 |------|------|------|
 | `.addRecipe(IIngredient left, IIngredient right, IItemStack output, int expCost)` | void | 添加铁砧配方，expCost 为经验消耗 |
 | `.addRecipe(IIngredient left, IIngredient right, IItemStack output, int expCost, IRecipeFunction function)` | void | 添加带自定义函数的铁砧配方 |
+| `.addRecipe(IItemStack input1, IItemStack[] input2, IItemStack[] output, int[] expCost)` | void | 添加配方集（JEI 中合并显示为单个条目）。`input1` 为固定左侧输入，`input2`/`output`/`expCost` 为对应数组 |
 | `.remove(IIngredient[] inputs)` | void | 根据输入物品黑名单移除/禁用铁砧配方 |
 | `.remove(IIngredient output)` | void | 根据输出物品移除/禁用铁砧配方 |
 | `.removeAll()` | void | 移除所有铁砧配方 |

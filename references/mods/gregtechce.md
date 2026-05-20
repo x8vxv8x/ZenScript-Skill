@@ -128,6 +128,26 @@ GTCE 将所有配方存储在 RecipeMap 中。使用 `RecipeMap.getByName(machin
 
 ---
 
+### RecipeMaps（配方映射集合）
+
+> `import mods.gregtech.recipe.RecipeMaps;`
+
+用于遍历特定机器的所有配方，支持批量移除。
+
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.getPrimitiveBlastFurnaceRecipes()` | Iterable\<Recipe\> | 获取所有原始高炉配方，可用于遍历和批量移除 |
+
+```zenscript
+import mods.gregtech.recipe.RecipeMaps;
+
+for recipe in RecipeMaps.getPrimitiveBlastFurnaceRecipes() {
+    recipe.remove();
+}
+```
+
+---
+
 ### PBFRecipeBuilder（原始高炉配方构建器）
 
 > `import mods.gregtech.recipe.PBFRecipeBuilder;`

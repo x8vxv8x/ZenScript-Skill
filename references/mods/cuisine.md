@@ -98,7 +98,11 @@ Cuisine 是一个关于烹饪艺术的模组，提供多种烹饪设备的配方
 |------|------|------|
 | `.add(input as IItemStack, inputFluid as ILiquidStack, output as IItemStack, outputFluid as ILiquidStack, @Optional extra as IItemStack)` | void | 添加容器配方 |
 | `.add(input as IOreDictEntry, inputFluid as ILiquidStack, output as IItemStack, outputFluid as ILiquidStack, @Optional extra as IOreDictEntry)` | void | 使用矿辞添加配方 |
+| `.add(input as IItemStack, inputFluid as ILiquidStack, output as IItemStack, outputFluid as ILiquidStack, @Optional extra as IOreDictEntry)` | void | 添加容器配方（输入为物品，额外为矿辞） |
+| `.add(input as IOreDictEntry, inputFluid as ILiquidStack, output as IItemStack, outputFluid as ILiquidStack, @Optional extra as IItemStack)` | void | 添加容器配方（输入为矿辞，额外为物品） |
 | `.remove(input as IItemStack, inputFluid as ILiquidStack, @Optional extra as IItemStack)` | void | 按输入移除配方 |
 | `.remove(input as IOreDictEntry, inputFluid as ILiquidStack, @Optional extra as IOreDictEntry)` | void | 使用矿辞移除配方 |
+| `.remove(input as IItemStack, inputFluid as ILiquidStack, @Optional extra as IOreDictEntry)` | void | 按输入移除配方（输入为物品，额外为矿辞） |
+| `.remove(input as IOreDictEntry, inputFluid as ILiquidStack, @Optional extra as IItemStack)` | void | 按输入移除配方（输入为矿辞，额外为物品） |
 | `.remove(id as string)` | void | 按ID移除配方 |
 | `.removeAll()` | void | 移除所有配方 |

@@ -4,7 +4,7 @@
 > 前置条件: 无
 > 导入: `import mods.ic2.<ClassName>;`
 
-IC2 Tweaker 为 IndustrialCraft 2 (Experimental/Classic) 提供 CraftTweaker 集成。
+IC2 Tweaker 为 IndustrialCraft 2 提供 CraftTweaker 集成。
 
 ---
 
