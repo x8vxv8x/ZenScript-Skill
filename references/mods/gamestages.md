@@ -391,3 +391,31 @@ Stage 类在使用 ZenStager.initStage() 创建阶段时获得，用于向阶段
 | `ZenStager.getCustomStage(String name, int value)` | Stage | 获取整数类型自定义类型的阶段 |
 | `ZenStager.getCustomStage(String name, IIngredient value)` | Stage | 获取物品类型自定义类型的阶段 |
 | `ZenStager.getCustomType(String name)` | CustomStageType | 获取自定义类型（无需 setStage） |
+
+---
+
+## Roids-Tweaker 扩展（需安装 Roids-Tweaker）
+
+### IEventManager 扩展
+
+**需要配置：`eventcategory.allowGameStagesEvents=true`**
+
+通过 `events` 全局关键字调用。
+
+> `import mods.ctintegration.gamestages.[事件类型];`
+
+#### 事件方法
+
+| 方法 | 说明 |
+|------|------|
+| `.onGameStageAdd(GameStageAddEvent)` | 游戏阶段被添加到玩家时触发，可取消 |
+| `.onGameStageAdded(GameStageAddedEvent)` | 游戏阶段**成功**添加到玩家后触发，不可取消 |
+| `.onGameStageRemove(GameStageRemoveEvent)` | 游戏阶段被移除时触发，可取消 |
+| `.onGameStageRemoved(GameStageRemovedEvent)` | 游戏阶段**成功**移除后触发，不可取消 |
+| `.onGameStageCleared(GameStageClearedEvent)` | 玩家游戏阶段被清除时触发 |
+
+所有事件实现 `IPlayerEvent`，可调用 `getPlayer()`。除 `GameStageClearedEvent` 外均实现 `IGameStageEvent`：
+
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.getGameStage()` | string | 获取事件相关的游戏阶段名称 |

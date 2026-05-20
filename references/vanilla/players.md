@@ -312,3 +312,30 @@ event.player.update({PlayerPersisted: {custom: 10}});
 |------|------|------|
 | `IStatFormatter.numberFormat(int)` | string | 格式化整数（分组分隔符） |
 | `IStatFormatter.decimalFormat(double)` | string | 格式化小数（保留2位） |
+
+---
+
+## Roids-Tweaker 扩展
+
+### IPlayer 扩展
+
+可在任何 IPlayer 上调用。
+
+| 方法 | 参数 | 返回 | 说明 |
+|------|------|------|------|
+| `.addExperience(int amount)` | amount | void | 添加经验点（非等级） |
+| `.removeExperience(int amount)` | amount | void | 移除经验点 |
+| `.getTotalXP()` | 无 | int | 获取总经验量 |
+| `.playSound(String sound, float volume, float pitch)` | sound, volume, pitch | void | 播放声音。客户端和服务端玩家行为不同，检查 `world.remote` 判断端 |
+| `.sendPlaySoundPacket(String sound, String category, Position3f pos, float volume, float pitch)` | sound, category, pos, volume, pitch | void | 使玩家客户端播放声音 |
+| `.isPlayerMP()` | 无 | bool | 是否为 EntityPlayerMP 实例（服务端玩家） |
+| `.isFake()` | 无 | bool | 是否为 FakePlayer 实例 |
+| `.getAdvancementProgress(IAdvancement advancement)` | advancement | IAdvancementProgress | 获取进度完成状态。玩家必须是 EntityPlayerMP 实例，否则返回 null |
+
+### IRandom 扩展
+
+可在任何 IRandom 上调用。
+
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.nextGaussian()` | double | 返回服从标准正态分布的随机 double |

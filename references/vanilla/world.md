@@ -114,6 +114,32 @@
 | `.isSpawnChunk(int, int)` | bool | 检查是否为出生区块 |
 | `.extinguishFire(IPlayer, IBlockPos, IFacing)` | bool | 扑灭火焰 |
 
+---
+
+## Roids-Tweaker 扩展
+
+### IWorld 扩展
+
+可在任何 IWorld 上调用。
+
+| 方法 | 参数 | 返回 | 说明 |
+|------|------|------|------|
+| `.setOrCreateGameRule(String key, String value)` | key, value | void | 设置游戏规则，不存在则创建 |
+| `.getGameRules()` | 无 | IGameRules | 获取游戏规则对象 |
+| `.playSound(String soundResourceLocation, String soundCategory, Position3f location, float volume, float pitch, @Optional bool distanceDelay)` | sound, category, location, volume, pitch, distanceDelay | void | 在指定位置播放声音 |
+| `.canSeeSky(IBlockPos pos)` | pos | bool | 指定位置是否能看到天空 |
+| `.canSnowAt(IBlockPos pos, bool lightCheck)` | pos, lightCheck | bool | 指定位置是否可降雪 |
+| `.canBlockFreeze(IBlockPos pos, bool noWaterAdj)` | pos, noWaterAdj | bool | 指定位置方块是否可冻结 |
+| `.getBlockLight(IBlockPos pos)` | pos | int | 获取方块光照 |
+| `.getEntityItemsWithinAABB(IAxisAlignedBB aabb)` | aabb | IEntityItem[] | 获取 AABB 内的物品实体 |
+| `.getEntitiesWithinAABB(IAxisAlignedBB aabb, @Optional IEntityDefinition entityType)` | aabb, entityType | IEntity[] | 获取 AABB 内的实体 |
+| `.getSkyLight(IBlockPos pos)` | pos | int | 获取天空光照 |
+| `.getTopBlock(IBlockPos pos)` | pos | IBlockPos | 获取最高方块 |
+| `.getTopSolidBlock(IBlockPos pos)` | pos | IBlockPos | 获取最高实心方块 |
+| `.setSpawnerEntity(IBlockPos pos, IEntityLivingBase entity)` | pos, entity | bool | 设置刷怪笼实体 |
+| `.createEntityXp(int value)` | value | IEntityXp | 创建经验球实体 |
+| `.spawnEntityXp(int value, IBlockPos pos)` | value, pos | void | 在指定位置生成经验球 |
+
 ### IBlockPos（方块位置）
 
 > `import crafttweaker.world.IBlockPos;`

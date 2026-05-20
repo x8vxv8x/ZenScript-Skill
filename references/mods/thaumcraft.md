@@ -214,3 +214,64 @@ events.onPlayerRightClickItem(function(event as PlayerRightClickItemEvent) {
 | `.getAspects()` | string[] | 获取实体所具有的源质名称 |
 
 **注意：** 源质在 PostInitialization 阶段注册，因此在游戏生命周期事件内调用 `getAspects()` 会返回空数组。需在 PostInitialization 之后的事件中使用（如玩家交互事件）。
+
+---
+
+## Roids-Tweaker 扩展（需安装 Roids-Tweaker）
+
+### IPlayerKnowledge（玩家知识）
+
+通过 `IPlayer.thaumcraftKnowledge` getter 获取实例。
+
+#### 方法
+
+| 方法 | 参数 | 返回 | 说明 |
+|------|------|------|------|
+| `.clear()` | 无 | void | 清除所有研究 |
+| `.getResearchStatus(String research)` | research | string | 获取研究状态 |
+| `.isResearchComplete(String research)` | research | bool | 检查研究是否完成 |
+| `.isResearchKnown(String research)` | research | bool | 检查研究是否已知 |
+| `.getResearchStage(String research)` | research | int | 获取研究阶段 |
+| `.addResearch(String research)` | research | bool | 添加研究 |
+| `.setResearchStage(String research, int stage)` | research, stage | bool | 设置研究阶段 |
+| `.removeResearch(String research)` | research | bool | 移除研究 |
+| `.getResearchList()` | 无 | string | 获取研究列表 |
+| `.setResearchFlag(String research, String researchFlag)` | research, researchFlag | bool | 设置研究标志 |
+| `.clearResearchFlag(String research, String researchFlag)` | research, researchFlag | bool | 清除研究标志 |
+| `.hasResearchFlag(String research, String researchFlag)` | research, researchFlag | bool | 检查是否有研究标志 |
+| `.sync(IPlayer player)` | player | void | 同步到客户端 |
+
+### IPlayer 扩展
+
+可在任何 IPlayer 上调用。
+
+#### @ZenGetter / @ZenSetter
+
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| `warpNormal` | int | 普通扭曲值 |
+| `warpTemporary` | int | 临时扭曲值 |
+| `warpPermanent` | int | 永久扭曲值 |
+
+#### @ZenGetter
+
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| `thaumcraftKnowledge` | IPlayerKnowledge | 获取玩家知识对象 |
+
+### IWorld 扩展
+
+可在任何 IWorld 上调用。
+
+#### 方法
+
+| 方法 | 参数 | 返回 | 说明 |
+|------|------|------|------|
+| `.addVis(IBlockPos pos, float amount)` | pos, amount | void | 添加灵气 |
+| `.addFlux(IBlockPos pos, float amount)` | pos, amount | void | 添加 flux |
+| `.drainVis(IBlockPos pos, float amount, @Optional boolean simulate)` | pos, amount, simulate | void | 消耗灵气 |
+| `.drainFlux(IBlockPos pos, float amount, @Optional boolean simulate)` | pos, amount, simulate | void | 消耗 flux |
+| `.getVis(IBlockPos pos)` | pos | float | 获取灵气量 |
+| `.getFlux(IBlockPos pos)` | pos | float | 获取 flux 量 |
+| `.getAuraBase(IBlockPos pos)` | pos | float | 获取基础灵气 |
+| `.getTotalAura(IBlockPos pos)` | pos | float | 获取总灵气 |

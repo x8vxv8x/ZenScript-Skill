@@ -245,3 +245,105 @@ import mods.thermalexpansion.Transposer;
 
 Transposer.addFillRecipe(<minecraft:leaves:1>, <minecraft:leaves:0>, <liquid:water> * 200, 20);
 ```
+
+---
+
+## Roids-Tweaker 扩展（需安装 Roids-Tweaker）
+
+### Collector（收集器）
+
+> `import mods.thermalexpansion.Collector;`
+
+管理修改范围和经验收集的催化剂。注意：xp 和 factor 是百分比，可超过 100。
+
+#### 方法
+
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.addCatalyst(IItemStack catalyst, int xp, int factor)` | void | 添加催化剂 |
+| `.removeCatalyst(IItemStack catalyst)` | void | 移除催化剂 |
+
+### Extruder（造石机）
+
+> `import mods.thermalexpansion.Extruder;`
+
+#### 方法
+
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.addRecipeIgneous(IItemStack output, int water, int lava, int energy)` | void | 添加火成岩配方 |
+| `.addRecipeSedimentary(IItemStack output, int water, int lava, int energy)` | void | 添加沉积岩配方 |
+| `.removeRecipeIgneous(IItemStack output)` | void | 移除火成岩配方 |
+| `.removeRecipeSedimentary(IItemStack output)` | void | 移除沉积岩配方 |
+
+### Fisher（渔夫）
+
+> `import mods.thermalexpansion.Fisher;`
+
+#### 方法
+
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.addFish(IItemStack fish, int weight)` | void | 添加鱼获 |
+| `.removeFish(IItemStack fish)` | void | 移除鱼获 |
+| `.clearFish()` | void | 清除所有鱼获 |
+| `.addBait(IItemStack bait, int multiplier)` | void | 添加饵料 |
+| `.removeBait(IItemStack bait)` | void | 移除饵料 |
+| `.clearBait()` | void | 清除所有饵料 |
+
+### InductionSmelter 扩展
+
+> `import mods.thermalexpansion.InductionSmelter;`
+
+添加矿石和食物覆盖，供增强插件使用。
+
+#### 方法
+
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.addOreOverride(IIngredient input, boolean value)` | void | 添加矿石覆盖 |
+| `.removeOreOverride(IIngredient input)` | void | 移除矿石覆盖 |
+
+### Pulverizer 扩展
+
+> `import mods.thermalexpansion.Pulverizer;`
+
+添加矿石覆盖，供增强插件使用。
+
+#### 方法
+
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.addOreOverride(IIngredient input, boolean value)` | void | 添加矿石覆盖 |
+| `.removeOreOverride(IIngredient input)` | void | 移除矿石覆盖 |
+
+### RedstoneFurnace 扩展
+
+> `import mods.thermalexpansion.RedstoneFurnace;`
+
+添加矿石和食物覆盖，供增强插件使用。
+
+#### 方法
+
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.addOreOverride(IIngredient input, boolean value)` | void | 添加矿石覆盖 |
+| `.removeOreOverride(IIngredient input)` | void | 移除矿石覆盖 |
+| `.addFoodOverride(IIngredient input, boolean value)` | void | 添加食物覆盖 |
+| `.removeFoodOverride(IIngredient input)` | void | 移除食物覆盖 |
+
+### Tapper（树汁提取器）
+
+> `import mods.thermalexpansion.Tapper;`
+
+注意：内部无 TapperRecipe，只有 log:fluid 和 log:leaf 映射。同一输入不能有多个不同叶子的配方。addRecipe 方法仅为抽象封装。
+
+#### 方法
+
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.addRecipe(ILiquidStack output, IBlockState log, IBlockState[] leaf)` | void | 添加配方（多叶子） |
+| `.addRecipe(ILiquidStack output, IBlockState log, IBlockState leaf)` | void | 添加配方（单叶子） |
+| `.removeRecipe(IBlockState log)` | void | 按原木移除配方 |
+| `.addFertilizer(IItemStack fertilizer, int multiplier)` | void | 添加肥料 |
+| `.removeFertilizer(IItemStack fertilizer)` | void | 移除肥料 |

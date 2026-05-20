@@ -92,6 +92,24 @@
 |------|------|------|
 | `.isOp(IPlayer)` | bool | 检查玩家是否有 OP 权限 |
 
+---
+
+## Roids-Tweaker 扩展
+
+### IServer 扩展
+
+可在 `server` 全局对象或任何 IServer 上调用。
+
+| 方法 | 参数 | 返回 | 说明 |
+|------|------|------|------|
+| `.getPlayers()` | 无 | IPlayer[] | 获取所有在线玩家 |
+| `.getPlayerCount()` | 无 | int | 获取在线玩家数 |
+| `.getMaxPlayers()` | 无 | int | 获取最大玩家数 |
+| `.getServerCommandSender()` | 无 | ICommandSender | 获取服务器命令发送者（静态方法） |
+| `.getPlayerByUUID(String uuid)` | uuid | IPlayer | 通过 UUID 获取玩家 |
+| `.getPlayerByUsername(String name)` | name | IPlayer | 通过用户名获取玩家 |
+| `.broadcastMessage(ITextComponent message, @Optional bool isSystem)` | message, isSystem | void | 广播消息。isSystem=true 为系统消息，否则为聊天消息 |
+
 ### ITeam（队伍）
 
 > `import crafttweaker.game.ITeam;`

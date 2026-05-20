@@ -253,3 +253,37 @@ val nestedB as IData = [[3, 4], [4, 5], [5, 7]];
 // [[3, 4], [3, 4, 5], [5, 6, 7]] - 索引0用OVERWRITE，索引1用MERGE，索引2沿用MERGE
 print(nestedA.deepUpdate(nestedB, [OVERWRITE, MERGE]));
 ```
+
+---
+
+## Roids-Tweaker 扩展（需安装 CraftTweaker Integration）
+
+### DataUtil
+
+> `import mods.ctintegration.data.DataUtil;`
+
+#### 静态方法
+
+| 方法 | 参数 | 返回 | 说明 |
+|------|------|------|------|
+| `.fromJSON(String json)` | json | IData | 将 JSON 字符串或 NBT 字符串转换为 IData，错误返回 null |
+| `.parse(String json)` | json | IData | 同 `fromJSON`，不同方法名 |
+| `.toNBTString(IData data)` | data | string | 转换为 NBT 字符串表示 |
+| `.getRawString(IData data)` | data | string | 舍弃类型定义，输出基本类型的 String.valueOf() 结果 |
+| `.toJson(IData data)` | data | string | 转换为 JSON（可能丢失类型定义等属性） |
+| `.read(String filePath)` | filePath | IData | 读取 JSON 文件。路径相对于实例目录，需包含 .json |
+| `.write(String filePath, IData data)` | filePath, data | void | 写入数据到文件，不存在则创建 |
+
+**性能提示：** 文件操作开销较大，重复使用的文件应保存到变量。避免对未更改的数据进行不必要的读写。
+
+读取器支持 pretty JSON（包括 json5 注释），写入器始终输出单行。两者都支持 null。
+
+### IData 扩展
+
+可在任何 IData 上调用。
+
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.toNBTString()` | string | 转换为 NBT 字符串 |
+| `.getRawString()` | string | 获取原始字符串 |
+| `.toJson()` | string | 转换为 JSON |

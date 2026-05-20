@@ -203,3 +203,25 @@ print(toString(list));   // [0, 1, 5, 4, 3, 2, 6, 7, 8, 9]
 - 数组的 `removeAllOccurences` 拼写为**单 r**，列表的 `removeAllOccurrences` 拼写为**双 r**
 - 数组的 `remove`/`removeAll` 按**索引**移除，列表的 `remove` 按**元素**移除
 - 列表用 `removeByIndex` 按索引移除
+
+---
+
+## Roids-Tweaker 扩展（需安装 CraftTweaker Integration）
+
+### ArrayUtil
+
+> `import mods.ctintegration.util.ArrayUtil;`
+
+支持任何可转换为 IData 的类型：int、double、float、string、short、byte、long、DataAnything。
+
+#### 方法
+
+| 方法 | 参数 | 返回 | 说明 |
+|------|------|------|------|
+| `.sort(IData[] array)` | array | IData[] | 升序排序（不支持 DataAnything） |
+| `.reverse(IData[] array)` | array | IData[] | 反转数组 |
+| `.fill(IData[] array, IData element)` | array, element | IData[] | 用指定元素替换所有元素 |
+| `.merge(IData[] array1, IData[] array2)` | array1, array2 | IData[] | 合并两个数组 |
+| `.trim(IData[] array, int begin, int end)` | array, begin, end | IData[] | 截取 begin 到 end（不含）的子数组 |
+| `.toString(IData[] array)` | array | string | 转为字符串表示 |
+| `.createArray(IData element, int amount)` | element, amount | IData[] | 创建包含 amount 个 element 的数组 |

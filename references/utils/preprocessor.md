@@ -75,3 +75,19 @@ ZenUtils 允许重载部分脚本。运行 `/ct reload` 命令重载。
 ```zenscript
 addReloadableLoader("crafttweaker");
 ```
+
+---
+
+## Roids-Tweaker 扩展（需安装 Roids-Tweaker）
+
+### #onside
+
+> 用法：`#onside client` 或 `#onside server`
+
+使代码仅在指定端执行。内部使用 `FMLCommonHandler.getSide()`，等同于 `@SideOnly` 注解。
+
+```zenscript
+#onside client
+import crafttweaker.event.PlayerLoggedInEvent;
+// 此脚本仅在客户端执行
+```

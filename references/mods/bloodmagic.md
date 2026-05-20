@@ -43,6 +43,32 @@
 | `.addRecipe(IItemStack output, IItemStack[] inputs, double minSouls, double soulDrain)` | void | 添加狱火熔炉配方。`inputs` 最多 4 个。`minSouls` 最低灵魂需求。`soulDrain` 每次合成消耗灵魂 |
 | `.removeRecipe(IItemStack[] inputs)` | void | 按输入移除配方 |
 
+---
+
+## Roids-Tweaker 扩展（需安装 Roids-Tweaker）
+
+### SoulNetwork（灵魂网络）
+
+通过 `IPlayer.soulNetwork` getter 获取实例。
+
+#### 方法
+
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.add(int amount, int maximum)` | void | 添加 LP |
+| `.add(ITextComponent description, int amount, int maximum)` | void | 添加 LP（带描述） |
+| `.syphon(ITextComponent description, int amount, @Optional boolean skipEvent)` | void | 汲取 LP |
+| `.hurtPlayer(IPlayer player, float syphon)` | void | 对玩家造成 LP 伤害 |
+| `.getCachedPlayer()` | IPlayer | 获取缓存的玩家 |
+| `.clear()` | void | 清除灵魂网络 |
+
+#### @ZenGetter / @ZenSetter
+
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| `orbTier` | int | 宝珠等级 |
+| `currentEssence` | int | 当前 LP 量 |
+
 ## 使用示例
 
 ### 添加血之祭坛配方

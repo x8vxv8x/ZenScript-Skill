@@ -40,12 +40,49 @@
 
 ---
 
-## 使用示例
+## Roids-Tweaker 扩展（需安装 CraftTweaker Utilities）
 
-```zenscript
-import crafttweaker.util.Math;
-Math.clamp(15, 10, 19);  // 15
-Math.clamp(10, 12, 19);  // 12
-Math.floor(3.7);          // 3
-Math.ceil(3.2);           // 4
-```
+> `import mods.ctutils.utils.Math;`
+
+以下方法补充原版 Math 缺失的功能。`Number` 指 double、float、int、long 中的任意类型，方法按类型重复实现。除非另有说明，同一方法的所有 Number 参数必须类型相同。
+
+### 常量
+
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.getE()` | double | 数学常量 e |
+| `.getPi()` | double | 数学常量 π |
+| `.getSqrt2()` | double | 数学常量 √2 |
+
+### 取整与比较
+
+| 方法 | 参数 | 返回 | 说明 |
+|------|------|------|------|
+| `.floor(double)` | double | long | 向下取整 |
+| `.ceil(double)` | double | long | 向上取整 |
+| `.round(float)` | float | int | 四舍五入 |
+| `.round(double)` | double | long | 四舍五入 |
+| `.average(Number[])` | Number[] | float 或 double | 平均值 |
+| `.sign(Number)` | Number | Number | 符号（-1, 0, 1） |
+
+### 三角函数扩展
+
+| 方法 | 参数 | 返回 | 说明 |
+|------|------|------|------|
+| `.hypot(double, double)` | double, double | double | √(a²+b²)（直角三角形斜边） |
+
+### 根与对数
+
+| 方法 | 参数 | 返回 | 说明 |
+|------|------|------|------|
+| `.cbrt(double)` | double | double | 立方根 ³√x |
+| `.fastInvSqrt(double)` | double | double | 快速反平方根 1/√x |
+| `.log(double, @Optional double base)` | input, base | double | 任意底数对数，默认 e |
+| `.exp(double, @Optional double base)` | exponent, base | double | 任意底数指数，默认 e |
+
+### 随机数
+
+| 方法 | 参数 | 返回 | 说明 |
+|------|------|------|------|
+| `.random()` | 无 | Double | 已弃用，使用 `Math.getRandom().nextDouble` |
+| `.getRandom(@Optional long seed)` | seed | IRandom | 获取随机数生成器 |
