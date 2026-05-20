@@ -48,24 +48,24 @@
 | `.addConjuration(IItemStack output, IIngredient input, int mana)` | void | 添加炼造催化配方 |
 | `.removeRecipe(IIngredient output)` | void | 按输出移除配方 |
 
-### Orechid（矿石花）
+### Orechid（凝矿兰）
 
 > `import mods.botania.Orechid;`
 
 | 方法 | 返回 | 说明 |
 |------|------|------|
-| `.addOre(IOreDictEntry oreDict, int weight)` | void | 添加矿石花生成矿石。`weight` 为权重，**相同权重的两个配方会导致游戏崩溃** |
+| `.addOre(IOreDictEntry oreDict, int weight)` | void | 添加生成矿石。`weight` 为权重，**相同权重的两个配方会导致游戏崩溃** |
 | `.addOre(String oreDict, int weight)` | void | 同上，使用字符串矿辞名 |
 | `.removeOre(IOreDictEntry oreDict)` | void | 按矿辞移除配方 |
 | `.removeOre(String oreDict)` | void | 同上，使用字符串矿辞名 |
 
-### OrechidIgnem（凝矿兰）
+### OrechidIgnem（炎矿兰）
 
 > `import mods.botania.OrechidIgnem;`
 
 | 方法 | 返回 | 说明 |
 |------|------|------|
-| `.addOre(IOreDictEntry oreDict, int weight)` | void | 添加凝矿兰生成矿石 |
+| `.addOre(IOreDictEntry oreDict, int weight)` | void | 添加生成矿石 |
 | `.addOre(String oreDict, int weight)` | void | 同上，使用字符串矿辞名 |
 | `.removeOre(IOreDictEntry oreDict)` | void | 按矿辞移除配方 |
 | `.removeOre(String oreDict)` | void | 同上，使用字符串矿辞名 |
