@@ -558,12 +558,6 @@ RecipeBuilder.newBuilder("circuit_0", "machine_1", 80)
     .addItemOutput(<mekanism:controlcircuit> * 8)
     .build();
 
-// 分步调用
-val builder as RecipePrimer = RecipeBuilder.newBuilder("circuit_1", "machine_1", 80);
-builder.addEnergyPerTickInput(800);
-builder.addItemInput(<ore:ingotOsmium> * 8);
-builder.addItemOutput(<mekanism:controlcircuit> * 8);
-builder.build();
 ```
 
 ### 概率输出
