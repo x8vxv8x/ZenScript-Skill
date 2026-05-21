@@ -94,17 +94,26 @@
 ### 预定义伤害来源
 
 ```zenscript
-<damageSource:MAGIC>                 // 魔法伤害
-<damageSource:GENERIC>               // 通用伤害
-<damageSource:IN_FIRE>               // 火焰伤害
-<damageSource:LAVA>                  // 岩浆伤害
-<damageSource:IN_WALL>               // 窒息伤害
-<damageSource:STARVE>                // 饥饿伤害
-<damageSource:OUT_OF_WORLD>          // 虚空伤害
-<damageSource:FALL>                  // 摔落伤害
-<damageSource:CRAMMING>              // 挤压伤害
-<damageSource:DROWN>                 // 溺水伤害
-<damageSource:LIGHTNING_BOLT>        // 闪电伤害
+<damageSource:MAGIC>             // 魔法伤害
+<damageSource:GENERIC>           // 通用伤害
+<damageSource:IN_FIRE>           // 火焰伤害
+<damageSource:LAVA>              // 岩浆伤害
+<damageSource:IN_WALL>           // 窒息伤害
+<damageSource:STARVE>            // 饥饿伤害
+<damageSource:OUT_OF_WORLD>      // 虚空伤害
+<damageSource:FALL>              // 摔落伤害
+<damageSource:CRAMMING>          // 挤压伤害
+<damageSource:DROWN>             // 溺水伤害
+<damageSource:LIGHTNING_BOLT>    // 闪电伤害
+<damageSource:ON_FIRE>           // 着火伤害
+<damageSource:HOT_FLOOR>         // 烫脚伤害
+<damageSource:CACTUS>            // 仙人掌伤害
+<damageSource:FLY_INTO_WALL>     // 撞墙伤害
+<damageSource:WITHER>            // 凋零伤害
+<damageSource:ANVIL>             // 铁砧伤害
+<damageSource:FALLING_BLOCK>     // 下落方块伤害
+<damageSource:DRAGON_BREATH>     // 龙息伤害
+<damageSource:FIREWORKS>         // 烟花伤害
 ```
 
 ---

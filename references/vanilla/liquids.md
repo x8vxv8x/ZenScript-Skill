@@ -207,20 +207,3 @@ CoT 脚本第一行必须为 `#loader contenttweaker`。
 | 方法 | 返回 | 说明 |
 |------|------|------|
 | `.register()` | void | 注册流体进游戏 |
-
-### ContentTweaker 流体示例
-
-```zenscript
-#loader contenttweaker
-import mods.contenttweaker.VanillaFactory;
-import mods.contenttweaker.Fluid;
-
-var zsFluid as Fluid = VanillaFactory.createFluid("zs_fluid", 0xFF69B4);
-zsFluid.temperature = 500;
-zsFluid.viscosity = 1500;
-zsFluid.density = 1500;
-zsFluid.luminosity = 4;
-zsFluid.stillLocation = "base:fluids/liquid";
-zsFluid.flowingLocation = "base:fluids/liquid_flow";
-zsFluid.register();
-```

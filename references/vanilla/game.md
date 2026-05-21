@@ -161,20 +161,6 @@ ITeam 代表一个队伍。
 
 ---
 
-## 使用示例
-
-### 遍历所有模组物品
-
-```zenscript
-for mod in loadedMods {
-    for item in mod.items {
-        // 处理每个物品
-    }
-}
-```
-
----
-
 ## EventTweaker 扩展（需安装 EventTweaker）
 
 > `import mods.eventtweaker.Minecraft;`

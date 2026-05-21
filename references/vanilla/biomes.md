@@ -94,13 +94,4 @@ biome.setTemperature(0.8f);
 
 // 修改降雨量
 biome.setRainfall(0.4f);
-
-// 修改水颜色
-biome.setWaterColorMultiplier(0x3F76E4);
-
-// 启用/禁用雨
-biome.setEnableRain(true);
-
-// 启用/禁用雪
-biome.setEnableSnow(false);
 ```

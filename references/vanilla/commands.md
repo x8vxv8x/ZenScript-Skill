@@ -79,8 +79,6 @@ ICommandManager 用于管理命令，通过 `server.commandManager` 获取。
 
 ## ZenUtils 扩展（需安装 ZenUtils）
 
-> 版本要求: 1.10.0+
-
 ### ICommandManager 扩展
 
 对 `crafttweaker.command.ICommandManager` 的扩展。
@@ -119,8 +117,6 @@ cmd.register();
 #### ZenCommandTree
 
 > `import mods.zenutils.command.ZenCommandTree;`
-
-用于创建带子命令的命令树。具体用法参见 wiki。
 
 #### IGetCommandUsage（函数式接口）
 
