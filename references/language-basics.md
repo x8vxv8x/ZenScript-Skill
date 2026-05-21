@@ -187,17 +187,6 @@ import crafttweaker.item.IItemStack;
 global a as int = 450;                        // 全局作用域
 static b as int = 100;                        // 全局作用域
 val item as IItemStack = <minecraft:apple>;   // 脚本作用域
-
-for i in 0 .. 10 {                            // i = 参数作用域
-    val j as int = i * 5;                     // j = 局部作用域
-    // val i as int = 233;  // 错误：i 已在参数作用域
-    if (i < 4) {
-        val k as int = i + 1;                 // k = if 块内局部
-        print(k);
-    }
-    // print(k);  // 错误：k 不在此作用域
-}
-// print(i);  // 错误：i 只在 for 循环内
 ```
 
 ### 基本类型功能
@@ -272,18 +261,6 @@ if (!isNull(item) && item.amount == 1) { ... }
 ### `in`/`has` 运算符
 
 检查某物是否包含在某集合中。`in` 和 `has` 功能相同，习惯上 `has` 用于集合包含检查，`in` 用于循环。
-
-```zenscript
-// 检查模组是否加载
-if (loadedMods has "mcp") {
-    print("Minecraft Coder Pack loaded");
-}
-
-// 检查物品是否属于矿辞
-if (<ore:ingotIron> has <minecraft:iron_ingot>) {
-    print("铁锭在 ingotIron 矿辞中");
-}
-```
 
 注意：`A has B` 要求 B 的**所有**匹配物品都在 A 中才为真。
 
@@ -432,10 +409,7 @@ function 函数名(参数表) as 返回类型 {
     return 返回值;
 }
 ```
-
-- 无参数：只写 `()`
 - 无返回值：省略 `as 返回类型` 和 `return`
-- 单行函数：直接写在 return 行
 
 #### 默认参数
 
@@ -445,38 +419,8 @@ function 函数名(参数表) as 返回类型 {
 function name(a as int, b as int = 2, c as int = 3) as void {
     print(a + b + c);
 }
-
-name(1);       // 6 (1+2+3)
-name(1, 3);    // 7 (1+3+3)
-name(1, 1, 4); // 6 (1+1+4)
 ```
-
 - 默认值支持括号处理器和函数调用，但不支持变量
-
-#### 示例
-
-```zenscript
-// 获取物品名
-function getItemName(input as IItemStack) as string {
-    val id = input.definition.id;
-    val meta = input.metadata;
-    if (meta == 0) {
-        return id;
-    } else {
-        return id ~ ":" ~ meta;
-    }
-}
-
-// 打包操作（无返回值）
-function recipeTweak(isShaped as bool, out as IItemStack, input as IIngredient[][]) {
-    recipes.remove(out, true);
-    if (isShaped) {
-        recipes.addShaped(getItemName(out), out, input);
-    } else {
-        recipes.addShapeless(getItemName(out), out, input[0]);
-    }
-}
-```
 
 ### 全局函数变量
 
@@ -485,7 +429,6 @@ global addition as function(int, int)int = function(a as int, b as int) as int {
     return a + b;
 };
 ```
-
 ---
 
 ## 变量作用域
@@ -519,17 +462,6 @@ static myStaticValue as IItemStack = <minecraft:sand>;
 - 前缀：`scripts.`
 - 路径相对于 scripts 目录，用点号分隔（如 `scripts.mySubfolder.a.zs`）
 - 可在 import 语句中使用
-
-```zenscript
-// a.zs
-static myVal as string = "myVal";
-function makeLine() { print("---------------"); }
-
-// b.zs
-print(scripts.a.myVal);
-scripts.a.makeLine();
-```
-
 ---
 
 ## Import 语法
@@ -539,10 +471,6 @@ scripts.a.makeLine();
 ### 基本导入
 
 ```zenscript
-// 导入具体函数
-import mods.jei.JEI.removeAndHide;
-removeAndHide(<minecraft:dirt>);
-
 // 导入包
 import mods.jei.JEI;
 JEI.hide(<minecraft:diamond>);
@@ -554,12 +482,8 @@ JEI.hide(<minecraft:diamond>);
 
 ```zenscript
 import mods.jei.JEI.hide as h;
-import mods.jei.JEI.removeAndHide as rh;
-
 h(<minecraft:dirt>);
-rh(<minecraft:diamond>);
 ```
-
 ---
 
 ## 扩展方法
