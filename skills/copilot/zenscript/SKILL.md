@@ -1,5 +1,11 @@
 ---
-applyTo: "**/*.zs"
+name: zenscript
+description: >
+  CraftTweaker 1.12.2 ZenScript 编写、修改和排错支持。用于编写、编辑、
+  审查或调试 .zs 脚本；当用户提到 CraftTweaker、ZenScript、CrT、整合包
+  配方调整、scripts/ 目录、合成、熔炉、酿造、矿物词典、物品/方块/实体
+  事件或模组专属 CraftTweaker 接口时使用。通过优先查阅参考资料来避免
+  自造 ZenScript 方法和错误的配方语法。
 ---
 
 # CraftTweaker 1.12.2 ZenScript

@@ -1,4 +1,4 @@
-# CraftTweaker ZenScript Skill for AI Agent
+# ZenScript Skill for AI Agent
 
 为 AI Agent 提供 CraftTweaker 1.12.2 ZenScript 的正确 API 参考，防止 AI agent 自造方法。
 
@@ -11,13 +11,13 @@
 
 ## 安装
 
-将 `skills/claude/crafttweaker-zenscript/`和 `references` 目录复制到你的整合包项目的 `.claude/skills/` 下。
+将 `skills/claude/zenscript/`和 `references` 目录复制到你的整合包项目的 `.claude/skills/` 下。
 
 ```
 你的整合包/
 └── .claude/
     └── skills/
-        └── crafttweaker-zenscript/
+        └── zenscript/
             ├── SKILL.md
             └── references
 ```
@@ -26,30 +26,30 @@
 
 ### 通用步骤
 
-1. 根据你的 agent，将 `skills/<agent>` 内的文件复制到对应位置
+1. 根据你的 agent，将 `skills/<agent>/` 内的文件复制到对应位置
 2. 将`refereces` 复制到 `.md` 同级目录
+
+### Codex
+
+```
+.agents/skills/zenscript/
+├── SKILL.md         
+└── references      
+```
 
 ### GitHub Copilot
 
 ```
-.github/instructions/
-├── crafttweaker-zenscript.instructions.md  
+.github/skills/zenscript/
+├── SKILL.md
 └── references                              
-```
-
-### OpenAI Codex CLI
-
-```
-.agents/skills/crafttweaker-zenscript/
-├── SKILL.md         
-└── references      
 ```
 
 ### Trae
 
 ```
-.trae/rules/
-├── crafttweaker-zenscript.md    
+.trae/skills/zenscript
+├── SKILL.md    
 └── references                 
 ```
 
