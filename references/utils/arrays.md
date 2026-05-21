@@ -4,147 +4,76 @@
 > 前置条件: 无
 > 导入: 无需导入
 
-数组基础语法。
-
 ---
 
-## 数组操作
+## 基础操作
 
 ### 声明
 
-使用 `[]` 声明数组。**必须初始化**，即使是空数组。
+使用 `[]` 声明数组，**必须初始化**。声明时建议用 `as` 指定类型，否则 ZenScript 可能推断错误。非基础类型（如 IItemStack）需要先 import。
 
 ```zenscript
-// 正确
 var floatArray as float[] = [];
-```
-```zenscript
 val stringArray = ["Hello", "World"] as string[];
 val intArray = [1, 2, 3] as int[];
 ```
 
-### 类型转换
+### 访问与追加
 
-声明数组时建议使用 `as` 指定类型，否则 ZenScript 可能推断错误。非基础类型（如 IItemStack）需要先 import。
-
-```zenscript
-import crafttweaker.item.IItemStack;
-
-val IArray = [<minecraft:gold_ingot>, <minecraft:iron_ingot>] as IItemStack[];
-```
-
-### 嵌套数组
+索引从 0 开始。使用 `+` 追加单个元素（不能追加数组）。
 
 ```zenscript
-val stringArray1 = ["Hello", "World"] as string[];
-val stringArray2 = ["I", "am"] as string[];
-val stringArrayAll = [stringArray1, stringArray2, ["Butterfly", "!"]] as string[][];
-
-// stringArrayAll[0][1] → "World"
-print(stringArrayAll[0][1]);
-```
-
-### 访问元素
-
-索引从 0 开始。嵌套数组需要多层索引。
-
-```zenscript
-val arr = ["Hello", "World", "I", "am"] as string[];
+val arr = ["Hello", "World"] as string[];
 print(arr[0]);  // "Hello"
+arr += "New";
 ```
-
-### 追加元素
-
-使用 `+` 追加单个元素。只能追加单个对象，不能追加数组。
-
-```zenscript
-import crafttweaker.item.IItemStack;
-
-val iron = <minecraft:iron_ingot>;
-var array as IItemStack[] = [iron, iron, iron];
-array += iron;
-```
-
 ### 属性
 
 | 属性 | 返回 | 说明 |
 |------|------|------|
 | `.length` | int | 数组长度 |
 
+### 嵌套数组
+
+```zenscript
+val nested = [["Hello", "World"] as string[], ["I", "am"] as string[]] as string[][];
+print(nested[0][1]);  // "World"
+```
+
 ---
 
 ## 遍历
 
-### for 循环
-
 ```zenscript
 import crafttweaker.item.IItemStack;
-
 val IArray = [<minecraft:dirt>, <minecraft:planks>, <minecraft:diamond>] as IItemStack[];
-
-// 遍历元素
-for item in IArray {
-    recipes.remove(item);
-}
-
-// 带索引遍历
-for i, item in IArray {
-    print(i ~ ": " ~ item.displayName);
-}
-
-// 数字范围
-for i in 0 to 10 { print(i); }     // 0 到 9
-for i in 10 .. 20 { print(i); }    // 10 到 19
-
+for item in IArray { recipes.remove(item); }                    // 遍历元素
+for i, item in IArray { print(i ~ ": " ~ item.displayName); }  // 带索引
+for i in 0 to 10 { print(i); }                                  // 0 到 9
+for i in 10 .. 20 { print(i); }                                 // 10 到 19
 // 遍历模组物品
-for item in loadedMods["minecraft"].items {
-    recipes.remove(item);
-}
+for item in loadedMods["minecraft"].items { recipes.remove(item); }
 ```
-
-### while 循环
-
-```zenscript
-var i = 0;
-while i < 10 {
-    print(i);
-    i += 1;
-}
-```
-
-### break
-
-```zenscript
-for i in 0 .. 10 {
-    if (i == 5) break;
-    print(i);
-}
-```
-
 ---
 
-## ZenUtils 扩展（需安装 ZenUtils 1.24.0+）
-
-ZenUtils 为数组和列表添加了更多操作。
+## ZenUtils 扩展（需安装 ZenUtils）
 
 **重要区别**：数组（`E[]`）返回新数组，列表（`[E]`）修改并返回自身。
 
 ```zenscript
 val array = [1, 2, 3] as int[];
 val list = [1, 2, 3] as [int];
-
-val newArray = array.add(4);  // array 不变，返回新数组 [1, 2, 3, 4]
-val listItself = list.add(4); // list 变为 [1, 2, 3, 4]，返回自身
+array.add(4);  // array 不变，返回新数组 [1, 2, 3, 4]
+list.add(4);   // list 变为 [1, 2, 3, 4]，返回自身
 ```
 
 ### 切片语法
 
-`arrayOrList[start .. end]` 从 startIndex（含）到 endIndex（不含）切片。数组切片是克隆的，列表切片共享内存。
+`arrayOrList[start .. end]` 从 startIndex（含）到 endIndex（不含）。数组切片是克隆的，列表切片共享内存。
 
 ```zenscript
 val list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] as [int];
 list[2 .. 6].reverse();  // 列表切片共享内存，原列表也被修改
-print(toString(list));   // [0, 1, 5, 4, 3, 2, 6, 7, 8, 9]
 ```
 
 ### 数组操作（E[]）
@@ -198,23 +127,13 @@ print(toString(list));   // [0, 1, 5, 4, 3, 2, 6, 7, 8, 9]
 | `.sort(function(E, E)int)` | [E] | 按自定义比较器排序（E 可以是原始类型） |
 | `.swap(int, int)` | [E] | 交换两个元素，返回自身 |
 
-### 注意事项
-
-- 数组的 `removeAllOccurences` 拼写为**单 r**，列表的 `removeAllOccurrences` 拼写为**双 r**
-- 数组的 `remove`/`removeAll` 按**索引**移除，列表的 `remove` 按**元素**移除
-- 列表用 `removeByIndex` 按索引移除
-
 ---
 
-## Roids-Tweaker 扩展（需安装 CraftTweaker Integration）
-
-### ArrayUtil
+## Roids-Tweaker 扩展
 
 > `import mods.ctintegration.util.ArrayUtil;`
 
 支持任何可转换为 IData 的类型：int、double、float、string、short、byte、long、DataAnything。
-
-#### 方法
 
 | 方法 | 参数 | 返回 | 说明 |
 |------|------|------|------|

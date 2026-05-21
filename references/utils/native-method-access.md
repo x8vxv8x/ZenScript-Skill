@@ -161,23 +161,7 @@ zenClass CrystalAlga extends BlockCrops {
 - 方法重写必须使用 SRG 名称（`func_XXXXXX_x`），MCP 名称不可用于重写
 - 函数体内可使用 MCP 名称调用 MC 代码
 
----
-
-## 敏感操作黑名单
-
-以下原生代码**不可访问**：
-
-- 文件 IO
-- 网络
-- 窗口
-- 多线程
-- Mixin/ASM
-- 其他语言库（Scala、Kotlin、Groovy）
-- Java 底层代码（`java.lang`、`jdk.`、`sun.` 等）
-
 ### java.lang.Class 访问
-
-@since 1.22.4
 
 `java.lang.Class` 可导入但**禁止反射操作**：
 
@@ -197,3 +181,14 @@ val itemClass = item.class;       // 获取运行时类
 // itemClass.getMethods()     // 错误
 // Class.forName("...")       // 错误
 ```
+## 敏感操作黑名单
+
+以下原生代码**不可访问**：
+
+- 文件 IO
+- 网络
+- 窗口
+- 多线程
+- Mixin/ASM
+- 其他语言库（Scala、Kotlin、Groovy）
+- Java 底层代码（`jdk.`、`sun.` 等）

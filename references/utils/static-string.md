@@ -20,4 +20,3 @@
 |------|------|------|
 | `StaticString.valueOf(Object)` | String | Java `String.valueOf` |
 | `StaticString.format(String, Object...)` | String | Java `String.format` |
-| 其他方法 | - | Apache Commons StringUtils 的大部分方法，详见 [Javadoc](https://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html) |

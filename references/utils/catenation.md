@@ -1,7 +1,7 @@
 # Catenation（链式操作）CraftTweaker API 参考
 
 > Mod ID: 无
-> 前置条件: ZenUtils（版本要求: 1.11.0+）
+> 前置条件: ZenUtils
 > 导入: `import mods.zenutils.Catenation;`、`import mods.zenutils.CatenationContext;`、`import mods.zenutils.CatenationStatus;`、`import mods.zenutils.ICatenationBuilder;`
 
 Catenation 提供延迟执行和链式操作机制，通过 `world.catenation()` 创建。Catenation 不会被序列化，服务器停止时所有 catenation 会终止。
@@ -75,8 +75,6 @@ catenation 任务间共享的数据持有者。
 ### CatenationStatus（状态枚举）
 
 > `import mods.zenutils.CatenationStatus;`
-
-@since 1.12.7
 
 #### @ZenGetter
 
@@ -153,7 +151,6 @@ events.onPlayerLoggedIn(function(event as PlayerLoggedInEvent) {
         .start();
 });
 ```
-
 ### 手动控制
 
 ```zenscript
@@ -166,18 +163,12 @@ val catenation = world.catenation()
 
 // 手动停止
 catenation.stop();
-
-// 检查状态
-print(catenation.stopped);
 ```
-
 ---
 
 ## PersistedCatenation（持久化链式操作）
 
 > `import mods.zenutils.CatenationPersistence;`
-
-@since 1.13.0
 
 持久化 catenation 可被序列化，服务器重启后自动恢复。
 
@@ -215,7 +206,6 @@ events.onPlayerLoggedIn(function(event as PlayerLoggedInEvent) {
     }
 });
 ```
-
 或使用 world 扩展方法：`world.persistedCatenation(String key)`
 
 ### 可序列化对象
