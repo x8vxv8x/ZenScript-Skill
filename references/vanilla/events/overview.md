@@ -8,55 +8,25 @@
 
 ---
 
-## 概述
+## 基础用法
 
 ```zenscript
 events.onPlayerCrafted(function(event as crafttweaker.event.PlayerCraftedEvent){
-    // 玩家合成时执行
+    if (!event.player.world.remote) { // !world.remote 保证服务端执行。MC 分为服务端和客户端。与存档相关的操作（召唤实体、修改方块等）必须在服务端执行。
+        // 服务端逻辑
+    }
 });
 ```
 
 **清除所有事件处理器**：`events.clear();`
 
----
-
-## 事件监听基础
-
-```zenscript
-events.on<EventName>(function(event as <EventType>) {
-    // 事件处理代码
-});
-```
-
 **重要**：必须将 event 强制转换为正确的事件类型，否则无法访问其 ZenGetter/ZenSetter。
-
----
-
-## 重要提示
-
-### `!world.remote` 保证服务端执行
-
-MC 分为服务端和客户端。与存档相关的操作（召唤实体、修改方块等）必须在服务端执行。
-
-```zenscript
-events.onPlayerCrafted(function(event as PlayerCraftedEvent) {
-    if (!event.player.world.remote) {
-        // 只在服务端执行
-    }
-});
-```
-
-**原因**: 单人游戏也有内置的服务端和客户端。不加 `!world.remote` 会导致事件执行两次（客户端一次，服务端一次），出现重复实体等问题。
 
 ---
 
 ## 事件接口
 
-事件类通过实现接口来共享方法和属性。以下是所有事件接口。
-
 ### IBlockEvent
-
-所有与方块相关的事件都实现此接口。
 
 > `import crafttweaker.event.IBlockEvent;`
 
@@ -74,15 +44,11 @@ events.onPlayerCrafted(function(event as PlayerCraftedEvent) {
 
 ### IEntityEvent
 
-所有与实体相关的事件的基础接口。
-
 | 属性 | 类型 | 说明 |
 |------|------|------|
 | `entity` | IEntity | 实体对象 |
 
 ### ILivingEvent
-
-所有与生物相关的事件的基础接口。
 
 | 属性 | 类型 | 说明 |
 |------|------|------|
@@ -90,15 +56,11 @@ events.onPlayerCrafted(function(event as PlayerCraftedEvent) {
 
 ### IPlayerEvent
 
-所有与玩家相关的事件的基础接口。
-
 | 属性 | 类型 | 说明 |
 |------|------|------|
 | `player` | IPlayer | 玩家对象 |
 
 ### ITickEvent
-
-所有 Tick 事件的基础接口。
 
 | 属性 | 类型 | 说明 |
 |------|------|------|
@@ -106,8 +68,6 @@ events.onPlayerCrafted(function(event as PlayerCraftedEvent) {
 | `side` | string | 执行端，值为 `CLIENT` 或 `SERVER` |
 
 ### IEventCancelable
-
-可取消事件的基础接口。
 
 | 属性 | 类型 | 说明 |
 |------|------|------|
@@ -117,20 +77,13 @@ events.onPlayerCrafted(function(event as PlayerCraftedEvent) {
 
 ### IEventHasResult
 
-拥有结果的事件的基础接口。
-
 | 属性 | 类型 | 说明 |
 |------|------|------|
 | `result` | string | 事件结果，值为 `default`、`deny` 或 `allow` |
 
-方法：
-- `event.deny()` 设置结果为 `deny`
-- `event.allow()` 设置结果为 `allow`
-- `event.default()` 设置结果为 `default`
+方法：`event.deny()` / `event.allow()` / `event.default()`
 
 ### IEventPositionable
-
-拥有位置信息的事件的基础接口。
 
 | 属性 | 类型 | 说明 |
 |------|------|------|
@@ -140,8 +93,6 @@ events.onPlayerCrafted(function(event as PlayerCraftedEvent) {
 | `z` | int | Z 坐标 |
 
 ### IExplosionEvent
-
-爆炸事件的基础接口。
 
 | 属性 | 类型 | 说明 |
 |------|------|------|
@@ -154,8 +105,6 @@ events.onPlayerCrafted(function(event as PlayerCraftedEvent) {
 
 ### IProjectileImpactEvent
 
-投射物命中事件的基础接口。
-
 继承自 IEntityEvent。
 
 | 属性 | 类型 | 说明 |
@@ -165,50 +114,39 @@ events.onPlayerCrafted(function(event as PlayerCraftedEvent) {
 
 ### IMinecartEvent
 
-矿车事件的基础接口。
-
 | 属性 | 类型 | 说明 |
 |------|------|------|
 | `minecart` | IEntity | 矿车实体 |
 
 ### IPotionBrewEvent
 
-药水酿造事件的基础接口。
-
 | 属性 | 类型 | 说明 |
 |------|------|------|
 | `length` | int | 酿造台中的物品数量 |
 
-方法：
-- `event.getItem(int index)` 获取酿造台中指定索引的物品（IItemStack），索引超出 `length` 时返回空 IItemStack
-- `event.setItem(int index, IItemStack item)` 替换酿造台中指定索引的物品，索引超出 `length` 时无效
+方法：`event.getItem(int index)` / `event.setItem(int index, IItemStack item)`
 
 ### IProcessableEvent
-
-可处理事件的基础接口。这些事件在处理完成后应标记为已处理，其他事件处理器不应再修改。
 
 | 属性 | 类型 | 说明 |
 |------|------|------|
 | `processed` | bool | 是否已处理 |
 
-方法：
-- `event.process()` 将事件标记为已处理
+方法：`event.process()` 将事件标记为已处理
 
 ---
 
 ## 完整事件列表
 
-下表列出所有可用的 ZenMethod 和对应的事件类。
-
 | ZenMethod | 事件类 | 说明 |
 |-----------|--------|------|
 | `onAllowDespawn` | EntityLivingSpawnEvent | 允许实体消失 |
 | `onAnimalTame` | AnimalTameEvent | 动物驯服 |
-| `onArrowLoose` | ArrowLooseEvent | 射箭（松开弓弦） |
-| `onArrowNock` | ArrowNockEvent | 搭箭（开始拉弓） |
+| `onArrowLoose` | ArrowLooseEvent | 射箭 |
+| `onArrowNock` | ArrowNockEvent | 搭箭 |
 | `onBlockBreak` | BlockBreakEvent | 方块被破坏 |
 | `onBlockHarvestDrops` | BlockHarvestDrops | 方块破坏掉落 |
-| `onBlockNeighborNotify` | BlockNeighborNotifyEvent | 方块邻居通知（物理更新） |
+| `onBlockNeighborNotify` | BlockNeighborNotifyEvent | 方块邻居通知 |
 | `onBlockPlace` | BlockPlaceEvent | 方块放置 |
 | `onCheckSpawn` | EntityLivingExtendedSpawnEvent | 检查实体生成 |
 | `onClientTick` | ClientTickEvent | 客户端 Tick |
@@ -217,7 +155,7 @@ events.onPlayerCrafted(function(event as PlayerCraftedEvent) {
 | `onCropGrowPost` | CropGrowPostEvent | 作物生长后 |
 | `onCropGrowPre` | CropGrowPreEvent | 作物生长前 |
 | `onEnchantmentLevelSet` | EnchantmentLevelSetEvent | 附魔台等级生成 |
-| `onEnderTeleport` | EnderTeleportEvent | 末影人传送/末影珍珠传送 |
+| `onEnderTeleport` | EnderTeleportEvent | 末影人传送 |
 | `onEntityJoinWorld` | EntityJoinWorldEvent | 实体加入世界 |
 | `onEntityLivingAttacked` | EntityLivingAttackedEvent | 实体被攻击 |
 | `onEntityLivingDamage` | EntityLivingDamageEvent | 实体受伤（最终伤害） |
@@ -229,7 +167,7 @@ events.onPlayerCrafted(function(event as PlayerCraftedEvent) {
 | `onEntityLivingHurt` | EntityLivingHurtEvent | 实体受伤 |
 | `onEntityLivingJump` | EntityLivingJumpEvent | 实体跳跃 |
 | `onEntityLivingUpdate` | EntityLivingUpdateEvent | 实体更新 |
-| `onEntityLivingUseItem` | EntityLivingUseItemEvent.All | 实体使用物品（全部阶段） |
+| `onEntityLivingUseItem` | EntityLivingUseItemEvent.All | 实体使用物品 |
 | `onEntityLivingUseItemFinish` | EntityLivingUseItemEvent.Finish | 实体完成使用物品 |
 | `onEntityLivingUseItemStart` | EntityLivingUseItemEvent.Start | 实体开始使用物品 |
 | `onEntityLivingUseItemStop` | EntityLivingUseItemEvent.Stop | 实体停止使用物品 |
@@ -243,13 +181,13 @@ events.onPlayerCrafted(function(event as PlayerCraftedEvent) {
 | `onItemExpire` | ItemExpireEvent | 物品实体过期 |
 | `onItemFished` | ItemFishedEvent | 钓鱼获得物品 |
 | `onItemToss` | ItemTossEvent | 丢弃物品 |
-| `onLivingDestroyBlock` | LivingDestroyBlockEvent | 生物破坏方块（凋灵/末影龙/僵尸） |
+| `onLivingDestroyBlock` | LivingDestroyBlockEvent | 生物破坏方块 |
 | `onLivingExperienceDrop` | LivingExperienceDropEvent | 生物死亡掉落经验 |
 | `onLivingKnockBack` | LivingKnockBackEvent | 生物被击退 |
 | `onLootingLevel` | LootingLevelEvent | 抢夺等级判定 |
 | `onMinecartCollision` | MinecartCollisionEvent | 矿车碰撞 |
 | `onMinecartInteract` | MinecartInteractEvent | 矿车交互 |
-| `onMobGriefing` | MobGriefingEvent | 生物破坏（苦力怕爆炸等） |
+| `onMobGriefing` | MobGriefingEvent | 生物破坏 |
 | `onPlayerAdvancement` | PlayerAdvancementEvent | 玩家获得进度 |
 | `onPlayerAnvilRepair` | PlayerAnvilRepairEvent | 玩家铁砧修复 |
 | `onPlayerAnvilUpdate` | PlayerAnvilUpdateEvent | 玩家铁砧更新 |
@@ -258,7 +196,7 @@ events.onPlayerCrafted(function(event as PlayerCraftedEvent) {
 | `onPlayerBreakSpeed` | PlayerBreakSpeed | 玩家挖掘速度 |
 | `onPlayerBrewedPotion` | PlayerBrewedPotion | 玩家酿造药水 |
 | `onPlayerChangedDimension` | PlayerChangedDimensionEvent | 玩家切换维度 |
-| `onPlayerClone` | PlayerCloneEvent | 玩家克隆（重生时） |
+| `onPlayerClone` | PlayerCloneEvent | 玩家克隆 |
 | `onPlayerCloseContainer` | PlayerCloseContainerEvent | 玩家关闭容器 |
 | `onPlayerCrafted` | PlayerCraftedEvent | 玩家合成物品 |
 | `onPlayerDeathDrops` | PlayerDeathDropsEvent | 玩家死亡掉落 |
@@ -292,5 +230,5 @@ events.onPlayerCrafted(function(event as PlayerCraftedEvent) {
 | `onServerTick` | ServerTickEvent | 服务端 Tick |
 | `onSleepingLocationCheck` | SleepingLocationCheckEvent | 睡觉位置检查 |
 | `onSleepingTimeCheck` | SleepingTimeCheckEvent | 睡觉时间检查 |
-| `onSpecialSpawn` | EntityLivingExtendedSpawnEvent | 特殊生成（刷怪笼等） |
+| `onSpecialSpawn` | EntityLivingExtendedSpawnEvent | 特殊生成 |
 | `onWorldTick` | WorldTickEvent | 世界 Tick |

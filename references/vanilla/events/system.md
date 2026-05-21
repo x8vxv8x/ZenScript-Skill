@@ -26,14 +26,6 @@
 | `command` | ICommand | 命令对象 |
 | `parameters` | string[] | 命令参数（可设置） |
 
-```zenscript
-events.onCommand(function(event as CommandEvent) {
-    if (event.command.name == "gamemode" && (event.parameters in "creative")) {
-        event.cancel();
-    }
-});
-```
-
 ### 附魔事件
 
 #### EnchantmentLevelSetEvent（附魔台等级生成事件）
