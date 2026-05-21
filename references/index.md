@@ -95,5 +95,3 @@
 | utils/i18n.md | 本地化 | 翻译键, 多语言 |
 | utils/GlStateManager.md | 渲染状态 | 客户端渲染, 矩阵, 颜色 |
 | utils/mixin.md | Mixin | ZenScript Mixin |
-
-## Mods（模组）
