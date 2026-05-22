@@ -19,7 +19,6 @@ globs: "**/*.zs"
 - 只有在语法、类型、全局字段、函数、控制流或 import 不确定时，才读 `references/language-basics.md` 的相关章节。
 - 如果物品 id、方块 id、meta、NBT、配方名或模组版本不确定，让用户确认。
 - 写完脚本后，提醒用户执行 `/ct syntax`，并把报错行号发回来。
-
 - 内容锚定：脚本中每个方法调用、属性访问、事件名必须能回溯到 `references/` 中的具体文件。无法回溯的用法一律不写。
 - 推断标记：若某用法在已读文档中找不到但确有存在可能，不直接写入脚本，而是以「推断：」开头向用户说明，让用户确认后再写。
 
@@ -34,6 +33,10 @@ globs: "**/*.zs"
 
 ## 路由规则
 
+### Vanilla
+
+先看 `references/index.md` 的 Vanilla 区域，找到相关文件后再跳到精确文件。
+
 ### Utils
 
 工具类，遇到下面这类需求，先看 `references/index.md` 的 Utils 区域：
@@ -45,18 +48,17 @@ globs: "**/*.zs"
 
 ### Mods
 
-模组接口放在 `references/mods/`。
+模组接口在 `references/mods/`。
 
 查找顺序：
 1. 提取用户提及的名称,规范化后先匹配 `references/mods/` 文件名。
 3. 文件名未命中时，再搜文档开头的标题、`Mod ID`、`导入`、重要说明或常见缩写。
 4. 只读取少量候选文件的文件头和目标章节；不要先打开多个模组文档做大范围比较。
 5. 若有多个候选，先问用户，不要自行决定。
-
-高风险变体必须确认版本：
-- `modularmachinery.md` / `modularmachinery-ce.md`
-- `nuclearcraft.md` / `nuclearcraft-overhauled.md`
-- `immersiveengineering.md` / `immersivepetroleum.md` / `immersiveintelligence.md`
+6. 高风险变体必须确认版本，例如：
+  - `modularmachinery.md` / `modularmachinery-ce.md`
+  - `nuclearcraft.md` / `nuclearcraft-overhauled.md`
+  - `immersiveengineering.md` / `immersivepetroleum.md` / `immersiveintelligence.md`
 
 如果用户目标很模糊，例如“矿石翻倍”或“自定义机器配方”，先用 `references/index.md` 缩小 vanilla/utils 范围；若索引未覆盖，再去 `references/mods/` 缩小候选。
 
@@ -88,7 +90,7 @@ API 表读取规则：
 - 锚定自检：脚本中每个 API 调用是否都能说出它来自 `references/` 的哪个文件？若任一项只能说"应该是"而指不出文件，删除该调用并替换为向用户确认。
 
 ## 未知声明
-- 无法从 `references/` 确定的 API、方法签名、物品 id、meta、NBT 或模组版本，直接声明「当前参考资料无法确定。缺失信息：[具体项]」，不编造。
+- 无法从 `references/` 确定的 API、方法签名、物品 id、meta、NBT 或模组版本，直接声明「当前参考资料无法确定。缺失信息：[具体项]」，禁止编造。
 
 ## 脚本文件约定
 

@@ -4,7 +4,7 @@
 
 ---
 
-## Vanilla 核心
+## Vanilla
 
 | 文件 | 内容 | 关键词 |
 |------|------|--------|
@@ -34,11 +34,6 @@
 | vanilla/world/helpers.md | 辅助对象 | IExplosion, IRayTraceResult, IVector3d, IBlockAccess |
 | vanilla/world/info.md | 世界信息 | IWorldInfo, IWorldProvider, GameRuleHelper |
 | vanilla/world/containers.md | 容器操作 | CrTItemHandler, CrTLiquidHandler, 物品容器 |
-
-## Vanilla 事件
-
-| 文件 | 内容 | 关键词 |
-|------|------|--------|
 | vanilla/events/player/lifecycle.md | 玩家生命周期 | 登录, 登出, 重生, 维度切换, 克隆 |
 | vanilla/events/player/interaction.md | 玩家交互 | 攻击, 右键, 左键, 交互, 方块 |
 | vanilla/events/player/items.md | 玩家物品事件 | 合成, 熔炼, 拾取, 物品实体 |
@@ -54,11 +49,6 @@
 | vanilla/events/entity/other.md | 其他实体事件 | 装备变化, 摔落, 更新, 骑乘, 雷击, 掉落经验 |
 | vanilla/events/block.md | 方块事件 | 方块破坏, 方块放置 |
 | vanilla/events/overview.md | 事件概述 | 事件接口, 事件监听, 事件列表 |
-
-## Vanilla 其他
-
-| 文件 | 内容 | 关键词 |
-|------|------|--------|
 | vanilla/ore-dictionary.md | 矿物词典 | IOreDictEntry, 矿辞操作 |
 | vanilla/enchantments.md | 附魔 | IEnchantmentDefinition, 附魔操作 |
 | vanilla/potions.md | 药水 | IPotion, IPotionEffect, 药水效果 |
