@@ -58,6 +58,7 @@
 | vanilla/tile-entity.md | 方块实体 | ITileEntity, 方块实体操作 |
 | vanilla/creative-tabs.md | 创造标签页 | ICreativeTab, 创造模式标签 |
 | vanilla/villager.md | 村民 | 村民交易 |
+| vanilla/village.md | 村庄 | 村庄声望, IVillage, 村庄半径, 村庄门 |
 | vanilla/gamerules.md | 游戏规则 | 游戏规则操作 |
 | vanilla/game.md | 游戏 | IGame, IClient, IServer, ITeam, ILoadedMods |
 

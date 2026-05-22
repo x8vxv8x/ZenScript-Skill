@@ -88,11 +88,124 @@
 
 ### IPlayer 扩展
 
-可在任何 IPlayer 上调用。
+#### @ZenGetter
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| `knowledge` | KnowledgeProvider | 获取玩家的 KnowledgeProvider，用于管理知识和 EMC。|
 
 #### 方法
-
 | 方法 | 参数 | 返回 | 说明 |
 |------|------|------|------|
 | `.getPersonalEMC()` | 无 | long | 获取玩家个人 EMC 值 |
 | `.setPersonalEMC(long amount)` | amount | void | 设置玩家个人 EMC 值 |
+
+---
+
+## CraftTweakerAdditions 扩展（需安装 CraftTweakerAdditions）
+
+> `import mods.crtadd.projecte.KnowledgeProvider;`
+
+### KnowledgeProvider
+
+> 通过 `player.knowledge` 获取
+
+#### @ZenGetter
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| `hasFullKnowledge` | bool | 检查玩家是否拥有全部知识 |
+| `knowledge` | List<IItemStack> | 获取玩家拥有的所有知识列表 |
+| `emc` | long | 获取玩家的 EMC 值 |
+
+#### @ZenSetter
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| `hasFullKnowledge` | bool | 设置玩家是否拥有全部知识 |
+| `emc` | long | 设置玩家的 EMC 值 |
+
+#### 知识管理方法
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.clearKnowledge()` | void | 清除玩家的所有知识 |
+| `.addKnowledge(IItemStack stack)` | bool | 向玩家添加知识，成功返回 true |
+| `.hasKnowledge(IItemStack stack)` | bool | 检查玩家是否拥有特定物品的知识 |
+| `.removeKnowledge(IItemStack stack)` | bool | 移除玩家的指定知识，成功返回 true |
+
+---
+
+### EventManager（ProjectE 事件）
+
+> `import crafttweaker.events.IEventManager;`
+
+#### ProjectE 事件注册方法
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.onPlayerAttemptLearn(IEventHandler<PlayerAttemptLearnEvent> event)` | IEventHandle | 注册玩家尝试学习知识的监听器 |
+| `.onPlayerAttemptCondenserSet(IEventHandler<PlayerAttemptCondenserSetEvent> event)` | IEventHandle | 注册玩家尝试设置聚合板的监听器 |
+
+---
+
+### PlayerAttemptLearnEvent
+
+> `import mods.crtadd.projecte.PlayerAttemptLearnEvent;`
+
+#### @ZenGetter
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| `item` | IItemStack | 获取玩家尝试学习的物品 |
+| `player` | IPlayer | 获取触发事件的玩家 |
+
+#### 事件继承方法
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.cancel()` | void | 取消事件 |
+| `.isCanceled()` | bool | 检查事件是否已取消 |
+
+---
+
+### PlayerAttemptCondenserSetEvent
+
+> `import mods.crtadd.projecte.PlayerAttemptCondenserSetEvent;`
+
+#### @ZenGetter
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| `item` | IItemStack | 获取玩家尝试设置的物品 |
+| `player` | IPlayer | 获取触发事件的玩家 |
+
+#### 事件继承方法
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.cancel()` | void | 取消事件 |
+| `.isCanceled()` | bool | 检查事件是否已取消 |
+
+---
+
+### 使用示例
+
+```zenscript
+import crafttweaker.events.IEventManager;
+import mods.crtadd.projecte.PlayerAttemptLearnEvent;
+import mods.crtadd.projecte.PlayerAttemptCondenserSetEvent;
+// 管理 ProjectE 知识
+val knowledge = player.knowledge;
+if (!isNull(knowledge)) {
+    if (!knowledge.hasFullKnowledge) {
+        knowledge.hasFullKnowledge = true;
+        print("已给予全部知识");
+    }
+    knowledge.emc = knowledge.emc + 10000;
+}
+// 监听 ProjectE 事件
+events.onPlayerAttemptLearn(function(event as PlayerAttemptLearnEvent) {
+    val item = event.item;
+    val player = event.player;
+    print(player.name ~ " 尝试学习: " ~ item.commandString);
+    if (item.definition.id == "mymod:restricted_item") {
+        event.cancel();
+    }
+});
+events.onPlayerAttemptCondenserSet(function(event as PlayerAttemptCondenserSetEvent) {
+    val item = event.item;
+    print(event.player.name ~ " 尝试在聚合板设置: " ~ item.commandString);
+});
+```

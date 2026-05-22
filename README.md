@@ -32,7 +32,7 @@
 ### Codex
 
 ```
-.agents/skills/zenscript/
+.codex/skills/zenscript/
 ├── SKILL.md         
 └── references      
 ```

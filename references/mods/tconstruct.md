@@ -117,15 +117,6 @@ testMat.register();
 
 ---
 
-## 注意事项
-
-- CoT 脚本必须以 `#loader contenttweaker` 开头
-- 材料 ID 必须全小写，字母开头，可含数字和下划线
-- 注册后不可再修改属性
-- 材质文件需放在 resources/contenttweaker/textures/ 对应目录
-
----
-
 ## ZenTraits 扩展（需安装 ZenTraits）
 
 > `import zentraits.TraitManager;`
@@ -184,20 +175,15 @@ ZenTraits 允许通过脚本动态附加/移除已有匠魂材料的特性。
 
 ```zenscript
 import zentraits.TraitManager;
-
 // 为石头添加默认特性 "sharp"
 TraitManager.attachTrait("stone", "sharp");
-
 // 为铁的头部部件添加特性 "magnetic"
 TraitManager.attachTrait("iron", "magnetic", "head");
-
 // 从石头移除 "cheap" 默认特性
 TraitManager.detachTrait("stone", "cheap");
-
 // 移除木头的所有特性
 TraitManager.detachAllTraits("wood");
 ```
-
 ---
 
 ## Modtweaker 配方处理器（需安装 Modtweaker）
@@ -283,3 +269,40 @@ Drying.addRecipe(<minecraft:leather>, <minecraft:rotten_flesh>, 100);
 // 冶炼炉燃料
 Fuel.registerFuel(<liquid:water> * 2, 300);
 ```
+
+---
+
+## CraftTweakerAdditions 扩展（需安装 CraftTweakerAdditions）
+
+> `import mods.crtadd.tconstruct.TconStructIRandom;`
+
+### TconStructIRandom
+
+#### 随机工具生成方法
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `.Random(String type)` | IItemStack | 生成随机工具或盔甲，type 可为 "all"（全部）、"tool"（仅工具）、"armor"（仅盔甲）或具体物品 ID |
+
+#### 使用示例
+
+```zenscript
+import mods.crtadd.tconstruct.TconStructIRandom;
+
+// 生成随机工具（工具和盔甲）
+val random1 = TconStructIRandom.Random("all");
+
+// 只生成工具
+val random2 = TconStructIRandom.Random("tool");
+
+// 生成特定工具
+val pickaxe = TconStructIRandom.Random("tconstruct:pickaxe");
+
+// 给予玩家
+player.give(random1);
+```
+
+#### 常见错误
+
+| 错误 | 原因 | 修复 |
+|------|------|------|
+| `TconStructIRandom.Random()` 返回 null | 指定的工具类型不存在或没有可用材料 | 检查工具 ID 是否正确，确保 TinkersConstruct 材料已加载 |
