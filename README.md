@@ -55,9 +55,9 @@
 
 ## 使用
 
-无需手动调用。当你在项目中编辑 `.zs` 文件或与 Claude 讨论 CraftTweaker 相关内容时，skill 会自动激活。
+无需手动调用。当你在项目中编辑 `.zs` 文件或与 Agent 讨论 CraftTweaker 相关内容时，skill 会自动激活。
 
-你也可以手动调用：在 Claude Code 中输入 `/crafttweaker-zenscript`。
+你也可以按照不同 Agent 的方式手动调用。
 
 ## 包含的 API 参考
 
@@ -67,13 +67,4 @@
 
 ## 贡献模组扩展
 
-本项目欢迎社区贡献！你可以为任何有 CraftTweaker 集成的模组添加 API 参考。
-
-### 快速贡献（用 AI 生成）
-
-1. 找到模组的 CraftTweaker 文档（官方 Wiki、MCMOD、GitHub 等）
-2. 复制 `generate-mod-reference.md` 中的 prompt
-3. 将 prompt 和文档一起发给 AI，生成参考文件
-4. 将生成的文件放入 `references/mods/`，提交 PR
-
-详细说明见 [CONTRIBUTING.md](CONTRIBUTING.md)。
+本项目欢迎社区贡献！你可以为任何有 CraftTweaker 集成的模组添加 API 参考。详细说明见 [CONTRIBUTING.md](CONTRIBUTING.md)。
