@@ -61,9 +61,7 @@ IPlayer 继承 IEntityLivingBase，IEntityLivingBase 继承 IEntity。
 | `rotationPitch` | float | 俯仰角 |
 | `offHandHeldItem` | IItemStack | 副手物品 |
 | `mainHandHeldItem` | IItemStack | 主手物品 |
-| `inventory` | IInventory | 物品栏 |
 | `data` | IData | 玩家数据 |
-| `team` | ITeam | 所属队伍 |
 | `gameType` | string | 游戏模式 |
 | `hotbarSize` | int | 快捷栏大小 |
 | `inventorySize` | int | 背包大小 |

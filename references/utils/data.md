@@ -14,16 +14,13 @@ IData 是通用数据接口，所有基本类型（short、double、string、int
 
 ```zenscript
 val data = "hello" as IData;
-val num = 42 as IData;
-val list = [1, 2, 3] as IData;
-```
 
+```
 ### 类型转换
 
 ```zenscript
 data.asInt();    data.asLong();   data.asDouble(); data.asFloat();
 data.asBool();   data.asString(); data.asList();   data.asMap();
-// 也可：("1" as IData).asInt()
 ```
 
 ### 二元运算符支持
@@ -41,6 +38,14 @@ data.asBool();   data.asString(); data.asList();   data.asMap();
 | DataMap | Y | Y | - | - | - | - | - | - | Y | Y | - |
 | DataList | Y | - | - | - | - | - | - | - | Y | Y | - |
 
+### 一元运算符
+
+| 子类 | `-`（取反） | `!`（非） |
+|------|------------|----------|
+| DataBool | - | Y |
+| DataInt/Long/Short/Byte | Y | Y |
+| DataFloat/Double | Y | - |
+
 ### 索引和成员访问
 
 | 子类 | `[i]` | `.member` | `.length` | `.immutable` | `.update(v)` |
@@ -50,15 +55,6 @@ data.asBool();   data.asString(); data.asList();   data.asMap();
 | DataString | Y | - | Y | Y | Y |
 | DataList | Y | - | Y | Y | Y |
 | DataMap | - | Y | Y | Y | Y |
-
-### 一元运算符
-
-| 子类 | `-`（取反） | `!`（非） |
-|------|------------|----------|
-| DataBool | - | Y |
-| DataInt/Long/Short/Byte | Y | Y |
-| DataFloat/Double | Y | - |
-
 ---
 
 ## DataMap（关联数组）
@@ -68,17 +64,13 @@ data.asBool();   data.asString(); data.asList();   data.asMap();
 ```zenscript
 val map1 = {key1: "hello", key3: "test"} as IData;
 val map2 = {key2: "bye", key3: "override"} as IData;
-
 // 访问
 var k1 = map1.key1 as IData;              // 点号
 var k2 = map1.memberGet("key2") as IData;  // 方法
-
 // 合并（后面的覆盖前面的）
 (map1 + map2).asString();  // {key1: "hello", key2: "bye", key3: "override"}
-
 // 移除键
 (map1 - "key1").asString();  // {key3: "test"}
-
 // 移除另一个 Map 中的所有键
 (map1 - map2).asString();  // {key1: "hello"}
 ```
@@ -171,7 +163,7 @@ print(nested.deepUpdate([[3, 4], [4, 5], [5, 7]], [OVERWRITE, MERGE]));  // [[3,
 ```
 ---
 
-## Roids-Tweaker 扩展（需安装 CraftTweaker Integration）
+## Roids-Tweaker 扩展
 
 ### DataUtil
 
@@ -190,8 +182,6 @@ print(nested.deepUpdate([[3, 4], [4, 5], [5, 7]], [OVERWRITE, MERGE]));  // [[3,
 **性能提示：** 文件操作开销较大，重复使用的文件应保存到变量。读取器支持 pretty JSON（包括 json5 注释），写入器始终输出单行。两者都支持 null。
 
 ### IData 扩展
-
-可在任何 IData 上调用。
 
 | 方法 | 返回 | 说明 |
 |------|------|------|
