@@ -13,10 +13,11 @@ description: >
 ## 核心原则
 
 - 只使用 `references/` 中明确记录的 API；不要凭记忆补全或自造方法。
+- 禁止使用你从其他编程语言中知道的任何默认语法。
 - 除非用户已经点名文件，否则先读 `references/index.md`，再决定要打开的正文文件。
 - 先缩小到 1 到 3 个最可能文件；不要靠目录名猜路径，也不要整批打开同类拆分文件。
 - 只有在语法、类型、全局字段、函数、控制流或 import 不确定时，才读 `references/language-basics.md` 的相关章节。
-- 如果物品 id、方块 id、meta、NBT、配方名或模组版本不确定，让用户确认。
+- 在物品 id、方块 id、meta、NBT、配方名不确定时，让用户确认。
 - 写完脚本后，提醒用户执行 `/ct syntax`，并把报错行号发回来。
 - 内容锚定：脚本中每个方法调用、属性访问、事件名必须能回溯到 `references/` 中的具体文件。无法回溯的用法一律不写。
 - 推断标记：若某用法在已读文档中找不到但确有存在可能，不直接写入脚本，而是以「推断：」开头向用户说明，让用户确认后再写。
@@ -35,14 +36,15 @@ description: >
 1. 4 空格缩进。
 2. K&R 大括风格，`} else {` 同行。
 3. `if`/`else`/`for`/`while` 必须使用大括号，即使一行。
-4. 所有声明必须带显式类型。类型转换用 `as`。
+4. 公共函数参数、返回值、复杂变量显式类型；简单局部变量可依赖推断。
 5. 变量/方法 lowerCamelCase，物品 ID 字符串 snake_case，静态常量 camelCase。杜绝不规范缩写。
 6. 代码必须写成最简洁的形态，同一逻辑重复 2 次以上才提取函数，不做无意义提取。
 7. 少用 `if` 嵌套，优先 early return 扁平化控制流。
-8. 涉及修改世界状态（生成实体、修改方块、改变物品等）的操作必须在服务端执行，使用`if (world.remote) {return;}` 跳过客户端。
-9. 在可能出现 Null 的地方必须检查。`isNull()` + early return 作为函数入口守卫。
-10. 物品匹配使用 <item>.matches(item) ， contenttweaker 脚本 item 固定 <item:> 前缀
-11. 在保证功能实现的前提下，尽量不使用native方法。对 nbt 操作尽量优先使用 ZenUtils 提供的方法。
+8. 涉及修改世界状态（生成实体、修改方块、改变物品等）的操作应在服务端执行；必要时先判断 `world.remote`，避免在客户端执行。
+9. 在可能出现 Null 的地方必须使用全局函数 `isNull()` 检查 + early return 作为函数入口守卫。
+10. 如果使用了 ContentTweaker 的方法，那么必须加 `#loader contenttweaker` 预处理器，item 必须使用 `<item:...>` 前缀。
+11. 在保证功能正确的前提下，优先使用 ZenUtils 提供的方法或 native 方法处理 NBT。
+12. 除了NBT操作，尽量避免使用native方法。
 
 ## 路由规则
 
@@ -65,10 +67,10 @@ description: >
 
 查找顺序：
 1. 提取用户提及的名称,规范化后先匹配 `references/mods/` 文件名。
-3. 文件名未命中时，再搜文档开头的标题、`Mod ID`、`导入`、重要说明或常见缩写。
-4. 只读取少量候选文件的文件头和目标章节；不要先打开多个模组文档做大范围比较。
-5. 若有多个候选，先问用户，不要自行决定。
-6. 高风险变体必须确认版本，例如：
+2. 文件名未命中时，再搜文档开头的标题、`Mod ID`、`导入`、重要说明或常见缩写。
+3. 只读取少量候选文件的文件头和目标章节；不要先打开多个模组文档做大范围比较。
+4. 若有多个候选模组无法确定时，先问用户，不要自行决定。
+5. 高风险变体必须确认版本，例如：
   - `modularmachinery.md` / `modularmachinery-ce.md`
   - `nuclearcraft.md` / `nuclearcraft-overhauled.md`
   - `immersiveengineering.md` / `immersivepetroleum.md` / `immersiveintelligence.md`
@@ -91,10 +93,8 @@ API 表读取规则：
 
 - import 与参考文件一致，并且只在需要时加入
 - 用到的每个方法和属性都能在已读文档里找到
-- 若语法、类型或 import 是否有不确定之处。如果有，是否已查 `references/language-basics.md`
-- 需要名字的配方使用稳定字符串
+- 若语法、类型或 import 有不确定之处，是否已查 `references/language-basics.md`
 - 不确定的物品 id、meta、NBT、模组可用性或模组版本已明确指出
-- 最终回答提醒用户执行 `/ct syntax`
 - 锚定自检：脚本中每个 API 调用是否都能说出它来自 `references/` 的哪个文件？若任一项只能说"应该是"而指不出文件，删除该调用并替换为向用户确认。
 
 ## 未知声明
